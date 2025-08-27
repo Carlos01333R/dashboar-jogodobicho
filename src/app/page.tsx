@@ -1,103 +1,114 @@
-import Image from "next/image";
+"use client"
+
+import { useAuth } from "@/context/AuthContext"
+import { useEffect } from "react"
+import { useRouter } from "next/navigation"
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const { user, isLoading, setCountry } = useAuth()
+  const router = useRouter()
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  useEffect(() => {
+    if (!isLoading && !user) {
+      router.replace("/login")
+    }
+  }, [isLoading, user, router])
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-yellow-50 flex items-center justify-center p-4">
+        <div className="text-gray-600">Cargando...</div>
+      </div>
+    )
+  }
+
+  if (!user) {
+    return null
+  }
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-yellow-50 flex items-center justify-center p-4">
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl overflow-hidden">
+        {/* Header */}
+        <div className="bg-gradient-to-r from-emerald-500 to-blue-600 p-8 text-center">
+          <h1 className="text-3xl font-bold text-white mb-2">Seleccione el País</h1>
+          <p className="text-white/90">Elija el sistema de lotería que desea administrar</p>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+        {/* Opciones de países */}
+        <div className="p-8 grid md:grid-cols-2 gap-8">
+          {/* Brasil */}
+          <div
+            onClick={() => {
+              setCountry("brazil")
+              router.push("br/dashboard")
+            }}
+            className="group cursor-pointer bg-gradient-to-br from-green-50 to-yellow-50 border-2 border-green-200 rounded-xl p-8 hover:border-green-400 hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+          >
+            <div className="text-center">
+              {/* Bandera de Brasil */}
+              <div className="mx-auto mb-6 w-32 h-20 bg-gradient-to-b from-green-500 via-yellow-400 to-blue-600 rounded-lg shadow-lg relative overflow-hidden">
+                <div className="absolute inset-0 bg-green-500" />
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-12 bg-yellow-400 rounded-full" />
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-8 bg-blue-600 rounded-full" />
+              </div>
+
+              <h3 className="text-2xl font-bold text-green-700 mb-3 group-hover:text-green-800 transition-colors">
+                Lotería de Brasil
+              </h3>
+              <p className="text-gray-600 mb-4">Administrar Mega-Sena, Quina, Lotofácil y más loterías brasileñas</p>
+
+              <div className="text-sm text-green-600 space-y-1">
+                <div>{"•"} Mega-Sena</div>
+                <div>{"•"} Quina</div>
+                <div>{"•"} Lotofácil</div>
+                <div>{"•"} Timemania</div>
+              </div>
+              <div className="mt-6 bg-green-500 text-white py-3 px-6 rounded-lg font-semibold group-hover:bg-green-600 transition-colors">
+                Seleccionar Brasil
+              </div>
+            </div>
+          </div>
+
+          {/* Colombia */}
+          <div
+            onClick={() => {
+              setCountry("colombia")
+              router.push("co/dashboard")
+            }}
+            className="group cursor-pointer bg-gradient-to-br from-yellow-50 to-red-50 border-2 border-yellow-200 rounded-xl p-8 hover:border-yellow-400 hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+          >
+            <div className="text-center">
+              {/* Bandera de Colombia */}
+              <div className="mx-auto mb-6 w-32 h-20 bg-gradient-to-b from-yellow-400 via-blue-600 to-red-500 rounded-lg shadow-lg relative overflow-hidden">
+                <div className="absolute top-0 left-0 right-0 h-2/4 bg-yellow-400" />
+                <div className="absolute top-2/4 left-0 right-0 h-1/4 bg-blue-600" />
+                <div className="absolute top-3/4 left-0 right-0 h-1/4 bg-red-500" />
+              </div>
+
+              <h3 className="text-2xl font-bold text-yellow-700 mb-3 group-hover:text-yellow-800 transition-colors">
+                Lotería de Colombia
+              </h3>
+              <p className="text-gray-600 mb-4">Administrar Baloto, Loto y loterías tradicionales colombianas</p>
+
+              <div className="text-sm text-yellow-600 space-y-1">
+                <div>{"•"} Baloto</div>
+                <div>{"•"} Loto Colombia</div>
+                <div>{"•"} Lotería de Bogotá</div>
+                <div>{"•"} Chance</div>
+              </div>
+              <div className="mt-6 bg-yellow-500 text-white py-3 px-6 rounded-lg font-semibold group-hover:bg-yellow-600 transition-colors">
+                Seleccionar Colombia
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="bg-gray-50 px-8 py-4 text-center text-sm text-gray-600">
+          Puede cambiar el país en cualquier momento desde el menú principal
+        </div>
+      </div>
     </div>
-  );
+  )
 }
