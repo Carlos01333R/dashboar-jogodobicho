@@ -93,11 +93,12 @@ export function ModalFromZonas() {
             </DialogDescription>
           </DialogHeader>
              <form className="text-white " onSubmit={handleSubmit}>
-            <div className="grid gap-4 grid-col-1 md:grid-cols-3">
+            <div className="hidden md:grid gap-4 grid-col-1 md:grid-cols-3">
               <div className="flex flex-col gap-y-2 text-black">
                 <Label htmlFor="full_name">Nombre</Label>
                 <Input  name="nombre" placeholder="Nombre Completo" required />
               </div>
+
               <div className="flex flex-col gap-y-2 text-black">
                 <Label htmlFor="porcentaje_loteria">% loteria</Label>
                 <Input name="porcentaje_loteria" placeholder="Porcentaje loteria" required  type="number" />
@@ -130,6 +131,48 @@ export function ModalFromZonas() {
                 <Label htmlFor="tresCombi">Tres combi</Label>
                 <Input name="tresCombi" placeholder="Tres combi" type="number" required />
                 </div>
+
+            </div>
+            <div className="md:hidden">
+             <div className="flex flex-col gap-y-2 text-black py-4">
+                <Label htmlFor="full_name">Nombre</Label>
+                <Input  name="nombre" placeholder="Nombre Completo" required />
+              </div>
+
+              <section className="grid grid-cols-2 gap-4">
+               <div className="flex flex-col gap-y-2 text-black">
+                <Label htmlFor="porcentaje_loteria">% loteria</Label>
+                <Input name="porcentaje_loteria" placeholder="Porcentaje loteria" required  type="number" />
+              </div>
+              <div className="flex flex-col gap-y-2 text-black">
+                <Label htmlFor="porcentaje_cliente">% cliente</Label>
+                <Input name="porcentaje_cliente" placeholder="Porcentaje cliente" type="number" required  />
+              </div>
+              <div className="flex flex-col gap-y-2 text-black">
+                <Label htmlFor="porcentaje_admin_zona">% admin zona</Label>
+                <Input name="porcentaje_admin_zona" placeholder="Porcentaje admin zona" type="number" required />
+              </div>
+              <div className="flex flex-col gap-y-2 text-black">
+                <Label htmlFor="cuatroCifras">Cuatro cifras</Label>
+                <Input name="cuatroCifras" placeholder="Cuatro cifras" type="number" required />
+              </div>
+              <div className="flex flex-col gap-y-2 text-black">
+                <Label htmlFor="tresCifras">Tres cifras</Label>
+                <Input name="tresCifras" placeholder="Tres cifras" type="number" required />
+              </div>
+              <div className="flex flex-col gap-y-2 text-black">
+                <Label htmlFor="dosCifras">Dos cifras</Label>
+                <Input name="dosCifras" placeholder="Dos cifras" type="number" required />
+              </div>
+              <div className="flex flex-col gap-y-2 text-black">
+                <Label htmlFor="cuatroCombi">Cuatro combi</Label>
+                <Input name="cuatroCombi" placeholder="Cuatro combi" type="number" required />
+              </div>
+              <div className="flex flex-col gap-y-2 text-black">
+                <Label htmlFor="tresCombi">Tres combi</Label>
+                <Input name="tresCombi" placeholder="Tres combi" type="number" required />
+                </div>
+              </section>
             </div>
           <DialogFooter>
             <section className="w-full py-4 flex items-center justify-end gap-x-2">

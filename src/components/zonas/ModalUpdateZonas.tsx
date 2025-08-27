@@ -125,11 +125,11 @@ export function ModalUpdateZonas({
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit}>
-          <div className="grid gap-4 grid-col-1 md:grid-cols-3">
+          <div className="hidden gap-4 grid-col-1 md:grid-cols-3  md:grid">
             <div className="flex flex-col gap-y-2 text-black ">
               <Label htmlFor="nombre">Nombre</Label>  
               <Input 
-                name="nombre" 
+                name="nombre"
                 placeholder="Nombre Completo" 
                 required 
                 value={Nombre} 
@@ -224,7 +224,110 @@ export function ModalUpdateZonas({
               value={TresCombi} 
               onChange={(e) => setTresCombi(e.target.value)}
             />
+          </div>
+         </div>
+         <div className="md:hidden">
+           <div className="flex flex-col gap-y-2 text-black py-4">
+              <Label htmlFor="nombre">Nombre</Label>  
+              <Input 
+                name="nombre"
+                placeholder="Nombre Completo" 
+                required 
+                value={Nombre} 
+                onChange={(e) => setNombre(e.target.value)} 
+              />
             </div>
+            <section className="grid grid-cols-2 gap-4">
+            <div className="flex flex-col gap-y-2 text-black ">
+              <Label htmlFor="porcentaje_loteria">% loteria</Label>
+              <Input 
+                name="porcentaje_loteria" 
+                placeholder="Porcentaje loteria" 
+                required  
+                type="number" 
+                value={Porcentaje_loteria} 
+                onChange={(e) => setPorcentaje_loteria(e.target.value)} 
+              />
+          </div>
+          <div className="flex flex-col gap-y-2 text-black ">
+            <Label htmlFor="porcentaje_cliente">% cliente</Label>
+            <Input 
+              name="porcentaje_cliente" 
+              placeholder="Porcentaje cliente" 
+              type="number" 
+              required 
+              value={Porcentaje_cliente} 
+              onChange={(e) => setPorcentaje_cliente(e.target.value)} 
+            />
+          </div>
+          <div className="flex flex-col gap-y-2 text-black ">
+            <Label htmlFor="porcentaje_admin_zona">% admin zona</Label>
+            <Input 
+              name="porcentaje_admin_zona" 
+              placeholder="Porcentaje admin zona" 
+              type="number" 
+              required 
+              value={Porcentaje_admin_zona}
+              onChange={(e) => setPorcentaje_admin_zona(e.target.value)}
+            />
+          </div>
+          <div className="flex flex-col gap-y-2 text-black ">
+            <Label htmlFor="cuatroCifras">Cuatro cifras</Label>
+            <Input 
+              name="cuatroCifras" 
+              placeholder="Cuatro cifras" 
+              type="number" 
+              required 
+              value={CuatroCifras} 
+              onChange={(e) => setCuatroCifras(e.target.value)} 
+            />
+          </div>
+          <div className="flex flex-col gap-y-2 text-black ">
+            <Label htmlFor="tresCifras">Tres cifras</Label>
+            <Input 
+              name="tresCifras" 
+              placeholder="Tres cifras" 
+              type="number" 
+              required 
+              value={TresCifras} 
+              onChange={(e) => setTresCifras(e.target.value)} 
+            />
+          </div>
+          <div className="flex flex-col gap-y-2 text-black ">
+            <Label htmlFor="dosCifras">Dos cifras</Label>
+            <Input 
+              name="dosCifras" 
+              placeholder="Dos cifras" 
+              type="number" 
+              required 
+              value={DosCifras} 
+              onChange={(e) => setDosCifras(e.target.value)}
+              
+            />
+          </div>
+          <div className="flex flex-col gap-y-2 text-black ">
+            <Label htmlFor="cuatroCombi">Cuatro combi</Label>
+            <Input 
+              name="cuatroCombi" 
+              placeholder="Cuatro combi" 
+              type="number" 
+              required 
+              value={CuatroCombi} 
+              onChange={(e) => setCuatroCombi(e.target.value)}
+            />
+          </div>
+          <div className="flex flex-col gap-y-2 text-black ">
+            <Label htmlFor="tresCombi">Tres combi</Label>
+            <Input 
+              name="tresCombi" 
+              placeholder="Tres combi" 
+              type="number" 
+              required 
+              value={TresCombi} 
+              onChange={(e) => setTresCombi(e.target.value)}
+            />
+          </div>
+            </section>
          </div>
           
           

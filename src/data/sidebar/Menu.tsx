@@ -1,4 +1,5 @@
-  import { 
+  import { id } from 'date-fns/locale';
+import { 
   Home, 
   Settings, 
   Trophy, 
@@ -27,6 +28,7 @@
       submenu: [
         { id: 'ventas', label: 'Ventas', icon: BarChart3, section: 'sales', href: '/co/dashboard/ventas' },
         { id: 'cartera', label: 'Cartera', icon: Wallet, section: 'wallet', href: '/co/dashboard/cartera' },
+        {id: 'ventaszonas', label: 'Ventas Zonas', icon: Trophy, section: 'ventas-zonas', href: '/co/dashboard/ventaszonas'},
       ]
     },
     {

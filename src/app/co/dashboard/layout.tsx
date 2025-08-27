@@ -53,6 +53,7 @@ export default function DashboardLayout({
       case 'sales_users': return 'Ventas de Usuarios';
       case 'lotteries': return 'Gestión de Loterias';
       case 'numbers-sold': return 'Numeros Vendidos';
+      case 'ventas-zonas': return 'Ventas por Zona';
       default: return 'Dashboard';
     }
   };
