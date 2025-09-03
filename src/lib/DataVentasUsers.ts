@@ -89,6 +89,7 @@ export default function DataVentasUsers({fechaSeleccionada, selectUser, sector} 
     loading,
     error,
     premio,
+  
     
    
   }

@@ -3,7 +3,6 @@ import BlockedNumbers from "@/components/numerosBloqueados/Numeros"
 import { supabase } from "@/lib/supabase";
 import { toast } from "sonner";
 import useNumerosBloqueados from "@/hook/co/useNumeroBloqueados";
-import useMaximoValor from "@/hook/co/MaximoValor/useMaximoValor";
 export default function BloquearNumero(){
     const { numerosBloqueados, loading, error } = useNumerosBloqueados()
 

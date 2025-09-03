@@ -3,7 +3,8 @@
 import { ArrowLeft } from "lucide-react";
 import useVentasUserByFecha from "@/hook/co/useVentasUserByfecha";
 import PaymentCalculator from "./Payment-Calculator";
-import { useState, useCallback, useEffect, useMemo } from "react"; // Importa useEffect
+import { useState, useCallback, useEffect, useMemo } from "react"; // Importa 
+
 
 interface ResultsViewProps {
   selectedUser: any;
@@ -57,6 +58,7 @@ export default function ResultsView({
   const email = selectedUser?.email;
   const desde = formatDate(fechaDesde);
   const hasta = formatDate(fechaHasta);
+
 
   const { ventas, loading, error, totales } = useVentasUserByFecha(
     desde,

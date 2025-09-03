@@ -52,13 +52,21 @@ const Sidebar: React.FC<SidebarProps> = ({
 
       {/* User Info */}
       <div className="p-4 border-b border-gray-700">
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center justify-center space-x-3">
           <div className="bg-emerald-600 rounded-full p-2">
             <Users className="w-4 h-4" />
           </div>
           <div>
             <p className="text-sm font-semibold">{user?.email}</p>
           </div>
+        </div>
+        <div className='w-full flex justify-center items-center py-2'>
+          <Link href="/" className="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors ">
+           
+             Ir a menu
+           
+       
+          </Link>
         </div>
       </div>
 

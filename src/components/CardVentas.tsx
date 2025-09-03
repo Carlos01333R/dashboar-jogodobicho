@@ -1,8 +1,11 @@
 import { FormatCurrencyCO } from "@/utils/Format";
 import { useState } from "react";
+
 interface Props {
     Ventas : any;
 }
+
+
 export default function CardVentas({Ventas} : Props) {
      const [search, setSearch] = useState("");
      

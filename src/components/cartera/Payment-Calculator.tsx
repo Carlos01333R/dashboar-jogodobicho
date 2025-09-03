@@ -3,6 +3,11 @@
 import { useState } from "react";
 import { Calculator, Save, AlertTriangle, CheckCircle } from "lucide-react";
 import { supabase } from "@/lib/supabase";
+import { FormatCurrencyBR, FormatCurrencyCO } from "@/utils/Format";
+import { useAuth } from "@/context/AuthContext";
+import { se } from "date-fns/locale";
+
+
 interface PaymentCalculatorProps {
   ventaNetaTotal: number;
   userEmail: string;
@@ -16,7 +21,8 @@ export default function PaymentCalculator({
   const [montoPagado, setMontoPagado] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
-  const [messageType, setMessageType] = useState(""); // "success" | "error" | "warning"
+  const [messageType, setMessageType] = useState("");
+  const { selectedCountry } = useAuth();
 
   const formatPesoCop = (value : number) => {
     if (value == null || isNaN(value)) {
@@ -52,10 +58,10 @@ export default function PaymentCalculator({
 
     try {
       const { data, error } = await supabase
-        .from("usuarios")
+        .from("users")
         .update({
           mora: moraCalculada,
-          actualizacion: currentTimestamp, // Usar la fecha y hora actual
+          updated_at: currentTimestamp, // Usar la fecha y hora actual
         })
         .eq("email", userEmail) // Usamos 'email' para la condición WHERE
         .select();
@@ -107,7 +113,7 @@ export default function PaymentCalculator({
               Total a pagar (incl. mora)
             </p>
             <p className="text-2xl font-bold text-blue-600">
-              {formatPesoCop(ventaNetaTotal)}
+              {selectedCountry === 'brazil' ? FormatCurrencyBR(ventaNetaTotal) : FormatCurrencyCO(ventaNetaTotal)}
             </p>
           </div>
 

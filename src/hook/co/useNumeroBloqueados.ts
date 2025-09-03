@@ -8,6 +8,7 @@ const useNumerosBloqueados = () => {
   const [error, setError] = useState('');
   const { selectedCountry } = useAuth();
 
+
   async function getCountries() {
     setLoading(true);
     const { data, error } = await supabase.from("bloquear_number").select().eq("pais", selectedCountry);

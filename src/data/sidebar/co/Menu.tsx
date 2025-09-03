@@ -26,9 +26,9 @@ import {
       label: 'Administrador',
       icon: Settings,
       submenu: [
-        { id: 'ventas', label: 'Ventas', icon: BarChart3, section: 'sales', href: '/co/dashboard/ventas' },
-        { id: 'cartera', label: 'Cartera', icon: Wallet, section: 'wallet', href: '/co/dashboard/cartera' },
-        {id: 'ventaszonas', label: 'Ventas Zonas', icon: Trophy, section: 'ventas-zonas', href: '/co/dashboard/ventaszonas'},
+        { id: 'ventas', label: 'Ventas', icon: BarChart3, section: 'sales', href: '/co/dashboard/administrador/ventas' },
+        { id: 'cartera', label: 'Cartera', icon: Wallet, section: 'wallet', href: '/co/dashboard/administrador/cartera' },
+        {id: 'ventaszonas', label: 'Ventas Zonas', icon: Trophy, section: 'ventas-zonas', href: '/co/dashboard/administrador/ventaszonas'},
       ]
     },
     {
@@ -73,7 +73,8 @@ import {
       icon: Ticket,
       submenu: [
         { id: 'loterias', label: 'Loterías', icon: Ticket, section: 'lotteries', href: '/co/dashboard/loterias/administrar' },
-        { id: 'numeros-vendidos', label: 'Numeros Vendidos', icon: Ticket, section: 'numbers-sold', href: '/co/dashboard/loterias/numerosVendidos' }
+        { id: 'numeros-vendidos', label: 'Numeros Vendidos', icon: Ticket, section: 'numbers-sold', href: '/co/dashboard/loterias/numerosVendidos' },
+        { id: 'resultados', label: 'Resultados', icon: Ticket, section: 'resultados', href: '/co/dashboard/loterias/resultados' },
       ]
     }
   ];

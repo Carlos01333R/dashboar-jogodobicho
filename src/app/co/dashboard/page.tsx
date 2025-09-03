@@ -9,6 +9,7 @@ export  default function dashboardCO(){
     const { user, isLoading } = useAuth()
     const router = useRouter()
     const { items, loading, error } = DataHome();
+    console.log(items)
     useEffect(() => {
         if (!isLoading && !user) {
             router.replace("/login")

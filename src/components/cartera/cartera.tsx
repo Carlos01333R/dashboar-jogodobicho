@@ -3,8 +3,10 @@ import useZonas from "@/hook/co/useZonas";
 import { useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import useAdmin from "@/hook/co/useAdmin";
-import DateModal from "@/components/cartera/DataModal";
-import ResultsView from "@/components/cartera/Resuls-View";
+import DateModal from "./DataModal";
+import ResultsView from "./Resuls-View";
+import { useAuth } from "@/context/AuthContext";
+import ResultsViewBR from "./Resuls-ViewBr";
 
 export default function CarteraUpdate() {
   const { zonas, loading, error } = useZonas();
@@ -12,16 +14,16 @@ export default function CarteraUpdate() {
   const [filterName, setFilterName] = useState("");
   const [selectedUser, setSelectedUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const [fechaDesde, setFechaDesde] = useState(null);
-  const [fechaHasta, setFechaHasta] = useState(null);
+  const [fechaDesde, setFechaDesde] = useState(null as any);
+  const [fechaHasta, setFechaHasta] = useState(null as any);
   const [showResults, setShowResults] = useState(false);
+  const { selectedCountry } = useAuth();
 
   const {
     user,
     loading: loadingAdmin,
     error: errorAdmin,
   } = useAdmin(selectedZona);
-  console.log(user)
 
   const filterNameAdmin = (user : any) => {
     if (!user) return [];
@@ -153,15 +155,28 @@ export default function CarteraUpdate() {
         </div>
         </>
       ) : showResults ? (
-        <ResultsView
-          selectedUser={selectedUser}
-          fechaDesde={fechaDesde}
-          fechaHasta={fechaHasta}
-          selectedZona={selectedZona}
-          onBackToUsers={handleBackToUsers}
-          onBackToZones={handleBackToZones}
-          onNewQuery={handleNewQuery}
-        />
+      
+        selectedCountry === 'brazil' ? (
+          <ResultsViewBR
+            selectedUser={selectedUser}
+            fechaDesde={fechaDesde}
+            fechaHasta={fechaHasta}
+            selectedZona={selectedZona}
+            onBackToUsers={handleBackToUsers}
+            onBackToZones={handleBackToZones}
+            onNewQuery={handleNewQuery}
+          />
+        ) : (
+          <ResultsView
+            selectedUser={selectedUser}
+            fechaDesde={fechaDesde}
+            fechaHasta={fechaHasta}
+            selectedZona={selectedZona}
+            onBackToUsers={handleBackToUsers}
+            onBackToZones={handleBackToZones}
+            onNewQuery={handleNewQuery}
+          />
+        )
       ) : (
         <section className="w-full py-5 px-3">
           <button

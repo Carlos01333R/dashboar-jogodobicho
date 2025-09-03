@@ -1,8 +1,30 @@
 import { format } from "date-fns";
+import { formatInTimeZone } from "date-fns-tz";
 
 export const formatDateToMDYYYY = (date: Date | undefined): string => {
   if (!date) return "";
   return format(date, "M/d/yyyy"); // Formato 8/8/2025
+};
+
+
+
+export const formatDateToMMDDYYYYBR = (date: Date | string | undefined): string => {
+  if (!date) return "";
+
+  return formatInTimeZone(date, "America/Sao_Paulo", "dd/MM/yyyy");
+}
+
+
+export const formatDateToMMDDYYYYBrasil = (date: Date | undefined): string => {
+  if (!date) return "";
+  return formatInTimeZone(date, "America/Sao_Paulo", "dd/MM/yyyy");
+};
+
+
+
+export const formatDateToDMY = (date: Date | undefined): string => {
+  if (!date) return "";
+  return format(date, "d/M/yyyy"); // Formato 8/8/2025
 };
 
 export const parseMDYYYYToDate = (dateString: string): Date | undefined => {

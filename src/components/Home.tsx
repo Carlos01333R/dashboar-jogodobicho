@@ -7,23 +7,14 @@ import {  mockDashboardStats, salesChartData, winnersChartData } from "@/lib/moc
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell } from 'recharts';
 import { TrendingUp, TrendingDown, DollarSign, Trophy, Users, Ticket } from 'lucide-react';
 import StatCard from "@/components/StatCard"
-import { FormatCurrencyCO } from "@/utils/Format"
+import { FormatCurrencyBR, FormatCurrencyCO } from "@/utils/Format"
 import { LotteryPieChart } from "./LotteryPieChart"
 
 
 export default function DashboardHome({data} : any) {
 
-     const stats = mockDashboardStats;
      const { selectedCountry } = useAuth()
-      const chartData = data.winnersChartData.map((item: any)  => ({
-      name: item.lottery,
-      winners: item.count,
-      // Puedes agregar un premio simulado si lo necesitas
-      prize: Math.round(item.count * 10000) // Ejemplo: 10,000 por ganador
-  }));
-
-    const pieColors = ['#10B981', '#3B82F6', '#F59E0B', '#EF4444', '#8B5CF6'];
-
+    
     return (
         <div className="p-2 md:p-6 space-y-6">
       {/* Header */}
@@ -52,16 +43,16 @@ export default function DashboardHome({data} : any) {
       <div className="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6  ">
         <StatCard
           title="Ventas Totales"
-          value={`${FormatCurrencyCO(data.VentasTotale)}`}
-          change={data.diferenciaTotal}
+          value={`${selectedCountry === 'brazil' ? FormatCurrencyBR(data.VentasTotale) : FormatCurrencyCO(data.VentasTotale)}`}
+        
           icon={DollarSign}
           color="bg-emerald-500"
           className="text-2xl"
         />
         <StatCard
           title="Venta Neta"
-          value={`${FormatCurrencyCO(data.VentaNeta)}`}
-          change={data.diferenciaNeta}
+          value={`${selectedCountry === 'brazil' ? FormatCurrencyBR(data.VentaNeta) : FormatCurrencyCO(data.VentaNeta)}`}
+       
           icon={DollarSign}
           color="bg-blue-500"
           className="text-2xl"
@@ -89,7 +80,7 @@ export default function DashboardHome({data} : any) {
         <section className="w-full grid grid-cols-1 gap-y-2">
         <StatCard
           title="Ventas Totales"
-          value={`${FormatCurrencyCO(data.VentasTotale)}`}
+          value={`${selectedCountry === 'brazil' ? FormatCurrencyBR(data.VentasTotale) : FormatCurrencyCO(data.VentasTotale)}`}
           change={data.diferenciaTotal}
           icon={DollarSign}
           color="bg-emerald-500"
@@ -97,7 +88,7 @@ export default function DashboardHome({data} : any) {
         />
         <StatCard
           title="Venta Neta"
-          value={`${FormatCurrencyCO(data.VentaNeta)}`}
+          value={`${selectedCountry === 'brazil' ? FormatCurrencyBR(data.VentaNeta) : FormatCurrencyCO(data.VentaNeta)}`}
           change={data.diferenciaNeta}
           icon={DollarSign}
           color="bg-blue-500"
@@ -146,7 +137,7 @@ export default function DashboardHome({data} : any) {
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="month" />
               <YAxis />
-              <Tooltip formatter={(value : number) => [`$${FormatCurrencyCO(value)}`, '']} />
+              <Tooltip formatter={(value : number) => [`${selectedCountry === 'brazil' ? FormatCurrencyBR(value) : FormatCurrencyCO(value)}`, '']} />
               <Bar dataKey="brasil" fill="#10B981" radius={4} />
               <Bar dataKey="colombia" fill="#3B82F6" radius={4} />
             </BarChart>

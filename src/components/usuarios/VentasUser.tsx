@@ -3,14 +3,16 @@ import DataVentasUsers from "@/lib/DataVentasUsers";
 import DataVentasBrasil from "@/lib/DataVentasUserBr";
 import CardVentas from "../CardVentas";
 import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import StatCard from "../StatCard";
 import { DollarSign } from "lucide-react";
 import { ModalPremio } from "./ModalPremio";
+import CardVentasBr from "../CardVentasBr";
+import { FormatCurrencyBR } from "@/utils/Format";
+
 
 
 interface Props {
-  selectUser: string;
+  selectUser: string ;
   fechaSeleccionada: string;
   sector: string;
   country: string | null;
@@ -24,9 +26,10 @@ export default function VistaInfo({
 }: Props) {
   // Llama a la función correspondiente según el país
   const { itemsSale, ventas, loading, error, premio } =
-    country === "colombia"
-      ? DataVentasUsers({ fechaSeleccionada, selectUser, sector })
-      : DataVentasBrasil({ fechaSeleccionada, selectUser, sector });
+    DataVentasUsers({ fechaSeleccionada, selectUser, sector })
+
+  const {stats, apuestas, itemsSalebr, loadingbr, errorbr, premiobr} = DataVentasBrasil({ fechaSeleccionada, selectUser, sector });
+     
 
     if(error) {
       return (
@@ -54,11 +57,21 @@ export default function VistaInfo({
             <DollarSign className="w-4 h-4 text-blue-500" />
             <span className="text-gray-500">Ventas de:</span>
           </p>
-          <p className="text-gray-500">{selectUser}</p>
+          <p className="text-gray-500">{selectUser} - {fechaSeleccionada}</p>
         </section>
     
           <section className="w-full grid grid-cols-2 md:grid-cols-3 gap-x-3 md:gap-x-5 md:p-3 gap-y-2 md:gap-y-2">
-            {itemsSale.map((item: any) => (
+            {country === 'brazil' ? itemsSalebr.map((item: any) => (
+              <StatCard
+                key={item.label}
+                title={item.label}
+                value={FormatCurrencyBR(item.value)}
+                icon={item.icon}
+                color={item.color}
+                className='text-sm md:text-2xl truncate'
+                iconClassName="hidden md:block"
+              />
+            )) : itemsSale.map((item: any) => (
               <StatCard
                 key={item.label}
                 title={item.label}
@@ -81,9 +94,17 @@ export default function VistaInfo({
         
       </section>
       
-      <section className="py-4 w-full">
-              {ventas.length > 0 && <CardVentas Ventas={ventas} />}
-      </section>
+      {country === 'brazil'? (
+        <section className="w-full">
+          <p className="p-3 flex-1 text-end font-bold text-emerald-500">Ventas de {selectUser}</p>
+          <CardVentasBr Ventas={apuestas} />
+        </section>
+      
+      ):(
+        <section className="py-4 w-full">
+        {ventas.length > 0 && <CardVentas Ventas={ventas} />}
+        </section>
+      )}
     
     </>
   );

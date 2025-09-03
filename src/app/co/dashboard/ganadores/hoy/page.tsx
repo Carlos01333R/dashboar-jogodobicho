@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect, useState } from 'react';
-import { Trophy, Calendar, DollarSign, MapPin, User, Clock, Filter, Download } from 'lucide-react';
+import { Trophy, Calendar, DollarSign, MapPin, User, Clock, Filter, Download, View } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { supabase } from '@/lib/supabase';
 import useZonas from '@/hook/co/useZonas';
@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/select"
 import { ModalDetail } from '@/components/ganadores/ModalDetall';
 import useLoteriaComparisonNew from '@/hook/co/useLoteryWin';
+import Link from 'next/link';
 
 interface Winner {
   lottery: string;
@@ -310,10 +311,10 @@ const TotalWinner = resultados.length;
           </p>
         </div>
         <div className="flex items-center space-x-3">
-          <button className="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors">
-            <Download className="w-4 h-4" />
-            <span>Exportar Lista</span>
-          </button>
+          <Link href="/co/dashboard/loterias/resultados" className='bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors '>
+            <View className="w-4 h-4" />
+            <span>Ver resultadas</span>
+          </Link>
         </div>
       </div>
 

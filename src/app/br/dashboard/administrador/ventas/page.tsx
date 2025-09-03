@@ -3,13 +3,17 @@ import React, { useEffect, useState } from "react"
 import { useAuth } from "@/context/AuthContext"
 import { Download, DollarSign, Ticket, Users } from 'lucide-react';
 import { useVentasPorRango } from "@/hook/co/VentasHoy";
-import { FormatCurrencyCO } from "@/utils/Format";
+import { FormatCurrencyBR } from "@/utils/Format";
 import { DateRange } from "react-day-picker";
 import { DateRangePicker } from "@/components/DateRangePicker";
-import { formatDateToMDYYYY } from "@/utils/date-utils";
-import { format } from "date-fns"; // Importación faltante
-import CardVentas from "@/components/CardVentas";
-export default function Ventas() {
+import { formatDateToMMDDYYYYBR } from "@/utils/date-utils";
+import { useApuestasPorFecha } from "@/hook/br/useVentasHoy";
+import CardVentasBr from "@/components/CardVentasBr";
+
+
+
+export default function VentasBr() {
+
     const { user, isLoading } = useAuth()
     const today = new Date();
     today.setHours(0, 0, 0, 0); // Normaliza la hora
@@ -19,20 +23,14 @@ export default function Ventas() {
     to: today
   });
     
-    const { data, refetch, error } = useVentasPorRango();
+  const desde = formatDateToMMDDYYYYBR(dateRange?.from)
+  const hasta = formatDateToMMDDYYYYBR(dateRange?.to)
+  const { data, refetch, error, stats, apuestas } = useApuestasPorFecha({fechaDesde: desde ,fechaHasta: hasta});
 
-    const handleDateChange = (range: DateRange | undefined) => {
-    setDateRange(range);
-    refetch(
-      range?.from ? format(range.from, 'M/d/yyyy') : undefined,
-      range?.to ? format(range.to, 'M/d/yyyy') : undefined
-    );
-  };
 
-  const Ventas = data?.ventas || [];
-  const totalSales = data?.stats.total_ventas || 0;
-  const totalAmount = data?.stats.venta_bruta_total || 0;
-  const Vendedores = data?.stats.vendedores_unicos || 0;
+  const totalSales = stats?.total_apuestas
+  const totalAmount = stats?.monto_total
+  const Vendedores = stats?.usuarios_unicos
 
     if (isLoading ) {
         return (
@@ -70,7 +68,7 @@ export default function Ventas() {
         <section className="w-full flex md:block justify-center md:justify-normal items-center md:items-start">
       <DateRangePicker
         dateRange={dateRange}
-        onDateRangeChange={handleDateChange}
+        onDateRangeChange={setDateRange}
       />
         </section>
       
@@ -80,10 +78,10 @@ export default function Ventas() {
         <p className="text-xl font-bold text-gray-900 text-center hidden md:block">Fecha seleccionada:</p>
         <article className="flex gap-x-2">
          {dateRange?.from && (
-          <p className="flex gap-x-1 items-center"><span className="font-bold">Desde:</span> {formatDateToMDYYYY(dateRange.from)}</p>
+          <p className="flex gap-x-1 items-center"><span className="font-bold">Desde:</span> {formatDateToMMDDYYYYBR(dateRange.from)}</p>
         )}
         {dateRange?.to && (
-          <p className="flex gap-x-1 items-center"><span className="font-bold">Hasta: </span> {formatDateToMDYYYY(dateRange.to)}</p>
+          <p className="flex gap-x-1 items-center"><span className="font-bold">Hasta: </span> {formatDateToMMDDYYYYBR(dateRange.to)}</p>
         )}
         </article>
        
@@ -111,7 +109,7 @@ export default function Ventas() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-600 mb-1">Monto Bruto</p>
-              <p className="text-2xl font-bold text-gray-900">{FormatCurrencyCO(totalAmount)}</p>
+              <p className="text-2xl font-bold text-gray-900">{FormatCurrencyBR(totalAmount)}</p>
             </div>
             <div className="p-3 rounded-lg bg-blue-500">
               <DollarSign className="w-6 h-6 text-white" />
@@ -196,7 +194,7 @@ export default function Ventas() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-600 mb-1">Monto bruto</p>
-              <p className="text-2xl font-bold text-gray-900">{FormatCurrencyCO(totalAmount)}</p>
+              <p className="text-2xl font-bold text-gray-900">{FormatCurrencyBR(totalAmount)}</p>
             </div>
             <div className="p-3 rounded-lg bg-blue-500">
               <DollarSign className="w-6 h-6 text-white" />
@@ -206,82 +204,9 @@ export default function Ventas() {
         </div>
       </section>
 
-
-   
-
-   <CardVentas Ventas={Ventas} />
-      {/*
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 hidden md:block">
-        <div className="p-6 border-b border-gray-200">
-          <h3 className="text-lg font-semibold text-gray-900">Ventas Recientes</h3>
-        </div>
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Ticket
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Lotería
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Monto
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Vendedor
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Zona
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Estado
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Fecha
-                </th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {filteredSales.map((sale) => (
-                <tr key={sale.id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                    #{sale.ticketNumber}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {sale.lottery}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">
-                    ${sale.amount.toFixed(2)}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {sale.sellerName}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {sale.zone}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                      sale.status === 'confirmed' 
-                        ? 'bg-green-100 text-green-800'
-                        : sale.status === 'pending'
-                        ? 'bg-yellow-100 text-yellow-800'
-                        : 'bg-red-100 text-red-800'
-                    }`}>
-                      {sale.status === 'confirmed' ? 'Confirmado' : 
-                       sale.status === 'pending' ? 'Pendiente' : 'Cancelado'}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {sale.date.toLocaleDateString()}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-      */}
+    <CardVentasBr Ventas={apuestas} />
+  
+    
 
       
     </div>

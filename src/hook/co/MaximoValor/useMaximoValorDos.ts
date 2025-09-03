@@ -15,6 +15,7 @@ const useMaximoValorDosCifras = () => {
     const { data, error } = await supabase
       .from("maximo_valor_dos_cifras")
       .select("id, valor")
+      .eq("pais", selectedCountry)
       .order("valor", { ascending: false });
 
     setLoading(false);
@@ -34,7 +35,7 @@ const useMaximoValorDosCifras = () => {
 
   useEffect(() => {
     fetchMaximoValor();
-  }, []);
+  }, [selectedCountry]);
 
   return {
     maximoValorDosCifras,

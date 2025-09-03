@@ -28,7 +28,6 @@ export default function TablaLoterias() {
   }
 
   const handleEditarLoteria = (loteria: any) => {
-    console.log("Editando lotería:", loteria)
     setLoteriaEditando(loteria)
     setIsModalOpen(true)
   }

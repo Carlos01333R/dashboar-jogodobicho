@@ -3,9 +3,14 @@ import React from "react"
 import { useAuth } from "@/context/AuthContext"
 import { useEffect } from "react"
 import { useRouter } from "next/navigation"
+import DataHomeBr from "@/lib/br/DataHome"
+import DashboardHome from "@/components/Home"
 export  default function dashboardBR(){
     const { user, isLoading, selectedCountry } = useAuth()
     const router = useRouter()
+    const {items, data, loading, error} = DataHomeBr();
+
+    
 
     useEffect(() => {
         if (!isLoading && !user) {
@@ -24,8 +29,11 @@ export  default function dashboardBR(){
         return null
     }
     return (
-        <div>
-            <h1>Dashboard de {selectedCountry}</h1>
-        </div>
+        <section>  
+          {!loading && (
+              <DashboardHome data={items} />
+          )}    
+           
+            </section>
     )
 } 
