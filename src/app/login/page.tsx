@@ -6,8 +6,8 @@ import { useAuth } from "@/context/AuthContext"
 import { useRouter } from "next/navigation"
 
 export default function Login() {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [email, setEmail] = useState("admin@gmail.com")
+  const [password, setPassword] = useState("123456")
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
@@ -125,7 +125,7 @@ export default function Login() {
             <h4 className="text-sm font-semibold text-gray-700 mb-2">Datos de prueba:</h4>
             <div className="text-xs text-gray-600 space-y-1">
               <div>
-                <strong>Correo:</strong> admin@demo.com
+                <strong>Correo:</strong> admin@gmail.com
               </div>
               <div>
                 <strong>Contraseña:</strong> 123456
