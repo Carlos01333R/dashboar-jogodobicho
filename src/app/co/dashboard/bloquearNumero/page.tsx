@@ -3,8 +3,10 @@ import BlockedNumbers from "@/components/numerosBloqueados/Numeros"
 import { supabase } from "@/lib/supabase";
 import { toast } from "sonner";
 import useNumerosBloqueados from "@/hook/co/useNumeroBloqueados";
+import { useAuth } from "@/context/AuthContext";
 export default function BloquearNumero(){
     const { numerosBloqueados, loading, error } = useNumerosBloqueados()
+    const { selectedCountry } = useAuth();
 
      const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -25,6 +27,7 @@ export default function BloquearNumero(){
           numero: numero,
           valor: 0,
           razon: razon,
+          pais: selectedCountry,
         },
       ])
       .select();
