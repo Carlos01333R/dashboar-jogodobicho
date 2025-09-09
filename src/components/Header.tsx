@@ -20,7 +20,7 @@ const Header: React.FC<HeaderProps> = ({ title, activeSection,
       <div className="flex items-center justify-between">
         <div>
           <article className='flex items-center gap-x-2'>
-          <section className=' md:hidden'>
+          <section className='md:hidden'>
             <SheetMovil activeSection={activeSection} onSectionChange={onSectionChange} MenuArry={Menu} />
           </section>
           <span>
@@ -37,9 +37,6 @@ const Header: React.FC<HeaderProps> = ({ title, activeSection,
 
         <div className="flex items-center space-x-4">
           {/* Search */}
-         
-
-        
 
           {/* User Avatar */}
           <div className="flex items-center space-x-3">
