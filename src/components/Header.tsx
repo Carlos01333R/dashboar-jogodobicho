@@ -1,7 +1,9 @@
 import React from 'react';
-import { Bell, Search, Settings, ArrowLeftIcon, Menu } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { SheetMovil } from './Seet';
+import { SheetMovilAdminZona } from './adminzona/Seet';
+import { usePathname } from "next/navigation";
+import { is } from 'date-fns/locale';
 
 interface HeaderProps {
   title: string;
@@ -14,6 +16,9 @@ const Header: React.FC<HeaderProps> = ({ title, activeSection,
   onSectionChange,
   Menu }) => {
   const { user, selectedCountry } = useAuth();
+    const pathname = usePathname();
+  const isActive = pathname === "/AdminZona/co/dashboard/zonas";
+
 
   return (
     <header className="bg-white shadow-sm border-b border-gray-200 p-4 sticky top-0 flex-shrink-0 z-50">
@@ -21,7 +26,8 @@ const Header: React.FC<HeaderProps> = ({ title, activeSection,
         <div>
           <article className='flex items-center gap-x-2'>
           <section className='md:hidden'>
-            <SheetMovil activeSection={activeSection} onSectionChange={onSectionChange} MenuArry={Menu} />
+            {isActive ? <SheetMovilAdminZona activeSection={activeSection} onSectionChange={onSectionChange} MenuArry={Menu} /> : <SheetMovil activeSection={activeSection} onSectionChange={onSectionChange} MenuArry={Menu} />}
+          
           </section>
           <span>
                <h1 className="text-base md:text-2xl font-bold text-gray-800">{title}</h1>
