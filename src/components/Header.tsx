@@ -37,27 +37,9 @@ const Header: React.FC<HeaderProps> = ({ title, activeSection,
 
         <div className="flex items-center space-x-4">
           {/* Search */}
-          <div className="relative hidden md:block">
-            <Search className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
-            <input
-              type="text"
-              placeholder="Buscar..."
-              className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
-            />
-          </div>
+         
 
-          {/* Notifications */}
-          <button className="relative p-2 text-gray-600 hover:text-emerald-600 hover:bg-gray-100 rounded-lg transition-colors">
-            <Bell className="w-5 h-5" />
-            <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-              3
-            </span>
-          </button>
-
-          {/* Settings */}
-          <button className="p-2 text-gray-600 hover:text-emerald-600 hover:bg-gray-100 rounded-lg transition-colors">
-            <Settings className="w-5 h-5" />
-          </button>
+        
 
           {/* User Avatar */}
           <div className="flex items-center space-x-3">

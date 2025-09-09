@@ -3,7 +3,7 @@ import { formatInTimeZone } from "date-fns-tz";
 
 export const formatDateToMDYYYY = (date: Date | undefined): string => {
   if (!date) return "";
-  return format(date, "M/d/yyyy"); // Formato 8/8/2025
+  return format(date, "d/M/yyyy"); // Formato 8/8/2025
 };
 
 

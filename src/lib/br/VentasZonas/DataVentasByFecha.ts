@@ -5,12 +5,14 @@ import useZonas from "@/hook/co/useZonas";
 import { DollarSign } from "lucide-react";
 import { useApuestasPorFecha } from "@/hook/br/useVentasHoy";
 import { useGanadoresSummary } from "@/hook/br/use-ganadores-summary";
+
 interface Props {
     desde: string;
     hasta: string;
     zona: string;
 }
 export default function DataVentasByFechaBr({desde, hasta, zona} : Props) {
+
     const { data, refetch, error, stats, apuestas } = useApuestasPorFechabr({fechaDesde: desde ,fechaHasta: hasta, zona});
     const {
     data: summary,
@@ -106,7 +108,9 @@ export default function DataVentasByFechaBr({desde, hasta, zona} : Props) {
     itemsVentasHoybr,
     apuestas,
     totalPremio,
-    ganadores
+    ganadores,
+    loading,
+    error
  
     
     }

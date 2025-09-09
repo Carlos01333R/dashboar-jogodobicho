@@ -1,22 +1,22 @@
 'use client'
 import React, { useState } from 'react';
-import { Users as UsersIcon, Search, MapPin, Calendar, User, TicketCheck, DollarSign, BarChart3 } from 'lucide-react';
+import { Users as UsersIcon, Search, User, TicketCheck } from 'lucide-react';
 import useZonas from '@/hook/co/useZonas';
-import { ModalFromZonas } from './ModalFromZonas';
-import { ModalDeleteZonas } from './ModalDeleteZonas';
-import { ModalUpdateZonas } from './ModalUpdateZonas';
+import { ModalFromZonas } from '../zonas/ModalFromZonas';
+import { ModalUpdateZonas } from '../zonas/ModalUpdateZonas';
 import { FormatCurrencyCO } from '@/utils/Format';
+import { useAuthAdminZona } from '@/context/AuthContextAdminZona';
 
-export default function ZonasComponent() {
-  const [searchTerm, setSearchTerm] = useState('')
+export default function ZonasComponentAdminZona() {
+    const { user } = useAuthAdminZona()
+    const zonaAdmin = user?.sector || ""
   const { zonas, loading , error } = useZonas();
   
   
   const filteredUsers = zonas.filter((zonas : any ) => 
-    (searchTerm === '' || 
-     zonas.nombre.toLowerCase().includes(searchTerm.toLowerCase()))
-  
+     zonas.nombre.toLowerCase().includes(zonaAdmin.toLowerCase())
   );
+
   const totalUsers = filteredUsers.length;
 
   if (loading) {
@@ -48,28 +48,13 @@ export default function ZonasComponent() {
             Administración de zonas <span className='hidden md:block'>del sistema</span>
           </p>
         </div>
-        <div className="flex items-center space-x-3">
-          <ModalFromZonas />
-        </div>
+       
       </div>
 
       {/* Filters */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              <Search className="w-4 h-4 inline mr-2" />
-              Buscar Zona
-            </label>
-            <input
-              type="text"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Nombre..."
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
-            />
-          </div>
-
+    
           
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -206,7 +191,7 @@ export default function ZonasComponent() {
              <div className="mt-4 pt-4 border-t border-gray-200">
                 <div className="flex space-x-2">
                   <ModalUpdateZonas  id={zonas.id} nombre={zonas.nombre} porcentaje_loteria={zonas.porcentaje_loteria} porcentaje_cliente={zonas.porcentaje_cliente} porcentaje_admin_zona={zonas.porcentaje_admin_zona} cuatroCifras={zonas["4cifras"]} tresCifras={zonas["3cifras"]} dosCifras={zonas["2cifras"]} cuatroCombi={zonas["4combi"]} tresCombi={zonas["3combi"]} />
-                  <ModalDeleteZonas name={zonas.nombre} id={zonas.id} />
+                 
                   
                 </div>
               </div>

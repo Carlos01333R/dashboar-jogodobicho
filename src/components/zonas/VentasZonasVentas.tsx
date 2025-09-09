@@ -63,7 +63,7 @@ export default function VentasZonasVentas({desde, hasta, zona} : Props) {
             ) : (
                <section className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 {itemsVentasHoy.map((item: any) => (
-                  <>
+                
                 <div key={item.id} className="bg-white rounded-xl shadow-sm p-2 md:p-6 border border-gray-200 flex justify-center md:justify-between items-center">
                                 <section>
                                   <p className="text-sm text-black font-semibold mb-1">{item.title}</p>
@@ -77,9 +77,8 @@ export default function VentasZonasVentas({desde, hasta, zona} : Props) {
                                 </section>
 
                           
-                                </div>
-                               
-                            </>
+              </div>
+                      
                 ))}
                    <section>
                                 {ventas?.length > 0 && (

@@ -9,16 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-
+import { usePathname } from "next/navigation";
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import {Edit} from "lucide-react";
@@ -63,6 +54,9 @@ export function ModalUpdateZonas({
   const [DosCifras, setDosCifras] = useState(dosCifras || "");
   const [CuatroCombi, setCuatroCombi] = useState(cuatroCombi || "");
   const [TresCombi, setTresCombi] = useState(tresCombi || "");
+  const pathname = usePathname();
+
+  const isActive = pathname === "/AdminZona/co/dashboard/zonas";
 
 
 
@@ -126,7 +120,7 @@ export function ModalUpdateZonas({
         </DialogHeader>
         <form onSubmit={handleSubmit}>
           <div className="hidden gap-4 grid-col-1 md:grid-cols-3  md:grid">
-            <div className="flex flex-col gap-y-2 text-black ">
+            <div className={`flex flex-col gap-y-2 text-black  ${isActive ? 'hidden' : ''}`}>
               <Label htmlFor="nombre">Nombre</Label>  
               <Input 
                 name="nombre"

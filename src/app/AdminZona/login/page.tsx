@@ -1,0 +1,150 @@
+"use client"
+
+import React, { useEffect, useState } from "react"
+import { Lock, UserIcon, Eye, EyeOff, ArrowLeftIcon } from 'lucide-react'
+import { useRouter } from "next/navigation"
+import Link from "next/link"
+import { useAuthAdminZona } from "@/context/AuthContextAdminZona"
+
+export default function LoginAdminZona() {
+  const [email, setEmail] = useState("admin@gmail.com")
+  const [password, setPassword] = useState("123456")
+  const [showPassword, setShowPassword] = useState(false)
+  const [error, setError] = useState("")
+  const [loading, setLoading] = useState(false)
+
+  const { login, user, isLoading } = useAuthAdminZona()
+  const router = useRouter()
+
+  // Si ya hay sesión, redirigir al home
+  useEffect(() => {
+    if (!isLoading && user) {
+      router.replace("/AdminZona")
+    }
+  }, [isLoading, user, router])
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setError("")
+    setLoading(true)
+    
+    const ok = await login(email, password)
+    setLoading(false)
+    
+    if (ok) {
+      router.replace("/AdminZona")
+    } else {
+      setError("Usuario o contraseña incorrectos")
+    }
+  }
+
+  // Mientras restauramos sesión, mostrar loader básico
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-yellow-50 flex items-center justify-center p-4">
+        <div className="text-gray-600">Cargando...</div>
+      </div>
+    )
+  }
+
+  return (
+    <section>
+      <div className="bg-gradient-to-br from-emerald-50 to-blue-50 ">
+        <Link href='/login' className="p-3 flex items-center gap-x-2 text-emerald-500 font-bold">
+          <ArrowLeftIcon className="w-8 h-8 " />
+          Volver a login administrativo
+        </Link>
+      </div>
+      <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-yellow-50 flex items-center justify-center p-4">
+        <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden">
+          {/* Header con gradiente */}
+          <div className="bg-gradient-to-r from-emerald-500 to-blue-600 p-8 text-center">
+            <div className="bg-white/20 rounded-full p-4 inline-block mb-4">
+              <Lock className="w-8 h-8 text-white" />
+            </div>
+            <h1 className="text-2xl font-bold text-white mb-2">Sistema de Loterías (Admin zona)</h1>
+            <p className="text-white/90 text-sm">Brasil & Colombia</p>
+          </div>
+
+          {/* Formulario */}
+          <div className="p-8">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Campo Usuario */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Correo</label>
+                <div className="relative">
+                  <UserIcon className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200 text-black"
+                    placeholder="Ingrese su correo"
+                    required
+                  />
+                </div>
+              </div>
+
+              {/* Campo Contraseña */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Contraseña</label>
+                <div className="relative">
+                  <Lock className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="w-full pl-12 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200 text-black"
+                    placeholder="Ingrese su contraseña"
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((s) => !s)}
+                    className="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
+                  >
+                    {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                  </button>
+                </div>
+              </div>
+
+              {/* Error */}
+              {error && (
+                <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">{error}</div>
+              )}
+
+              {/* Botón Login */}
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-gradient-to-r from-emerald-500 to-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:from-emerald-600 hover:to-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-[1.02]"
+              >
+                {loading ? (
+                  <span className="flex items-center justify-center">
+                    <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2" />
+                    Iniciando sesión...
+                  </span>
+                ) : (
+                  "Iniciar Sesión"
+                )}
+              </button>
+            </form>
+
+            {/* Información de prueba */}
+            <div className="mt-6 p-4 bg-gray-50 rounded-lg">
+              <h4 className="text-sm font-semibold text-gray-700 mb-2">Datos de prueba:</h4>
+              <div className="text-xs text-gray-600 space-y-1">
+                <div>
+                  <strong>Correo:</strong> admin@gmail.com
+                </div>
+                <div>
+                  <strong>Contraseña:</strong> 123456
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section> 
+  )
+}

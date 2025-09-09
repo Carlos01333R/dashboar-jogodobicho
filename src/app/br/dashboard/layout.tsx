@@ -12,7 +12,7 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { user, isLoading, selectedCountry } = useAuth();
+  const { user, isLoading, selectedCountry, logout } = useAuth();
   const [activeSection, setActiveSection] = useState('home');
   const router = useRouter();
     const pathname = usePathname();
@@ -89,6 +89,7 @@ export default function DashboardLayout({
       <main className="w-full text-black flex flex-row">
         <section className="h-screen sticky top-0 bg-red-500 w-64 flex-shrink-0 hidden md:block overflow-y-hidden overflow-x-hidden">
           <Sidebar
+            logout={logout}
             activeSection={activeSection}
             onSectionChange={setActiveSection}
             Menu={MenuItems}

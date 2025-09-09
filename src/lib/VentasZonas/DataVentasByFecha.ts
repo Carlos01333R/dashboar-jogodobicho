@@ -87,7 +87,9 @@ export default function DataVentasByFecha({desde, hasta, zona} : Props) {
     return {
     itemsVentasHoy,
     ventas,
-    premio
+    premio,
+    error,
+    loading
     
     }
 }

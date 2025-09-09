@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react"
 import { Lock, UserIcon, Eye, EyeOff } from 'lucide-react'
 import { useAuth } from "@/context/AuthContext"
 import { useRouter } from "next/navigation"
+import Link from "next/link"
 
 export default function Login() {
   const [email, setEmail] = useState("admin@gmail.com")
@@ -45,6 +46,8 @@ export default function Login() {
   }
 
   return (
+   <section>
+ 
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-yellow-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden">
         {/* Header con gradiente */}
@@ -118,6 +121,12 @@ export default function Login() {
                 "Iniciar Sesión"
               )}
             </button>
+             <div className="w-full flex justify-end items-center">
+              <Link href="/AdminZona/login" className="border-b-4 border-emerald-500 text-emerald-500 px-4 py-2 rounded-lg font-semibold hover:border-emerald-600   transition-all duration-200 transform hover:scale-[1.02]">
+              Administrar de zonas
+            
+              </Link>
+            </div>
           </form>
 
           {/* Información de prueba */}
@@ -134,6 +143,9 @@ export default function Login() {
           </div>
         </div>
       </div>
+
+  
     </div>
+    </section> 
   )
 }

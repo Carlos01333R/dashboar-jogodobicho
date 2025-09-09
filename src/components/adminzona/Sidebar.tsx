@@ -8,7 +8,7 @@ import {
   ChevronRight,
   LogOut,
 } from 'lucide-react';
-import { useAuth } from '@/context/AuthContext';
+import { useAuthAdminZona } from '@/context/AuthContextAdminZona';
 import Link from 'next/link'
 
 interface SidebarProps {
@@ -18,14 +18,14 @@ interface SidebarProps {
   logout: () => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({
+const SidebarAdminZona: React.FC<SidebarProps> = ({
   activeSection,
   onSectionChange,
   Menu,
   logout
 }) => {
   const [expandedMenus, setExpandedMenus] = useState<string[]>([]);
-  const { user, selectedCountry } = useAuth();
+  const { user, selectedCountry } = useAuthAdminZona();
 
   const toggleMenu = (menu: string) => {
     setExpandedMenus((prev) =>
@@ -63,7 +63,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           </div>
         </div>
         <div className='w-full flex justify-center items-center py-2'>
-          <Link href="/" className="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors ">
+          <Link href="/AdminZona" className="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors ">
            
              Ir a menu
            
@@ -166,4 +166,4 @@ const Sidebar: React.FC<SidebarProps> = ({
   );
 };
 
-export default Sidebar;
+export default SidebarAdminZona;
