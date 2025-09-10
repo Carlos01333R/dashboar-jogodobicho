@@ -13,6 +13,12 @@ export default function Home() {
     }
   }, [isLoading, user, router])
 
+  useEffect(() => {
+   localStorage.removeItem('activeSection')
+  },
+  [])
+
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-yellow-50 flex items-center justify-center p-4">

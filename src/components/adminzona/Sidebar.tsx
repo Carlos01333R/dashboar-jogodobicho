@@ -64,10 +64,7 @@ const SidebarAdminZona: React.FC<SidebarProps> = ({
         </div>
         <div className='w-full flex justify-center items-center py-2'>
           <Link href="/AdminZona" className="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors ">
-           
-             Ir a menu
-           
-       
+             Ir a menu pues
           </Link>
         </div>
       </div>

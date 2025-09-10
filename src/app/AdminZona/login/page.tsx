@@ -7,7 +7,7 @@ import Link from "next/link"
 import { useAuthAdminZona } from "@/context/AuthContextAdminZona"
 
 export default function LoginAdminZona() {
-  const [email, setEmail] = useState("admin@gmail.com")
+  const [email, setEmail] = useState("carlos@gmail.com")
   const [password, setPassword] = useState("123456")
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState("")

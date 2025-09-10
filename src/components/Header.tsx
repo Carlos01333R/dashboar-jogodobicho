@@ -17,7 +17,23 @@ const Header: React.FC<HeaderProps> = ({ title, activeSection,
   Menu }) => {
   const { user, selectedCountry } = useAuth();
     const pathname = usePathname();
-  const isActive = pathname === "/AdminZona/co/dashboard/zonas";
+
+const activePaths = [
+  "/AdminZona/br/dashboard",
+  "/AdminZona/co/dashboard",
+  "/AdminZona/br/dashboard/cartera",
+  "/AdminZona/co/dashboard/cartera",
+  "/AdminZona/br/dashboard/ganadores",
+  "/AdminZona/co/dashboard/ganadores",
+  "/AdminZona/br/dashboard/usuario",
+  "/AdminZona/co/dashboard/usuario",
+  "/AdminZona/br/dashboard/zonas",
+  "/AdminZona/co/dashboard/zonas",
+ 
+];
+
+const isActive = activePaths.includes(pathname);
+
 
 
   return (
@@ -26,7 +42,7 @@ const Header: React.FC<HeaderProps> = ({ title, activeSection,
         <div>
           <article className='flex items-center gap-x-2'>
           <section className='md:hidden'>
-            {isActive ? <SheetMovilAdminZona activeSection={activeSection} onSectionChange={onSectionChange} MenuArry={Menu} /> : <SheetMovil activeSection={activeSection} onSectionChange={onSectionChange} MenuArry={Menu} />}
+            {isActive ? <SheetMovilAdminZona activeSection={activeSection} onSectionChange={onSectionChange} MenuArry={Menu} />: <SheetMovil activeSection={activeSection} onSectionChange={onSectionChange} MenuArry={Menu} />}
           
           </section>
           <span>

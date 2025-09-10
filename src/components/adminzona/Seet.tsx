@@ -7,7 +7,7 @@ import {
 import Sidebar from "../sidebar";
 import {Menu} from "lucide-react"
 import { useAuthAdminZona } from "@/context/AuthContextAdminZona";
-
+import SidebarAdminZona from "./Sidebar";
 interface SidebarProps {
   activeSection: string;
   onSectionChange: (section: string) => void;
@@ -26,7 +26,7 @@ export function SheetMovilAdminZona({activeSection, onSectionChange,
       </SheetTrigger>
       <SheetContent side="left" className="bg-gray-900 border-none rounded-r-lg">
          <section>
-         <Sidebar
+         <SidebarAdminZona
          logout={logout}
           activeSection={activeSection}
           onSectionChange={onSectionChange}
