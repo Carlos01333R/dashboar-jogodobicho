@@ -36,7 +36,7 @@ import {
       label: 'Ganadores',
       icon: Trophy,
       submenu: [
-        { id: 'ganadores-hoy', label: 'Ganadores Hoy', icon: Calendar, section: 'winners-today', href: '/br/dashboard/ganadores/hoy' },
+        { id: 'ganadores-hoy', label: 'Ultimos Ganadores ', icon: Calendar, section: 'winners-today', href: '/br/dashboard/ganadores/hoy' },
         { id: 'historial-ganadores', label: 'Historial', icon: History, section: 'winners-history', href: '/br/dashboard/ganadores/historial' },
       ]
     },
@@ -74,7 +74,8 @@ import {
   
       submenu: [
         { id: 'loterias', label: 'Loterías', icon: Ticket, section: 'lotteries', href: '/br/dashboard/loterias/administrar' },
-        { id: 'resultados', label: 'Resultados', icon: Ticket, section: 'resultado', href: '/br/dashboard/loterias/resultados' },
+        { id: 'resultados', label: 'Ingresar Resultados', icon: Ticket, section: 'resultado', href: '/br/dashboard/loterias/insertar' },
+        { id: 'resultados', label: 'Resultados', icon: Ticket, section: 'resultadoLoterias', href: '/br/dashboard/loterias/resultados' },
       ]
     }
   ];

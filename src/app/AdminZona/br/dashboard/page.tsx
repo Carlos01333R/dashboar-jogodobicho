@@ -2,13 +2,12 @@
 import { DateRangePicker } from "@/components/DateRangePicker";
 import { useAuthAdminZona } from "@/context/AuthContextAdminZona";
 import { formatDateToMMDDYYYYBR } from "@/utils/date-utils";
-import { DollarSign, Download } from "lucide-react";
+import { Download } from "lucide-react";
 import { useState } from "react";
 import { DateRange } from "react-day-picker";
 import DataVentasByFechaBr from "@/lib/br/VentasZonas/DataVentasByFecha";
-import { FormatCurrencyBR } from "@/utils/Format";
+import DataVentasByFechaBrAdminZona from "@/lib/adminZona/br/ventasZonas/DataVentasByFecha";
 import VentasAdminComponents from "@/components/adminzona/Ventas";
-import CardVentasBr from "@/components/CardVentasBr";
 
 
 export default function Ventas(){
@@ -26,9 +25,8 @@ export default function Ventas(){
   const desde = formatDateToMMDDYYYYBR(dateRange?.from)
   const hasta = formatDateToMMDDYYYYBR(dateRange?.to)
 
-const { itemsVentasHoybr, apuestas, totalPremio, ganadores, loading, error } = DataVentasByFechaBr({desde, hasta, zona});
+const { itemsVentasHoybr, apuestas, totalPremio, ganadores, loading, error } = DataVentasByFechaBrAdminZona({desde, hasta, zona});
 
-console.log(itemsVentasHoybr)
 
 
     if (isLoading && loading) {

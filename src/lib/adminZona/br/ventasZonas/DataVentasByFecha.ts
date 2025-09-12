@@ -1,33 +1,42 @@
-import useVentasTotales from "@/hook/co/ventasZonas/useVentasFechasZonas";
-import usePremioByFecha from "@/hook/co/ventasZonas/usePremioByFecha";
-import useZonas from "@/hook/co/useZonas";
+import { useApuestasPorFechabr } from "@/hook/br/VentasZonas/useVentasFechasZonas";
+import useZonas from "@/hook/adminZona/useZonas";
 import { DollarSign } from "lucide-react";
-
+import { useGanadoresSummary } from "@/hook/br/use-ganadores-summary";
 
 interface Props {
     desde: string;
     hasta: string;
     zona: string;
 }
+export default function DataVentasByFechaBrAdminZona({desde, hasta, zona} : Props) {
 
+    const { data, refetch, error, stats, apuestas } = useApuestasPorFechabr({fechaDesde: desde ,fechaHasta: hasta, zona});
+    const {
+    data: summary,
+    loading,
+    error: errorSummary,
+  } = useGanadoresSummary({
+    zona: zona || undefined,
+    fecha_inicio: desde || undefined,
+    fecha_fin: hasta || undefined,
+   
+  })
 
-export default function DataVentasByFecha({desde, hasta, zona} : Props) {
-
-    const { ventas, loading, error, totales } = useVentasTotales(
-   desde, hasta,  zona 
+  const totalPremio = summary?.resumen.total_premios || 0
+  const ganadores = summary?.ganadores
     
-  );
-  
-  const {
+    {/*
+        const {
     premio,
     loading: loadingPremio,
     error: errorPremio,
   } = usePremioByFecha({desde, hasta, zona});
 
+      */}
+
 
   const { zonas } = useZonas();
 
-  console.log(zonas);
   const adminZona = zonas
     ? zonas.find((z : any) => z.nombre === zona)?.porcentaje_admin_zona
     : null;
@@ -40,29 +49,31 @@ export default function DataVentasByFecha({desde, hasta, zona} : Props) {
     ? zonas.find((z : any) => z.nombre === zona)?.porcentaje_cliente
     : null;
 
-  const ventaNetaHoyNew = (totales?.valorBruta * adminZonaVentaNeta) / 100;
-  const gananciasHoyNew = (totales?.valorBruta * adminZonaGanancias) / 100;
-  const gananciasAdminZonaNew = (totales?.valorBruta * adminZona) / 100;
+   const Monto_total = stats?.monto_total || 0;
+
+  const ventaNetaHoyNew = (Monto_total * adminZonaVentaNeta) / 100;
+  const gananciasHoyNew = (Monto_total* adminZonaGanancias) / 100;
+  const gananciasAdminZonaNew = (Monto_total * adminZona) / 100;
   // Primer modal para premios
 
-  const itemsVentasHoy = [
+  const itemsVentasHoybr = [
     {
       id: 1,
-      title: "Venta Bruta Hoy",
-      value: totales?.valorBruta || 0,
+      title: "Venta Bruta",
+      value: Monto_total || 0,
       icon: DollarSign,
       color: "bg-green-500",
     },
     {
       id: 2,
-      title: "Venta Neta Hoy",
+      title: "Venta Neta",
       value: ventaNetaHoyNew,
       icon: DollarSign,
       color: "bg-blue-500",
     },
     {
       id: 3,
-      title: "Ganancias Hoy",
+      title: "Ganancias",
       value: gananciasHoyNew,
       icon: DollarSign,
       color: "bg-orange-500",
@@ -77,25 +88,27 @@ export default function DataVentasByFecha({desde, hasta, zona} : Props) {
     {
       id: 5,
       title: "premio",
-      value: premio,
+      value: totalPremio,
       icon: DollarSign,
       color: "bg-green-500",
     },
     {
       id: 6,
       title: "Balance",
-      value: premio ? ventaNetaHoyNew - premio : 0,
+      value: ventaNetaHoyNew - totalPremio,
       icon: DollarSign,
       color: "bg-yellow-500",
     }
   ]
   
     return {
-    itemsVentasHoy,
-    ventas,
-    premio,
-    error,
-    loading
+    itemsVentasHoybr,
+    apuestas,
+    totalPremio,
+    ganadores,
+    loading,
+    error
+ 
     
     }
 }

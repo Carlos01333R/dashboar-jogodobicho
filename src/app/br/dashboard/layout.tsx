@@ -70,7 +70,8 @@ export default function DashboardLayout({
       case 'users': return 'Gestión de Usuarios';
       case 'sales_users': return 'Ventas de Usuarios';
       case 'lotteries': return 'Gestión de Loterias';
-      case 'resultado': return 'Resultados de Loterias';
+      case 'resultadoLoterias': return 'Resultados de Loterias';
+      case 'resultado': return 'Ingresar Resultado de Loterias';
       case 'ventas-zonas': return 'Ventas por Zona';
       default: return 'Dashboard';
     }

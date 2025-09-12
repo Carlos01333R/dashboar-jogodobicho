@@ -1,5 +1,5 @@
 "use client";
-import useZonas from "@/hook/co/useZonas";
+import useZonas from "@/hook/adminZona/useZonas";
 import { useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import useAdmin from "@/hook/co/useAdmin";

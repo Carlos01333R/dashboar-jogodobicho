@@ -16,13 +16,20 @@ import {Plus} from "lucide-react";
 import useZonas from "@/hook/co/useZonas";
 import { supabase } from "@/lib/supabase";
 import { toast } from "sonner" 
+import { useAuth } from "@/context/AuthContext";
+import { is } from "date-fns/locale";
+import { useState } from "react";
 
 
 export function ModalFromZonas() {
+  const [open, setOpen] = useState(false);
+  const { selectedCountry } = useAuth();
+    
+  const isBrasil = selectedCountry === 'brazil';
 
-  const handleSubmit = async (e:any) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
+    const formData = new FormData(e.currentTarget);
     const nombre = formData.get("nombre");
     const porcentaje_loteria = formData.get("porcentaje_loteria");
     const porcentaje_cliente = formData.get("porcentaje_cliente");
@@ -34,18 +41,15 @@ export function ModalFromZonas() {
     const tresCombi = formData.get("tresCombi");
 
     if (
-      
       nombre === "" ||
       porcentaje_loteria === "" ||
       porcentaje_cliente === "" ||
       porcentaje_admin_zona === "" ||
       cuatroCifras === "" ||
       tresCifras === "" ||
-      dosCifras === "" ||
-      cuatroCombi === "" ||
-      tresCombi === ""
+      dosCifras === "" 
     ) {
-      toast.error("Complete all fields");
+      toast.error("Complete todos los campos");
       return;
     }
 
@@ -53,7 +57,6 @@ export function ModalFromZonas() {
       .from("zonas")
       .insert([
         {
-         
           nombre: nombre,
           porcentaje_loteria: porcentaje_loteria,
           porcentaje_cliente: porcentaje_cliente,
@@ -63,128 +66,149 @@ export function ModalFromZonas() {
           "2cifras": dosCifras,
           "4combi": cuatroCombi,
           "3combi": tresCombi,
+          pais: selectedCountry,
         },
       ])
       .select();
 
     if (error) {
       console.error("Error inserting data:", error.message);
+      toast.error("Error al crear la zona");
     } else {
-      toast.success("zona Agregada Correctamente");
-      e.target.reset();
-      window.location.reload();
+      toast.success("Zona agregada correctamente");
+     setTimeout(() => window.location.reload(), 1000);
+      setOpen(false);
+      e.currentTarget.reset();
+  
     }
   };
 
   return (
-    <Dialog >
-      <form>
-        <DialogTrigger asChild>
-         <button className="w-full flex items-center gap-x-2 bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-lg  space-x-2 transition-colors cursor-pointer">
-            <Plus className="w-4 h-4" />
-            <p> <span className="hidden md:block">Nueva</span>zona</p>
-         </button>
-        </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px] md:max-w-[500px]">
-          <DialogHeader>
-            <DialogTitle>Crea un nuevo usuario</DialogTitle>
-            <DialogDescription>
-              <span>Crea un nuevo usuario para tu empresa.</span>
-            </DialogDescription>
-          </DialogHeader>
-             <form className="text-white " onSubmit={handleSubmit}>
-            <div className="hidden md:grid gap-4 grid-col-1 md:grid-cols-3">
-              <div className="flex flex-col gap-y-2 text-black">
-                <Label htmlFor="full_name">Nombre</Label>
-                <Input  name="nombre" placeholder="Nombre Completo" required />
-              </div>
-
-              <div className="flex flex-col gap-y-2 text-black">
-                <Label htmlFor="porcentaje_loteria">% loteria</Label>
-                <Input name="porcentaje_loteria" placeholder="Porcentaje loteria" required  type="number" />
-              </div>
-              <div className="flex flex-col gap-y-2 text-black">
-                <Label htmlFor="porcentaje_cliente">% cliente</Label>
-                <Input name="porcentaje_cliente" placeholder="Porcentaje cliente" type="number" required  />
-              </div>
-              <div className="flex flex-col gap-y-2 text-black">
-                <Label htmlFor="porcentaje_admin_zona">% admin zona</Label>
-                <Input name="porcentaje_admin_zona" placeholder="Porcentaje admin zona" type="number" required />
-              </div>
-              <div className="flex flex-col gap-y-2 text-black">
-                <Label htmlFor="cuatroCifras">Cuatro cifras</Label>
-                <Input name="cuatroCifras" placeholder="Cuatro cifras" type="number" required />
-              </div>
-              <div className="flex flex-col gap-y-2 text-black">
-                <Label htmlFor="tresCifras">Tres cifras</Label>
-                <Input name="tresCifras" placeholder="Tres cifras" type="number" required />
-              </div>
-              <div className="flex flex-col gap-y-2 text-black">
-                <Label htmlFor="dosCifras">Dos cifras</Label>
-                <Input name="dosCifras" placeholder="Dos cifras" type="number" required />
-              </div>
-              <div className="flex flex-col gap-y-2 text-black">
-                <Label htmlFor="cuatroCombi">Cuatro combi</Label>
-                <Input name="cuatroCombi" placeholder="Cuatro combi" type="number" required />
-              </div>
-              <div className="flex flex-col gap-y-2 text-black">
-                <Label htmlFor="tresCombi">Tres combi</Label>
-                <Input name="tresCombi" placeholder="Tres combi" type="number" required />
-                </div>
-
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <button className="w-full flex items-center gap-x-2 bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-lg space-x-2 transition-colors cursor-pointer">
+          <Plus className="w-4 h-4" />
+          <p><span className="hidden md:block">Nueva</span>zona</p>
+        </button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[425px] md:max-w-[500px]">
+        <DialogHeader>
+          <DialogTitle>Crear una nueva zona</DialogTitle>
+          <DialogDescription>
+            <span>Crea una nueva zona para tu empresa.</span>
+          </DialogDescription>
+        </DialogHeader>
+        <form onSubmit={handleSubmit}>
+          <div className="hidden md:grid gap-4 grid-col-1 md:grid-cols-3">
+            <div className="flex flex-col gap-y-2 text-black">
+              <Label htmlFor="nombre">Nombre</Label>
+              <Input name="nombre" placeholder="Nombre Completo"  />
             </div>
-            <div className="md:hidden">
-             <div className="flex flex-col gap-y-2 text-black py-4">
-                <Label htmlFor="full_name">Nombre</Label>
-                <Input  name="nombre" placeholder="Nombre Completo" required />
-              </div>
 
-              <section className="grid grid-cols-2 gap-4">
-               <div className="flex flex-col gap-y-2 text-black">
-                <Label htmlFor="porcentaje_loteria">% loteria</Label>
-                <Input name="porcentaje_loteria" placeholder="Porcentaje loteria" required  type="number" />
-              </div>
-              <div className="flex flex-col gap-y-2 text-black">
-                <Label htmlFor="porcentaje_cliente">% cliente</Label>
-                <Input name="porcentaje_cliente" placeholder="Porcentaje cliente" type="number" required  />
-              </div>
-              <div className="flex flex-col gap-y-2 text-black">
-                <Label htmlFor="porcentaje_admin_zona">% admin zona</Label>
-                <Input name="porcentaje_admin_zona" placeholder="Porcentaje admin zona" type="number" required />
-              </div>
-              <div className="flex flex-col gap-y-2 text-black">
-                <Label htmlFor="cuatroCifras">Cuatro cifras</Label>
-                <Input name="cuatroCifras" placeholder="Cuatro cifras" type="number" required />
-              </div>
-              <div className="flex flex-col gap-y-2 text-black">
-                <Label htmlFor="tresCifras">Tres cifras</Label>
-                <Input name="tresCifras" placeholder="Tres cifras" type="number" required />
-              </div>
-              <div className="flex flex-col gap-y-2 text-black">
-                <Label htmlFor="dosCifras">Dos cifras</Label>
-                <Input name="dosCifras" placeholder="Dos cifras" type="number" required />
-              </div>
-              <div className="flex flex-col gap-y-2 text-black">
-                <Label htmlFor="cuatroCombi">Cuatro combi</Label>
-                <Input name="cuatroCombi" placeholder="Cuatro combi" type="number" required />
-              </div>
-              <div className="flex flex-col gap-y-2 text-black">
-                <Label htmlFor="tresCombi">Tres combi</Label>
-                <Input name="tresCombi" placeholder="Tres combi" type="number" required />
-                </div>
-              </section>
+            <div className="flex flex-col gap-y-2 text-black">
+              <Label htmlFor="porcentaje_loteria">% Casa</Label>
+              <Input name="porcentaje_loteria" placeholder="Porcentaje loteria"  type="number" />
             </div>
-          <DialogFooter>
-            <section className="w-full py-4 flex items-center justify-end gap-x-2">
-            <DialogClose asChild>
-              <button className="py-1.5 px-3 bg-red-500 text-white rounded-lg">Cancelar</button>
-            </DialogClose>
-            <Button type="submit" className="cursor-pointer">Guardar Cambios</Button>
-            </section>
+            <div className="flex flex-col gap-y-2 text-black">
+              <Label htmlFor="porcentaje_cliente">% Vendedor</Label>
+              <Input name="porcentaje_cliente" placeholder="Porcentaje cliente" type="number"  />
+            </div>
+            <div className="flex flex-col gap-y-2 text-black">
+              <Label htmlFor="porcentaje_admin_zona">% admin zona</Label>
+              <Input name="porcentaje_admin_zona" placeholder="Porcentaje admin zona" type="number"  />
+            </div>
+            <div className="flex flex-col gap-y-2 text-black">
+              <Label htmlFor="cuatroCifras">
+                {isBrasil ? 'Premio 1a5' : ' Cuatro cifras'}
+              </Label>
+              <Input name="cuatroCifras" placeholder="Cuatro cifras" type="number"  />
+            </div>
+            <div className="flex flex-col gap-y-2 text-black">
+              <Label htmlFor="tresCifras">
+                {isBrasil ? 'Decena' : ' Tres cifras'}
+              </Label>
+              <Input name="tresCifras" placeholder="Tres cifras" type="number"  />
+            </div>
+            <div className="flex flex-col gap-y-2 text-black">
+              <Label htmlFor="dosCifras">
+                {isBrasil ? 'Centena' : ' Dos cifras'}
+              </Label>
+              <Input name="dosCifras" placeholder="Dos cifras" type="number"  />
+            </div>
+            {!isBrasil && (
+              <>
+                <div className="flex flex-col gap-y-2 text-black">
+                  <Label htmlFor="cuatroCombi">Cuatro combi</Label>
+                  <Input name="cuatroCombi" placeholder="Cuatro combi" type="number"  />
+                </div>
+                <div className="flex flex-col gap-y-2 text-black">
+                  <Label htmlFor="tresCombi">Tres combi</Label>
+                  <Input name="tresCombi" placeholder="Tres combi" type="number"  />
+                </div>
+              </>
+            )}
+          </div>
+          
+          <div className="md:hidden grid gap-4">
+            <div className="flex flex-col gap-y-2 text-black">
+              <Label htmlFor="nombre_mobile">Nombre</Label>
+              <Input name="nombre" placeholder="Nombre Completo"  />
+            </div>
+
+            <div className="flex flex-col gap-y-2 text-black">
+              <Label htmlFor="porcentaje_loteria_mobile">% Casa</Label>
+              <Input name="porcentaje_loteria" placeholder="Porcentaje loteria"  type="number" />
+            </div>
+            <div className="flex flex-col gap-y-2 text-black">
+              <Label htmlFor="porcentaje_cliente_mobile">% Vendedor</Label>
+              <Input name="porcentaje_cliente" placeholder="Porcentaje cliente" type="number"  />
+            </div>
+            <div className="flex flex-col gap-y-2 text-black">
+              <Label htmlFor="porcentaje_admin_zona_mobile">% admin zona</Label>
+              <Input name="porcentaje_admin_zona" placeholder="Porcentaje admin zona" type="number"  />
+            </div>
+            <div className="flex flex-col gap-y-2 text-black">
+              <Label htmlFor="cuatroCifras_mobile">
+                {isBrasil ? 'Premio 1a5' : ' Cuatro cifras'}
+              </Label>
+              <Input name="cuatroCifras" placeholder="Cuatro cifras" type="number"  />
+            </div>
+            <div className="flex flex-col gap-y-2 text-black">
+              <Label htmlFor="tresCifras_mobile">
+                {isBrasil ? 'Decena' : ' Tres cifras'}
+              </Label>
+              <Input name="tresCifras" placeholder="Tres cifras" type="number"  />
+            </div>
+            <div className="flex flex-col gap-y-2 text-black">
+              <Label htmlFor="dosCifras_mobile">
+                {isBrasil ? 'Centena' : ' Dos cifras'}
+              </Label>
+              <Input name="dosCifras" placeholder="Dos cifras" type="number"  />
+            </div>
+            {!isBrasil && (
+              <>
+                <div className="flex flex-col gap-y-2 text-black">
+                  <Label htmlFor="cuatroCombi_mobile">Cuatro combi</Label>
+                  <Input name="cuatroCombi" placeholder="Cuatro combi" type="number"  />
+                </div>
+                <div className="flex flex-col gap-y-2 text-black">
+                  <Label htmlFor="tresCombi_mobile">Tres combi</Label>
+                  <Input name="tresCombi" placeholder="Tres combi" type="number"  />
+                </div>
+              </>
+            )}
+          </div>
+          
+          <DialogFooter className="mt-4">
+            <div className="w-full flex items-center justify-end gap-x-2">
+              <DialogClose asChild>
+                <Button type="button" variant="destructive">Cancelar</Button>
+              </DialogClose>
+              <Button type="submit">Guardar Cambios</Button>
+            </div>
           </DialogFooter>
-          </form>
-        </DialogContent>
-      </form>
+        </form>
+      </DialogContent>
     </Dialog>
   )
 }

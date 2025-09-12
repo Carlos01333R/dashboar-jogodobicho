@@ -1,5 +1,5 @@
 import { useVentasStatsBr } from "@/hook/adminZona/br/useVentasStats";
-import useZonas from "@/hook/co/useZonas";
+import useZonas from "@/hook/adminZona/useZonas";
 import * as XLSX from 'xlsx';
 
 interface EstadisticasVentasProps {

@@ -221,7 +221,7 @@ export function ModalHistorialLoterybr() {
           ))}
         </div>
       )}
-   </section>
+      </section>
     </div>
             <DialogFooter>
             <section className="w-full  flex items-center justify-center gap-x-2">

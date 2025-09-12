@@ -49,7 +49,7 @@ export function ModalDetail({
                   Ver Detalles
          </button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[500px]">
+        <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-scroll">
           <DialogHeader>
          <div className="flex items-start justify-between mb-4 pt-2">
                       <div className="flex items-center space-x-3">

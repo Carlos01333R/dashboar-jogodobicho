@@ -1,17 +1,20 @@
-
+/* eslint-disable react-hooks/exhaustive-deps */
 import { supabase } from "@/lib/supabase";
 import { useEffect, useState } from "react";
+import { useAuthAdminZona } from "@/context/AuthContextAdminZona";
 
 
-const useAdminZonas = () => {
+const useZonas = () => {
   const [zonas, setZonas] = useState([] as any);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null as string | null);
+  const {selectedCountry} = useAuthAdminZona();
+
 
   async function getCountries() {
     try {
       setLoading(true);
-      const { data, error } = await supabase.from("admin_zona").select();
+      const { data, error } = await supabase.from("zonas").select().eq("pais", selectedCountry);
 
       if (error) {
         const errorMessage = error instanceof Error ? error.message : "Error desconocido";
@@ -41,4 +44,4 @@ const useAdminZonas = () => {
   };
 };
 
-export default useAdminZonas;
+export default useZonas;

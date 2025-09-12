@@ -53,7 +53,7 @@ export default function UsersComponentAdminZona({submit, updateUser, Delete}: pr
     );
   }
 
-  if(zonas.length === 0) {
+  if(zonaAdmin.length === 0) {
     return (
       <div className="flex justify-center items-center ">
         <div className="bg-red-50 border border-red-200 rounded-lg p-6">

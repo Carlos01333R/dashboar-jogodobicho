@@ -1,17 +1,18 @@
 'use client'
 import React, { useState } from 'react';
 import { Users as UsersIcon, Search, User, TicketCheck } from 'lucide-react';
-import useZonas from '@/hook/co/useZonas';
+import useZonas from '@/hook/adminZona/useZonas';
 import { ModalFromZonas } from '../zonas/ModalFromZonas';
 import { ModalUpdateZonas } from '../zonas/ModalUpdateZonas';
 import { FormatCurrencyCO } from '@/utils/Format';
 import { useAuthAdminZona } from '@/context/AuthContextAdminZona';
 
 export default function ZonasComponentAdminZona() {
-    const { user } = useAuthAdminZona()
+    const { user, selectedCountry } = useAuthAdminZona()
     const zonaAdmin = user?.sector || ""
-  const { zonas, loading , error } = useZonas();
-  
+    const { zonas, loading , error } = useZonas();
+    const isBrasil = selectedCountry === 'brazil'
+
   
   const filteredUsers = zonas.filter((zonas : any ) => 
      zonas.nombre.toLowerCase().includes(zonaAdmin.toLowerCase())
@@ -134,8 +135,8 @@ export default function ZonasComponentAdminZona() {
               <section className='flex items-center gap-x-3 justify-center'>
                   <div className="flex flex-col items-center justify-center bg-emerald-100 p-2 rounded-lg shadow-2xl border border-emerald-500">
                           <span className="text-sm text-emerald-800 font-bold ">
-                          
-                            4 cifras
+                          {isBrasil ? 'Premio 1a5' : '4 cifras'}
+                         
                           </span>
                           <span className="text-sm font-medium text-gray-900">
                           {FormatCurrencyCO(zonas["4cifras"])}
@@ -143,8 +144,8 @@ export default function ZonasComponentAdminZona() {
                    </div>
                  <div className="flex flex-col items-center justify-center bg-emerald-100 p-2 rounded-lg shadow-2xl border border-emerald-500">
                           <span className="text-sm text-emerald-800 font-bold ">
-                          
-                            3 cifras
+                          {isBrasil ? 'Decena' : '3 cifras'}
+                           
                           </span>
                           <span className="text-sm font-medium text-gray-900">
                           {FormatCurrencyCO(zonas["3cifras"])}
@@ -153,8 +154,8 @@ export default function ZonasComponentAdminZona() {
 
                      <div className="flex flex-col items-center justify-center bg-emerald-100 p-2 rounded-lg shadow-2xl border border-emerald-500">
                           <span className="text-sm text-emerald-800 font-bold ">
+                            {isBrasil ? 'Centena' : '2 cifras'}
                           
-                            2 cifras
                           </span>
                           <span className="text-sm font-medium text-gray-900">
                           {FormatCurrencyCO(zonas["2cifras"])}
@@ -162,6 +163,7 @@ export default function ZonasComponentAdminZona() {
                    </div>
               </section>
 
+                {!isBrasil && (
                   <section className='flex justify-center items-center gap-x-3'>
                 
                  <div className="flex flex-col  items-center justify-center bg-emerald-100 p-2 rounded-lg shadow-2xl border border-emerald-500">
@@ -182,7 +184,8 @@ export default function ZonasComponentAdminZona() {
                             {FormatCurrencyCO(zonas["3combi"])}
                           </span>
                        </div>
-              </section>
+                </section>
+                )}
 
               </div>
              
@@ -190,7 +193,7 @@ export default function ZonasComponentAdminZona() {
             
              <div className="mt-4 pt-4 border-t border-gray-200">
                 <div className="flex space-x-2">
-                  <ModalUpdateZonas  id={zonas.id} nombre={zonas.nombre} porcentaje_loteria={zonas.porcentaje_loteria} porcentaje_cliente={zonas.porcentaje_cliente} porcentaje_admin_zona={zonas.porcentaje_admin_zona} cuatroCifras={zonas["4cifras"]} tresCifras={zonas["3cifras"]} dosCifras={zonas["2cifras"]} cuatroCombi={zonas["4combi"]} tresCombi={zonas["3combi"]} />
+                  <ModalUpdateZonas  id={zonas.id} nombre={zonas.nombre} porcentaje_loteria={zonas.porcentaje_loteria} porcentaje_cliente={zonas.porcentaje_cliente} porcentaje_admin_zona={zonas.porcentaje_admin_zona} cuatroCifras={zonas["4cifras"]} tresCifras={zonas["3cifras"]} dosCifras={zonas["2cifras"]} cuatroCombi={zonas["4combi"]} tresCombi={zonas["3combi"]} pais={selectedCountry} />
                  
                   
                 </div>

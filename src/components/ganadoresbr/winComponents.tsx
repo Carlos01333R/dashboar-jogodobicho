@@ -30,7 +30,7 @@ export function WinnersList({
   fecha_filtro,
   loteria_filtro,
   modalidad_filtro,
-  ultimas_48_horas = false,
+  ultimas_48_horas = true,
 }: WinnersListProps) {
   const { data, loading, error, refetch } = useWinners({
     fecha_filtro,
@@ -239,8 +239,8 @@ export function WinnersList({
       {/* Lista de ganadores agrupados */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="text-lg font-semibold hidden md:">Lista de Ganadores ultimas 48 horas</h3>
-          <p className="text-sm font-semibold md:hidden text-gray-500">Ganadores ultimas 48 horas</p>
+          <h3 className="text-lg font-semibold hidden md:block">Lista de Ganadores ultimas 48 horas</h3>
+          <p className="text-sm font-semibold  md:hidden text-gray-500">Ganadores ultimas 48 horas</p>
           <Button onClick={refetch} variant="outline" size="sm">
             <RefreshCw className="h-4 w-4 mr-2" />
             Actualizar

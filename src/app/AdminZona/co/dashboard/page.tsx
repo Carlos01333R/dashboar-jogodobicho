@@ -4,7 +4,7 @@ import { Download } from 'lucide-react';
 import { DateRange } from "react-day-picker";
 import { DateRangePicker } from "@/components/DateRangePicker";
 import { formatDateToMDYYYY } from "@/utils/date-utils";
-import DataVentasByFecha from "@/lib/VentasZonas/DataVentasByFecha";
+import DataVentasByFechaAdminZona from "@/lib/adminZona/co/ventasZonas/DataVentasByFecha";
 import { useAuthAdminZona } from "@/context/AuthContextAdminZona";
 import VentasAdminComponents from "@/components/adminzona/Ventas";
 
@@ -22,7 +22,7 @@ export default function Ventas() {
   const desde = formatDateToMDYYYY(dateRange?.from)
   const hasta = formatDateToMDYYYY(dateRange?.to)
 
-     const { itemsVentasHoy, ventas, error, loading} = DataVentasByFecha({desde, hasta, zona}); 
+     const { itemsVentasHoy, ventas, error, loading} = DataVentasByFechaAdminZona({desde, hasta, zona}); 
 
   
 
@@ -69,7 +69,7 @@ export default function Ventas() {
       <section>
            
       <div className="text-sm text-muted-foreground py-3 md:py-0">
-        <p className="text-xl font-bold text-gray-900 text-center hidden md:block">Fecha seleccionada:</p>
+        <p className="text-xl font-bold text-gray-900 text-center hidden md:block">Fecha seleccionada :</p>
         <article className="flex gap-x-2">
          {dateRange?.from && (
           <p className="flex gap-x-1 items-center"><span className="font-bold">Desde:</span> {formatDateToMDYYYY(dateRange.from)}</p>

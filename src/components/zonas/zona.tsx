@@ -6,10 +6,14 @@ import { ModalFromZonas } from './ModalFromZonas';
 import { ModalDeleteZonas } from './ModalDeleteZonas';
 import { ModalUpdateZonas } from './ModalUpdateZonas';
 import { FormatCurrencyCO } from '@/utils/Format';
+import { useAuth } from '@/context/AuthContext';
+import { se } from 'date-fns/locale';
 
 export default function ZonasComponent() {
   const [searchTerm, setSearchTerm] = useState('')
   const { zonas, loading , error } = useZonas();
+  const { selectedCountry } = useAuth();
+  const isBrasil = selectedCountry === 'brazil';
   
   
   const filteredUsers = zonas.filter((zonas : any ) => 
@@ -115,7 +119,7 @@ export default function ZonasComponent() {
                           <section className="text-sm text-gray-600 flex items-center gap-x-2">
                             <p className='flex items-center gap-x-1.5'>
                                 <TicketCheck className="w-4 h-4 mr-1" />
-                               <span>loteria:</span>
+                               <span>Casa:</span>
                             </p>
                                <span className="text-sm font-medium text-gray-900">{zonas.porcentaje_loteria}%</span>
                           </section>
@@ -126,7 +130,7 @@ export default function ZonasComponent() {
                           <section className="text-sm text-gray-600 flex items-center gap-x-2">
                            <p className='flex items-center gap-x-1.5'>
                                <User className="w-4 h-4 mr-1" />
-                             <span>usuario:</span>
+                             <span>Vendedor:</span>
                            </p>
                            <span className="text-sm font-medium text-gray-900">
                             {zonas.porcentaje_cliente}%
@@ -149,8 +153,8 @@ export default function ZonasComponent() {
               <section className='flex items-center gap-x-3 justify-center'>
                   <div className="flex flex-col items-center justify-center bg-emerald-100 p-2 rounded-lg shadow-2xl border border-emerald-500">
                           <span className="text-sm text-emerald-800 font-bold ">
+                          {isBrasil ? 'Premio 1a5' : '  4 cifras'}
                           
-                            4 cifras
                           </span>
                           <span className="text-sm font-medium text-gray-900">
                           {FormatCurrencyCO(zonas["4cifras"])}
@@ -158,8 +162,8 @@ export default function ZonasComponent() {
                    </div>
                  <div className="flex flex-col items-center justify-center bg-emerald-100 p-2 rounded-lg shadow-2xl border border-emerald-500">
                           <span className="text-sm text-emerald-800 font-bold ">
-                          
-                            3 cifras
+                          {isBrasil ? 'Centena' : '  3 cifras'}
+                         
                           </span>
                           <span className="text-sm font-medium text-gray-900">
                           {FormatCurrencyCO(zonas["3cifras"])}
@@ -168,8 +172,8 @@ export default function ZonasComponent() {
 
                      <div className="flex flex-col items-center justify-center bg-emerald-100 p-2 rounded-lg shadow-2xl border border-emerald-500">
                           <span className="text-sm text-emerald-800 font-bold ">
-                          
-                            2 cifras
+                          {isBrasil ? 'Decena' : '  2 cifras'}
+                            
                           </span>
                           <span className="text-sm font-medium text-gray-900">
                           {FormatCurrencyCO(zonas["2cifras"])}
@@ -177,7 +181,7 @@ export default function ZonasComponent() {
                    </div>
               </section>
 
-                  <section className='flex justify-center items-center gap-x-3'>
+                  <section className={`flex justify-center items-center gap-x-3 ${isBrasil ? 'hidden' : ''}`}>
                 
                  <div className="flex flex-col  items-center justify-center bg-emerald-100 p-2 rounded-lg shadow-2xl border border-emerald-500">
                           <span className="text-sm text-emerald-800 font-bold ">
@@ -188,6 +192,7 @@ export default function ZonasComponent() {
                             {FormatCurrencyCO(zonas["4combi"])}
                           </span>
                        </div>
+                    
                    <div className="flex flex-col  items-center justify-center bg-emerald-100 p-2 rounded-lg shadow-2xl border border-emerald-500">
                           <span className="text-sm text-emerald-800 font-bold ">
                            
@@ -197,7 +202,7 @@ export default function ZonasComponent() {
                             {FormatCurrencyCO(zonas["3combi"])}
                           </span>
                        </div>
-              </section>
+                 </section>
 
               </div>
              
@@ -205,7 +210,7 @@ export default function ZonasComponent() {
             
              <div className="mt-4 pt-4 border-t border-gray-200">
                 <div className="flex space-x-2">
-                  <ModalUpdateZonas  id={zonas.id} nombre={zonas.nombre} porcentaje_loteria={zonas.porcentaje_loteria} porcentaje_cliente={zonas.porcentaje_cliente} porcentaje_admin_zona={zonas.porcentaje_admin_zona} cuatroCifras={zonas["4cifras"]} tresCifras={zonas["3cifras"]} dosCifras={zonas["2cifras"]} cuatroCombi={zonas["4combi"]} tresCombi={zonas["3combi"]} />
+                  <ModalUpdateZonas  id={zonas.id} nombre={zonas.nombre} porcentaje_loteria={zonas.porcentaje_loteria} porcentaje_cliente={zonas.porcentaje_cliente} porcentaje_admin_zona={zonas.porcentaje_admin_zona} cuatroCifras={zonas["4cifras"]} tresCifras={zonas["3cifras"]} dosCifras={zonas["2cifras"]} cuatroCombi={zonas["4combi"]} tresCombi={zonas["3combi"]} pais={selectedCountry} />
                   <ModalDeleteZonas name={zonas.nombre} id={zonas.id} />
                   
                 </div>

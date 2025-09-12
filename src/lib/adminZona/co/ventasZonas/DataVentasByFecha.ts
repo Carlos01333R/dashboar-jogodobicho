@@ -1,6 +1,6 @@
 import useVentasTotales from "@/hook/co/ventasZonas/useVentasFechasZonas";
 import usePremioByFecha from "@/hook/co/ventasZonas/usePremioByFecha";
-import useZonas from "@/hook/co/useZonas";
+import useZonas from "@/hook/adminZona/useZonas";
 import { DollarSign } from "lucide-react";
 
 
@@ -11,7 +11,7 @@ interface Props {
 }
 
 
-export default function DataVentasByFecha({desde, hasta, zona} : Props) {
+export default function DataVentasByFechaAdminZona({desde, hasta, zona} : Props) {
 
     const { ventas, loading, error, totales } = useVentasTotales(
    desde, hasta,  zona 
@@ -27,7 +27,6 @@ export default function DataVentasByFecha({desde, hasta, zona} : Props) {
 
   const { zonas } = useZonas();
 
-  console.log(zonas);
   const adminZona = zonas
     ? zonas.find((z : any) => z.nombre === zona)?.porcentaje_admin_zona
     : null;
