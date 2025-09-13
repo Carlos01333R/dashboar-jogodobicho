@@ -39,6 +39,9 @@ export function ModalFromZonas() {
     const dosCifras = formData.get("dosCifras");
     const cuatroCombi = formData.get("cuatroCombi");
     const tresCombi = formData.get("tresCombi");
+    const cuatroCifras1a5 = formData.get("cuatroCifras1a5");
+    const tresCifras1a5 = formData.get("tresCifras1a5");
+    const dosCifras1a5 = formData.get("dosCifras1a5");
 
     if (
       nombre === "" ||
@@ -47,7 +50,7 @@ export function ModalFromZonas() {
       porcentaje_admin_zona === "" ||
       cuatroCifras === "" ||
       tresCifras === "" ||
-      dosCifras === "" 
+      dosCifras === ""  
     ) {
       toast.error("Complete todos los campos");
       return;
@@ -67,6 +70,9 @@ export function ModalFromZonas() {
           "4combi": cuatroCombi,
           "3combi": tresCombi,
           pais: selectedCountry,
+          "4cifras1a5": cuatroCifras1a5,
+          "3cifras1a5": tresCifras1a5,
+          "2cifras1a5": dosCifras1a5,
         },
       ])
       .select();
@@ -93,7 +99,7 @@ export function ModalFromZonas() {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] md:max-w-[500px]">
         <DialogHeader>
-          <DialogTitle>Crear una nueva zona</DialogTitle>
+          <DialogTitle className="">Crear una nueva zona</DialogTitle>
           <DialogDescription>
             <span>Crea una nueva zona para tu empresa.</span>
           </DialogDescription>
@@ -119,7 +125,7 @@ export function ModalFromZonas() {
             </div>
             <div className="flex flex-col gap-y-2 text-black">
               <Label htmlFor="cuatroCifras">
-                {isBrasil ? 'Premio 1a5' : ' Cuatro cifras'}
+                {isBrasil ? 'millar' : ' Cuatro cifras'}
               </Label>
               <Input name="cuatroCifras" placeholder="Cuatro cifras" type="number"  />
             </div>
@@ -135,6 +141,31 @@ export function ModalFromZonas() {
               </Label>
               <Input name="dosCifras" placeholder="Dos cifras" type="number"  />
             </div>
+
+            {isBrasil && (
+              <>
+                <div className="flex flex-col gap-y-2 text-black">
+                  <Label htmlFor="cuatroCifras1a5">
+                  millar1a5
+                  </Label>
+                  <Input name="cuatroCifras1a5" placeholder="Cuatro cifras" type="number"  />
+                </div>
+                <div className="flex flex-col gap-y-2 text-black">
+                  <Label htmlFor="tresCifras1a5">
+                   Centena1a5
+                  </Label>
+                  <Input name="tresCifras1a5" placeholder="Tres cifras" type="number"  />
+                </div>
+                <div className="flex flex-col gap-y-2 text-black">
+                  <Label htmlFor="dosCifras1a5">
+                    Decena1a5
+                  </Label>
+                  <Input name="dosCifras1a5" placeholder="Dos cifras" type="number"  />
+                </div>
+              </>
+            )}
+
+
             {!isBrasil && (
               <>
                 <div className="flex flex-col gap-y-2 text-black">
@@ -175,16 +206,39 @@ export function ModalFromZonas() {
             </div>
             <div className="flex flex-col gap-y-2 text-black">
               <Label htmlFor="tresCifras_mobile">
-                {isBrasil ? 'Decena' : ' Tres cifras'}
+                {isBrasil ? 'Centena' : ' Tres cifras'}
               </Label>
               <Input name="tresCifras" placeholder="Tres cifras" type="number"  />
             </div>
             <div className="flex flex-col gap-y-2 text-black">
               <Label htmlFor="dosCifras_mobile">
-                {isBrasil ? 'Centena' : ' Dos cifras'}
+                {isBrasil ? 'decena' : ' Dos cifras'}
               </Label>
               <Input name="dosCifras" placeholder="Dos cifras" type="number"  />
             </div>
+
+            {isBrasil && (
+              <>
+                <div className="flex flex-col gap-y-2 text-black">
+                  <Label htmlFor="cuatroCifras1a5_mobile">
+                    {isBrasil ? 'Premio 1a5' : ' Cuatro cifras'}
+                  </Label>
+                  <Input name="cuatroCifras1a5" placeholder="Cuatro cifras" type="number"  />
+                </div>
+                <div className="flex flex-col gap-y-2 text-black">
+                  <Label htmlFor="tresCifras1a5_mobile">
+                    {isBrasil ? 'Decena' : ' Tres cifras'}
+                  </Label>
+                  <Input name="tresCifras1a5" placeholder="Tres cifras" type="number"  />
+                </div>
+                <div className="flex flex-col gap-y-2 text-black">
+                  <Label htmlFor="dosCifras1a5_mobile">
+                    {isBrasil ? 'Centena' : ' Dos cifras'}
+                  </Label>
+                  <Input name="dosCifras1a5" placeholder="Dos cifras" type="number"  />
+                </div>
+              </>
+            )}
             {!isBrasil && (
               <>
                 <div className="flex flex-col gap-y-2 text-black">

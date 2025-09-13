@@ -142,7 +142,7 @@ export function useWinners(options: UseWinnersOptions = {}) {
     try {
       
 
-      const { data: result, error: supabaseError } = await supabase.rpc("buscar_ganadores_48horas", {
+      const { data: result, error: supabaseError } = await supabase.rpc("buscar_ganadores_48horas_v2", {
         fecha_filtro: options.fecha_filtro || null,
         loteria_filtro: options.loteria_filtro || null,
         modalidad_filtro: options.modalidad_filtro || null,

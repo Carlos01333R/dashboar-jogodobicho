@@ -20,13 +20,15 @@ export const getAvailableLotteries = () => {
   })
 }
 
-export const getBrazilDate = () => {
-  return new Date().toLocaleDateString("pt-BR", {
-    timeZone: "America/Sao_Paulo",
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  })
+// En tu archivo lottery-config.ts
+export function getBrazilDate(): string {
+  const now = new Date();
+  const offset = -3; // Horario de Brasil (UTC-3)
+  const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+  const brasilTime = new Date(utc + (3600000 * offset));
+  
+  // Formato ISO: YYYY-MM-DD
+  return brasilTime.toISOString().split('T')[0];
 }
 
 
