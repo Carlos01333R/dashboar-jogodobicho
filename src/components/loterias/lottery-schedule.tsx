@@ -82,8 +82,19 @@ export function LotterySchedule() {
       return
     }
 
+    const allDaysWithTime = DAYS_OF_WEEK.reduce(
+      (acc, day) => {
+        acc[day.key] = newLoteria.sorteo_time || "09:00"
+        return acc
+      },
+      {} as Record<string, string>,
+    )
+
     setUpdating(true)
-    const result = await createLoteria(newLoteria)
+    const result = await createLoteria({
+      ...newLoteria,
+      dias: allDaysWithTime, // Apply main time to all days by default
+    })
 
     if (result.success) {
       setShowAddModal(false)
@@ -233,7 +244,7 @@ export function LotterySchedule() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {loterias.map((loteria : any) => (
+        {loterias.map((loteria) => (
           <Card key={loteria.id} className="hover:shadow-lg transition-shadow duration-200 border-border/50">
             <CardHeader className="pb-3">
               <CardTitle className="flex items-center justify-between text-lg">
@@ -267,7 +278,7 @@ export function LotterySchedule() {
                             <Checkbox
                               id={day.key}
                               checked={!!editingDays[day.key]}
-                              onCheckedChange={(checked : any) => toggleDay(day.key, checked as boolean)}
+                              onCheckedChange={(checked) => toggleDay(day.key, checked as boolean)}
                             />
                             <Label htmlFor={day.key} className="flex-1 text-sm font-medium">
                               {day.label}
@@ -317,7 +328,7 @@ export function LotterySchedule() {
                 <div className="space-y-1">
                   <p className="text-xs font-medium text-muted-foreground">Días activos:</p>
                   <div className="flex flex-wrap gap-1">
-                    {loteria.dias_activos.map((day : any) => (
+                    {loteria.dias_activos.map((day) => (
                       <span
                         key={day}
                         className="inline-flex items-center px-2 py-1 rounded-md bg-primary/10 text-primary text-xs"

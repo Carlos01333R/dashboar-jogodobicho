@@ -8,16 +8,17 @@ import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { lotteries, getBrazilDate } from "@/lib/br/lottery-config"
 import { supabase } from "@/lib/supabase"
-import { Save, ArrowLeft } from "lucide-react"
-import Link from "next/link"
-import Image from "next/image"
+import { Save, ArrowLeft, Loader2, AlertCircle, RefreshCw } from "lucide-react"
 import { toast } from "sonner"
 import { ModalHistorialLoterybr } from "@/components/loterias/ModalResulLoterybr"
+import { useLoterias } from "@/hook/br/use-loterias"
 
 export default function ResultsManager() {
   const [selectedLottery, setSelectedLottery] = useState<string>("")
   const [results, setResults] = useState<string[]>(["", "", "", "", ""])
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const { loterias, loading, error, refetch} = useLoterias()
+
 
   const handleResultChange = (index: number, value: string) => {
     const newResults = [...results]
@@ -69,6 +70,33 @@ export default function ResultsManager() {
     }
   }
 
+  if (loading) {
+    return (
+      <div className="w-full max-w-4xl mx-auto p-6">
+       
+        <div className="flex items-center justify-center py-12">
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          <span className="ml-2 text-muted-foreground">Carregando loterias...</span>
+        </div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="w-full max-w-4xl mx-auto p-6">
+       
+        <div className="flex flex-col items-center justify-center py-12">
+          <AlertCircle className="h-12 w-12 text-destructive mb-4" />
+          <p className="text-destructive mb-4">Erro ao carregar horários: {error}</p>
+          <Button onClick={refetch} variant="outline">
+            <RefreshCw className="h-4 w-4 mr-2" />
+            Tentar novamente
+          </Button>
+        </div>
+      </div>
+    )
+  }
   return (
     <div className="w-full px-2">
     <section className="py-4 md:px-4 ">
@@ -99,11 +127,11 @@ export default function ResultsManager() {
                 <SelectValue placeholder="Selecciona una lotería" />
               </SelectTrigger>
               <SelectContent>
-                {lotteries.map((lottery) => (
+                {loterias.map((lottery) => (
                   <SelectItem key={lottery.id} value={lottery.id}>
                     <div className="flex items-center justify-between w-full">
                       <span className="font-medium">{lottery.name}</span>
-                      <span className="text-sm text-muted-foreground ml-2">{lottery.time}</span>
+                      <span className="text-sm text-muted-foreground ml-2">{lottery.sorteo_time}</span>
                     </div>
                   </SelectItem>
                 ))}

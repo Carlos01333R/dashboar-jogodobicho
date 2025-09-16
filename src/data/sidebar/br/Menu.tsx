@@ -77,5 +77,13 @@ import {
         { id: 'resultados', label: 'Ingresar Resultados', icon: Ticket, section: 'resultado', href: '/br/dashboard/loterias/insertar' },
         { id: 'resultados', label: 'Resultados', icon: Ticket, section: 'resultadoLoterias', href: '/br/dashboard/loterias/resultados' },
       ]
+    },
+    {
+      id:'rifas',
+      label: 'Rifas',
+      icon: Ticket,
+      href: '/br/dashboard/rifas/administrar',
+      section: 'rifas',
+    
     }
   ];

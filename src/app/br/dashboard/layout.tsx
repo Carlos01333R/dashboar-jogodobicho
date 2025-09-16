@@ -73,6 +73,9 @@ export default function DashboardLayout({
       case 'resultadoLoterias': return 'Resultados de Loterias';
       case 'resultado': return 'Ingresar Resultado de Loterias';
       case 'ventas-zonas': return 'Ventas por Zona';
+      case 'rifas': return 'Gestión de Rifas';
+      case 'sales_rifas': return 'Ventas de Rifas';
+      case 'winners-rifas': return 'Ganadores de Rifas';
       default: return 'Dashboard';
     }
   };
