@@ -15,7 +15,6 @@ import { useLoterias } from "@/hook/br/use-loterias"
 import { toast } from "sonner";
 import { supabase } from "@/lib/supabase"
 
-
 interface CrearRifaFormProps {
   onSuccess?: () => void
 }
@@ -239,7 +238,7 @@ const ajustarFechaBrasil = (fecha: string, hora: string): { fechaAjustada: strin
               />
             </div>
 
-            <span>fecha seleccionada {formData.fecha}</span>
+         
             <div className="space-y-2">
               <Label htmlFor="hora">Hora del Sorteo</Label>
               <Input
@@ -251,7 +250,7 @@ const ajustarFechaBrasil = (fecha: string, hora: string): { fechaAjustada: strin
               />
             </div>
           </div>
-          <span>hora seleccionada {formData.hora}</span>
+       
 
           {/* Lotería */}
           <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -291,7 +290,7 @@ const ajustarFechaBrasil = (fecha: string, hora: string): { fechaAjustada: strin
               <Input
                 id="numero_minimo"
                 type="number"
-                min="0"
+                min="3"
                 value={formData.numero_minimo}
                 onChange={(e) => handleInputChange("numero_minimo", Number.parseInt(e.target.value))}
                 required

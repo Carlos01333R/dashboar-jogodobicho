@@ -131,13 +131,14 @@ export function ModalFromZonas() {
             </div>
             <div className="flex flex-col gap-y-2 text-black">
               <Label htmlFor="tresCifras">
-                {isBrasil ? 'Decena' : ' Tres cifras'}
+                {isBrasil ? 'Centena' : ' Tres cifras'}
               </Label>
               <Input name="tresCifras" placeholder="Tres cifras" type="number"  />
             </div>
+
             <div className="flex flex-col gap-y-2 text-black">
               <Label htmlFor="dosCifras">
-                {isBrasil ? 'Centena' : ' Dos cifras'}
+                {isBrasil ? 'Decena' : ' Dos cifras'}
               </Label>
               <Input name="dosCifras" placeholder="Dos cifras" type="number"  />
             </div>

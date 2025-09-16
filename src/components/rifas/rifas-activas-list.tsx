@@ -9,7 +9,9 @@ import { useState } from "react"
 import { supabase } from "@/lib/supabase"
 import { toast } from "sonner"
 import { UpdateRifaModal } from "./UpdateRifaModal"
-import { ModalDelete } from "../usuarios/ModalDelete"
+import { FormatCurrencyBR } from "@/utils/Format"
+
+
 
 export function RifasActivasList() {
   const { rifas, loading, error, refetch } = useRifasActivas()
@@ -129,7 +131,9 @@ export function RifasActivasList() {
                     {rifa.hora}
                   </div>
                   <div className="flex items-center gap-2">
-                    <DollarSign className="h-4 w-4" />${rifa.valor_ticket.toLocaleString("es-CO")}
+                   
+                    {FormatCurrencyBR(rifa.valor_ticket)}
+                 
                   </div>
                   <div className="flex items-center gap-2">
                     <Users className="h-4 w-4" />
