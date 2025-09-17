@@ -4,7 +4,7 @@ import { useVentasRifas } from "@/hook/br/rifas/use-ventas-rifas"
 import { TicketDisplay } from "@/components/rifas/ticket-display"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Loader2, ArrowLeft, RefreshCw } from "lucide-react"
+import { Loader2, RefreshCw } from "lucide-react"
 
 
 interface TicketPageProps {
