@@ -1,24 +1,31 @@
 "use client"
+
 import { useVentasRifas } from "@/hook/br/rifas/use-ventas-rifas"
 import { TicketDisplay } from "@/components/rifas/ticket-display"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Loader2, ArrowLeft, RefreshCw } from "lucide-react"
-import Link from "next/link"
+
 
 interface TicketPageProps {
-  params: {
+  params: Promise<{
     id: string
-  }
+  }>
 }
 
-export default function TicketPage({ params }: TicketPageProps) {
-  const { data, loading, error, refetch } = useVentasRifas(params.id)
+export default async function TicketPage({ params }: TicketPageProps) {
+  const { id } = await params
+
+  return <TicketPageClient ticketId={id} />
+}
+
+function TicketPageClient({ ticketId }: { ticketId: string }) {
+  const { data, loading, error, refetch } = useVentasRifas(ticketId)
 
   return (
     <div className="container mx-auto p-6 max-w-4xl">
       <div className="space-y-6">
-
+       
 
         {loading && (
           <Card>
