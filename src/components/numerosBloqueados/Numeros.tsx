@@ -5,6 +5,8 @@ import { ModalFromNumerosBloqueados } from '@/components/numerosBloqueados/Modal
 import { ModalDelete } from '../usuarios/ModalDelete';
 import { ModalUpdateNumerosBloqueados } from '@/components/numerosBloqueados/ModalUpdate';
 import { ModalMaximoValor } from './ModalMaximoNumeros';
+import { ModalMaximoValorbr } from './ModalMaximobr';
+import { useAuth } from '@/context/AuthContext';
 
 interface prop{
     Submit: (e: FormEvent<Element>) => void
@@ -18,6 +20,8 @@ interface prop{
 export default function BlockedNumbers({Submit, Delete, Update, loading, error, numerosBloqueados, }: prop){
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
+  const {selectedCountry} = useAuth();
+  const isBrasil = selectedCountry === 'brazil';
 
   const filteredNumbers = numerosBloqueados.filter((blocked : any)  =>
     (statusFilter === 'all' || (statusFilter === 'active' ? blocked.active : !blocked.active)) &&
@@ -58,7 +62,11 @@ export default function BlockedNumbers({Submit, Delete, Update, loading, error, 
         </div>
         <div className="flex items-center space-x-3 py-2 md:py-0">
           <ModalFromNumerosBloqueados  onSubmit={Submit} />
-          <ModalMaximoValor />
+          {isBrasil ? (
+            <ModalMaximoValorbr />
+          ) : (
+            <ModalMaximoValor />
+          )}
         </div>
       </div>
 

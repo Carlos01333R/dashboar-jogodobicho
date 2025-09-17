@@ -139,7 +139,7 @@ export default function ZonasComponentAdminZona() {
                          
                           </span>
                           <span className="text-sm font-medium text-gray-900">
-                         {isBrasil ? FormatCurrencyBR(zonas["4cifras"]) : FormatCurrencyCO(zonas["4cifras"])}
+                         {isBrasil ? FormatCurrencyBR(zonas["milla"]) : FormatCurrencyCO(zonas["4cifras"])}
                        
                           </span>
                    </div>
@@ -149,7 +149,7 @@ export default function ZonasComponentAdminZona() {
                            
                           </span>
                           <span className="text-sm font-medium text-gray-900">
-                            {isBrasil ? FormatCurrencyBR(zonas["3cifras"]) : FormatCurrencyCO(zonas["3cifras"])}
+                            {isBrasil ? FormatCurrencyBR(zonas["centena"]) : FormatCurrencyCO(zonas["3cifras"])}
                        
                           </span>
                    </div>
@@ -160,7 +160,7 @@ export default function ZonasComponentAdminZona() {
                           
                           </span>
                           <span className="text-sm font-medium text-gray-900">
-                            {isBrasil ? FormatCurrencyBR(zonas["2cifras"]) : FormatCurrencyCO(zonas["2cifras"])}
+                            {isBrasil ? FormatCurrencyBR(zonas["decena"]) : FormatCurrencyCO(zonas["2cifras"])}
                        
                           </span>
                    </div>
@@ -173,7 +173,7 @@ export default function ZonasComponentAdminZona() {
                                        
                                        </span>
                                        <span className="text-sm font-medium text-gray-900">
-                                       {FormatCurrencyBR(zonas["4cifras1a5"])}
+                                       {FormatCurrencyBR(zonas["millar1a5"])}
                                        </span>
                                 </div>
                               <div className="flex flex-col items-center justify-center bg-emerald-100 p-2 rounded-lg shadow-2xl border border-emerald-500">
@@ -182,7 +182,7 @@ export default function ZonasComponentAdminZona() {
                                         Centena1a5
                                        </span>
                                        <span className="text-sm font-medium text-gray-900">
-                                       {FormatCurrencyBR(zonas["3cifras1a5"])}
+                                       {FormatCurrencyBR(zonas["centena1a5"])}
                                        </span>
                                 </div>
              
@@ -192,7 +192,7 @@ export default function ZonasComponentAdminZona() {
                                          
                                        </span>
                                        <span className="text-sm font-medium text-gray-900">
-                                       {FormatCurrencyBR(zonas["2cifras1a5"])}
+                                       {FormatCurrencyBR(zonas["decena1a5"])}
                                        </span>
                                 </div>
                            </section>
@@ -226,7 +226,7 @@ export default function ZonasComponentAdminZona() {
             
              <div className="mt-4 pt-4 border-t border-gray-200">
                 <div className="flex space-x-2">
-                  <ModalUpdateZonas  id={zonas.id} nombre={zonas.nombre} porcentaje_loteria={zonas.porcentaje_loteria} porcentaje_cliente={zonas.porcentaje_cliente} porcentaje_admin_zona={zonas.porcentaje_admin_zona} cuatroCifras={zonas["4cifras"]} tresCifras={zonas["3cifras"]} dosCifras={zonas["2cifras"]} cuatroCombi={zonas["4combi"]} tresCombi={zonas["3combi"]} pais={selectedCountry} cuatroCifras1a5={zonas["4cifras1a5"]} tresCifras1a5={zonas["3cifras1a5"]} dosCifras1a5={zonas["2cifras1a5"]} />
+                  <ModalUpdateZonas  id={zonas.id} nombre={zonas.nombre} porcentaje_loteria={zonas.porcentaje_loteria} porcentaje_cliente={zonas.porcentaje_cliente} porcentaje_admin_zona={zonas.porcentaje_admin_zona} cuatroCifras={zonas["4cifras"]} tresCifras={zonas["3cifras"]} dosCifras={zonas["2cifras"]} cuatroCombi={zonas["4combi"]} tresCombi={zonas["3combi"]} pais={selectedCountry} milla={zonas["milla"]} centena={zonas["centena"]} decena={zonas["decena"]} millar1a5={zonas["millar1a5"]} centena1a5={zonas["centena1a5"]} decena1a5={zonas["decena1a5"]} />
                  
                   
                 </div>

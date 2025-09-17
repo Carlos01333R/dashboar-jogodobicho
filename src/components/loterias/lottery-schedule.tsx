@@ -8,7 +8,8 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import { useState } from "react"
-import { Loteria, useLoterias } from "@/hook/br/use-loterias"
+import { useLoterias, type Loteria } from "@/hook/br/use-loterias"
+
 
 const DAYS_OF_WEEK = [
   { key: "lunes", label: "Lunes" },
@@ -33,6 +34,7 @@ export function LotterySchedule() {
     sorteo_time: "",
     dias: {} as Record<string, string>,
   })
+  const [selectedDays, setSelectedDays] = useState<Record<string, boolean>>({})
 
   const handleUpdateDays = async (loteriaId: string) => {
     if (!editingLoteria) return
@@ -82,18 +84,20 @@ export function LotterySchedule() {
       return
     }
 
-    const allDaysWithTime = DAYS_OF_WEEK.reduce(
-      (acc, day) => {
-        acc[day.key] = newLoteria.sorteo_time || "09:00"
-        return acc
-      },
-      {} as Record<string, string>,
-    )
+    const selectedDaysWithTime = Object.keys(selectedDays)
+      .filter((day) => selectedDays[day])
+      .reduce(
+        (acc, day) => {
+          acc[day] = newLoteria.sorteo_time || "09:00"
+          return acc
+        },
+        {} as Record<string, string>,
+      )
 
     setUpdating(true)
     const result = await createLoteria({
       ...newLoteria,
-      dias: allDaysWithTime, // Apply main time to all days by default
+      dias: selectedDaysWithTime,
     })
 
     if (result.success) {
@@ -105,6 +109,7 @@ export function LotterySchedule() {
         sorteo_time: "",
         dias: {},
       })
+      setSelectedDays({})
     } else {
       alert(`Error al crear lotería: ${result.error}`)
     }
@@ -118,6 +123,13 @@ export function LotterySchedule() {
     if (!result.success) {
       alert(`Error al eliminar: ${result.error}`)
     }
+  }
+
+  const toggleNewLoteriaDay = (day: string, checked: boolean) => {
+    setSelectedDays((prev) => ({
+      ...prev,
+      [day]: checked,
+    }))
   }
 
   if (loading) {
@@ -222,6 +234,23 @@ export function LotterySchedule() {
                     onChange={(e) => setNewLoteria((prev) => ({ ...prev, sorteo_time: e.target.value }))}
                   />
                 </div>
+                <div className="space-y-2">
+                  <Label>Días de juego</Label>
+                  <div className="grid grid-cols-2 gap-2 max-h-32 overflow-y-auto">
+                    {DAYS_OF_WEEK.map((day) => (
+                      <div key={day.key} className="flex items-center space-x-2">
+                        <Checkbox
+                          id={`new-${day.key}`}
+                          checked={selectedDays[day.key] || false}
+                          onCheckedChange={(checked) => toggleNewLoteriaDay(day.key, checked as boolean)}
+                        />
+                        <Label htmlFor={`new-${day.key}`} className="text-sm">
+                          {day.label}
+                        </Label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
                 <div className="flex justify-end gap-2">
                   <Button variant="outline" onClick={() => setShowAddModal(false)} disabled={updating}>
                     Cancelar
@@ -244,7 +273,7 @@ export function LotterySchedule() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {loterias.map((loteria) => (
+        {loterias.map((loteria: any) => (
           <Card key={loteria.id} className="hover:shadow-lg transition-shadow duration-200 border-border/50">
             <CardHeader className="pb-3">
               <CardTitle className="flex items-center justify-between text-lg">
@@ -328,7 +357,7 @@ export function LotterySchedule() {
                 <div className="space-y-1">
                   <p className="text-xs font-medium text-muted-foreground">Días activos:</p>
                   <div className="flex flex-wrap gap-1">
-                    {loteria.dias_activos.map((day) => (
+                    {loteria.dias_activos.map((day : any) => (
                       <span
                         key={day}
                         className="inline-flex items-center px-2 py-1 rounded-md bg-primary/10 text-primary text-xs"

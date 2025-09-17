@@ -29,9 +29,12 @@ interface Props {
   cuatroCombi: number | null;
   tresCombi: number | null;
   pais: string | null;
-  cuatroCifras1a5: number | null;
-  tresCifras1a5: number | null; 
-  dosCifras1a5: number | null;
+  milla: number | null;
+  centena: number | null;
+  decena: number | null;
+  millar1a5: number | null;
+  centena1a5: number | null; 
+  decena1a5: number | null;
 }
 
 export function ModalUpdateZonas({
@@ -46,9 +49,12 @@ export function ModalUpdateZonas({
   cuatroCombi,
   tresCombi,
   pais,
-  cuatroCifras1a5,
-  tresCifras1a5,
-  dosCifras1a5,
+  milla,
+  centena,
+  decena,
+  millar1a5,
+  centena1a5, 
+  decena1a5,
 }: Props) {
   const [Nombre, setNombre] = useState(nombre || "");
   const [Porcentaje_loteria, setPorcentaje_loteria] = useState(porcentaje_loteria?.toString() || "");
@@ -59,9 +65,13 @@ export function ModalUpdateZonas({
   const [DosCifras, setDosCifras] = useState(dosCifras?.toString() || "");
   const [CuatroCombi, setCuatroCombi] = useState(cuatroCombi?.toString() || "");
   const [TresCombi, setTresCombi] = useState(tresCombi?.toString() || "");
-  const [CuatroCifras1a5, setCuatroCifras1a5] = useState(cuatroCifras1a5?.toString() || "");
-  const [TresCifras1a5, setTresCifras1a5] = useState(tresCifras1a5?.toString() || "");
-  const [DosCifras1a5, setDosCifras1a5] = useState(dosCifras1a5?.toString() || "");
+  const [Milla, setMilla] = useState(milla?.toString() || "");
+  const [Centena, setCentena] = useState(centena?.toString() || "");
+  const [Decena, setDecena] = useState(decena?.toString() || "");
+  const [Millar1a5, setMillar1a5] = useState(millar1a5?.toString() || "");
+  const [Centena1a5, setCentena1a5] = useState(centena1a5?.toString() || "");
+  const [Decena1a5, setDecena1a5] = useState(decena1a5?.toString() || "");
+
   
   const pathname = usePathname();
   const isActive = pathname === "/AdminZona/co/dashboard/zonas";
@@ -85,7 +95,13 @@ export function ModalUpdateZonas({
       !Porcentaje_admin_zona ||
       !CuatroCifras ||
       !TresCifras ||
-      !DosCifras 
+      !DosCifras ||
+      !Milla ||
+      !Centena ||
+      !Decena ||
+      !Millar1a5 ||
+      !Centena1a5 ||
+      !Decena1a5
     ) {
       toast.error("Complete todos los campos obligatorios");
       return;
@@ -104,9 +120,12 @@ export function ModalUpdateZonas({
           "2cifras": parseNumberField(DosCifras),
           "4combi": isBrasil ? null : parseNumberField(CuatroCombi),
           "3combi": isBrasil ? null : parseNumberField(TresCombi),
-          "4cifras1a5": parseNumberField(CuatroCifras1a5),
-          "3cifras1a5": parseNumberField(TresCifras1a5),
-          "2cifras1a5": parseNumberField(DosCifras1a5),
+          "milla": parseNumberField(Milla),
+          "centena": parseNumberField(Centena),
+          "decena": parseNumberField(Decena),
+          "millar1a5": parseNumberField(Millar1a5),
+          "centena1a5": parseNumberField(Centena1a5),
+          "decena1a5": parseNumberField(Decena1a5),
         })
         .eq("id", id);
 
@@ -195,61 +214,63 @@ export function ModalUpdateZonas({
             
             <div className="flex flex-col gap-y-2">
               <Label htmlFor="cuatroCifras-desktop">
-                {isBrasil ? 'millar' : '4 cifras'}
+               millar 
               </Label>
               <Input 
                 id="cuatroCifras-desktop"
-                placeholder={isBrasil ? 'Premio 1a5' : '4 cifras'} 
+                placeholder="Milla"
                 type="number" 
                 step="0.01"
-                value={CuatroCifras} 
-                onChange={(e) => setCuatroCifras(e.target.value)}
+                value={Milla}
+                onChange={(e) => setMilla(e.target.value)}
                 required
               />
             </div>
             
             <div className="flex flex-col gap-y-2">
               <Label htmlFor="tresCifras-desktop">
-                {isBrasil ? 'centena' : '3 cifras'}
+              Centena
               </Label>
               <Input 
                 id="tresCifras-desktop"
-                placeholder={isBrasil ? 'centena' : '3 cifras'} 
+                placeholder="Centena"
                 type="number" 
                 step="0.01"
-                value={TresCifras} 
-                onChange={(e) => setTresCifras(e.target.value)}
+                value={Centena}
+                onChange={(e) => setCentena(e.target.value)}
+              
                 required
               />
             </div>
             
             <div className="flex flex-col gap-y-2">
               <Label htmlFor="dosCifras-desktop">
-                {isBrasil ? 'Decena' : '2 cifras'}
+               Decena
               </Label>
               <Input 
                 id="dosCifras-desktop"
-                placeholder={isBrasil ? 'decena' : '2 cifras'} 
+                placeholder="Decena"
                 type="number" 
                 step="0.01"
-                value={DosCifras} 
-                onChange={(e) => setDosCifras(e.target.value)}
+                value={Decena}
+                onChange={(e) => setDecena(e.target.value)}
+              
                 required
               />
             </div>
-            {isBrasil && (
-              <>
+          
                 <div className="flex flex-col gap-y-2">
                   <Label htmlFor="cuatroCifras1a5-desktop">
                    millar1a5
                   </Label>
                   <Input 
                     id="cuatroCifras1a5-desktop"
-                    placeholder={isBrasil ? 'Premio 1a5' : '4 cifras'} 
+                    placeholder="Millar1a5"
                     type="number" 
                     step="0.01"
-                    value={CuatroCifras1a5} 
-                    onChange={(e) => setCuatroCifras1a5(e.target.value)}
+                    value={Millar1a5}
+                    onChange={(e) => setMillar1a5(e.target.value)}
+                  
                     required
                   />
                 </div>
@@ -260,11 +281,12 @@ export function ModalUpdateZonas({
                   </Label>
                   <Input 
                     id="tresCifras1a5-desktop"
-                    placeholder={isBrasil ? 'centena' : '3 cifras'} 
+                    placeholder="Centena1a5"
                     type="number" 
                     step="0.01"
-                    value={TresCifras1a5} 
-                    onChange={(e) => setTresCifras1a5(e.target.value)}
+                    value={Centena1a5}
+                    onChange={(e) => setCentena1a5(e.target.value)}
+                   
                     required
                   />
                 </div>
@@ -275,19 +297,60 @@ export function ModalUpdateZonas({
                   </Label>
                   <Input 
                     id="dosCifras1a5-desktop"
-                    placeholder={isBrasil ? 'decena' : '2 cifras'} 
+                    placeholder="Decena1a5"
                     type="number" 
                     step="0.01"
-                    value={DosCifras1a5} 
-                    onChange={(e) => setDosCifras1a5(e.target.value)}
+                    value={Decena1a5}
+                    onChange={(e) => setDecena1a5(e.target.value)}
+                    
                     required
                   />
                 </div>
-              </>
-            )}
-            {!isBrasil && (
-              <>
-                <div className="flex flex-col gap-y-2">
+          
+          </div>
+        
+        <section className="flex justify-center items-center py-4">
+          <p className="text-black font-bold">Datos de modalidades de colombia</p>
+        </section>
+          <section className="hidden md:grid grid-cols-2 gap-4">
+            <div className="flex flex-col gap-y-2">
+              <Label htmlFor="nombre-mobile">4 cifras</Label>  
+              <Input 
+                id="nombre-mobile"
+                placeholder="4 cifras"
+                value={CuatroCifras} 
+                onChange={(e) => setCuatroCifras(e.target.value)}
+                required
+              />
+            </div>
+            
+            <div className="flex flex-col gap-y-2">
+              <Label htmlFor="porcentaje_loteria-mobile">3 cifras</Label>
+              <Input 
+                id="porcentaje_loteria-mobile"
+                placeholder="3 cifras" 
+                type="number" 
+                step="0.01"
+                value={TresCifras} 
+                onChange={(e) => setTresCifras(e.target.value)}
+                required
+              />
+            </div>
+            
+            <div className="flex flex-col gap-y-2">
+              <Label htmlFor="porcentaje_cliente-mobile">2 cifras</Label>
+              <Input 
+                id="porcentaje_cliente-mobile"
+                placeholder="2 cifras" 
+                type="number" 
+                step="0.01"
+                value={DosCifras} 
+                onChange={(e) => setDosCifras(e.target.value)}
+                required
+              />
+            </div>
+
+              <div className="flex flex-col gap-y-2">
                   <Label htmlFor="cuatroCombi-desktop">Cuatro combi</Label>
                   <Input 
                     id="cuatroCombi-desktop"
@@ -310,9 +373,7 @@ export function ModalUpdateZonas({
                     onChange={(e) => setTresCombi(e.target.value)}
                   />
                 </div>
-              </>
-            )}
-          </div>
+          </section>
 
           {/* Versión móvil */}
           <div className="md:hidden space-y-4">

@@ -39,9 +39,12 @@ export function ModalFromZonas() {
     const dosCifras = formData.get("dosCifras");
     const cuatroCombi = formData.get("cuatroCombi");
     const tresCombi = formData.get("tresCombi");
-    const cuatroCifras1a5 = formData.get("cuatroCifras1a5");
-    const tresCifras1a5 = formData.get("tresCifras1a5");
-    const dosCifras1a5 = formData.get("dosCifras1a5");
+    const milla = formData.get("milla");
+    const centena = formData.get("centena");
+    const decena = formData.get("decena");
+    const millar1a5 = formData.get("millar1a5");
+    const centena1a5 = formData.get("centena1a5");
+    const decena1a5 = formData.get("decena1a5");
 
     if (
       nombre === "" ||
@@ -50,7 +53,13 @@ export function ModalFromZonas() {
       porcentaje_admin_zona === "" ||
       cuatroCifras === "" ||
       tresCifras === "" ||
-      dosCifras === ""  
+      dosCifras === "" ||
+      milla === "" ||
+      centena === "" ||
+      decena === "" ||
+      millar1a5 === "" ||
+      centena1a5 === "" ||  
+      decena1a5 === ""
     ) {
       toast.error("Complete todos los campos");
       return;
@@ -67,12 +76,14 @@ export function ModalFromZonas() {
           "4cifras": cuatroCifras,
           "3cifras": tresCifras,
           "2cifras": dosCifras,
-          "4combi": cuatroCombi,
           "3combi": tresCombi,
-          pais: selectedCountry,
-          "4cifras1a5": cuatroCifras1a5,
-          "3cifras1a5": tresCifras1a5,
-          "2cifras1a5": dosCifras1a5,
+          "4combi": cuatroCombi,
+          "milla": milla,
+          "centena": centena,
+          "decena": decena,
+          "millar1a5": millar1a5,
+          "centena1a5": centena1a5,
+          "decena1a5": decena1a5,
         },
       ])
       .select();
@@ -97,7 +108,7 @@ export function ModalFromZonas() {
           <p><span className="hidden md:block">Nueva</span>zona</p>
         </button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] md:max-w-[500px]">
+      <DialogContent className="sm:max-w-[425px] md:max-w-[500px] max-h-[90vh] overflow-scroll">
         <DialogHeader>
           <DialogTitle className="">Crear una nueva zona</DialogTitle>
           <DialogDescription>
@@ -124,135 +135,85 @@ export function ModalFromZonas() {
               <Input name="porcentaje_admin_zona" placeholder="Porcentaje admin zona" type="number"  />
             </div>
             <div className="flex flex-col gap-y-2 text-black">
-              <Label htmlFor="cuatroCifras">
-                {isBrasil ? 'millar' : ' Cuatro cifras'}
+              <Label htmlFor="milla">
+               millar
               </Label>
-              <Input name="cuatroCifras" placeholder="Cuatro cifras" type="number"  />
+              <Input name="milla" placeholder="millar" type="number"  />
             </div>
             <div className="flex flex-col gap-y-2 text-black">
-              <Label htmlFor="tresCifras">
-                {isBrasil ? 'Centena' : ' Tres cifras'}
+              <Label htmlFor="centena">
+               Centena
               </Label>
-              <Input name="tresCifras" placeholder="Tres cifras" type="number"  />
+              <Input name="centena" placeholder="Centena" type="number"  />
             </div>
 
             <div className="flex flex-col gap-y-2 text-black">
-              <Label htmlFor="dosCifras">
-                {isBrasil ? 'Decena' : ' Dos cifras'}
+              <Label htmlFor="decena">
+               Decena
               </Label>
-              <Input name="dosCifras" placeholder="Dos cifras" type="number"  />
+              <Input name="decena" placeholder="Decena" type="number"  />
             </div>
 
-            {isBrasil && (
-              <>
+           
                 <div className="flex flex-col gap-y-2 text-black">
-                  <Label htmlFor="cuatroCifras1a5">
+                  <Label htmlFor="millar1a5">
                   millar1a5
                   </Label>
-                  <Input name="cuatroCifras1a5" placeholder="Cuatro cifras" type="number"  />
+                  <Input name="millar1a5" placeholder="millar1a5" type="number"  />
                 </div>
                 <div className="flex flex-col gap-y-2 text-black">
-                  <Label htmlFor="tresCifras1a5">
+                  <Label htmlFor="centena1a5">
                    Centena1a5
                   </Label>
-                  <Input name="tresCifras1a5" placeholder="Tres cifras" type="number"  />
+                  <Input name="centena1a5" placeholder="Centena1a5" type="number"  />
                 </div>
                 <div className="flex flex-col gap-y-2 text-black">
-                  <Label htmlFor="dosCifras1a5">
+                  <Label htmlFor="decena1a5">
                     Decena1a5
                   </Label>
-                  <Input name="dosCifras1a5" placeholder="Dos cifras" type="number"  />
+                  <Input name="decena1a5" placeholder="Decena1a5" type="number"  />
                 </div>
-              </>
-            )}
+           
+              
 
+          
+            
+          </div>
 
-            {!isBrasil && (
-              <>
+          <div className="flex justify-center items-center gap-y-2 text-black py-4">
+           <p className="font-bold ">Datos de modalidades de colombia</p>
+          </div>
+        
+
+          <div className="hidden md:grid gap-4 grid-col-1 md:grid-cols-3">
+               <div className="flex flex-col gap-y-2 text-black">
+                  <Label htmlFor="cuatroCifras">4 cifras</Label>
+                  <Input name="cuatroCifras" placeholder="Cuatro cifras" type="number"  />
+                </div>
+                <div className="flex flex-col gap-y-2 text-black">
+                  <Label htmlFor="tresCifras">3 cifras</Label>
+                  <Input name="tresCifras" placeholder="Tres cifras" type="number"  />
+                </div>
+
+                <div className="flex flex-col gap-y-2 text-black">  
+                  <Label htmlFor="dosCifras">2 cifras</Label>
+                  <Input name="dosCifras" placeholder="Dos cifras" type="number"  /> 
+                </div>
+
                 <div className="flex flex-col gap-y-2 text-black">
                   <Label htmlFor="cuatroCombi">Cuatro combi</Label>
                   <Input name="cuatroCombi" placeholder="Cuatro combi" type="number"  />
                 </div>
-                <div className="flex flex-col gap-y-2 text-black">
+
+                <div className="flex flex-col gap-y-2 text-black">  
                   <Label htmlFor="tresCombi">Tres combi</Label>
                   <Input name="tresCombi" placeholder="Tres combi" type="number"  />
-                </div>
-              </>
-            )}
+                  </div>
+                
+                
           </div>
+
           
-          <div className="md:hidden grid gap-4">
-            <div className="flex flex-col gap-y-2 text-black">
-              <Label htmlFor="nombre_mobile">Nombre</Label>
-              <Input name="nombre" placeholder="Nombre Completo"  />
-            </div>
-
-            <div className="flex flex-col gap-y-2 text-black">
-              <Label htmlFor="porcentaje_loteria_mobile">% Casa</Label>
-              <Input name="porcentaje_loteria" placeholder="Porcentaje loteria"  type="number" />
-            </div>
-            <div className="flex flex-col gap-y-2 text-black">
-              <Label htmlFor="porcentaje_cliente_mobile">% Vendedor</Label>
-              <Input name="porcentaje_cliente" placeholder="Porcentaje cliente" type="number"  />
-            </div>
-            <div className="flex flex-col gap-y-2 text-black">
-              <Label htmlFor="porcentaje_admin_zona_mobile">% admin zona</Label>
-              <Input name="porcentaje_admin_zona" placeholder="Porcentaje admin zona" type="number"  />
-            </div>
-            <div className="flex flex-col gap-y-2 text-black">
-              <Label htmlFor="cuatroCifras_mobile">
-                {isBrasil ? 'Premio 1a5' : ' Cuatro cifras'}
-              </Label>
-              <Input name="cuatroCifras" placeholder="Cuatro cifras" type="number"  />
-            </div>
-            <div className="flex flex-col gap-y-2 text-black">
-              <Label htmlFor="tresCifras_mobile">
-                {isBrasil ? 'Centena' : ' Tres cifras'}
-              </Label>
-              <Input name="tresCifras" placeholder="Tres cifras" type="number"  />
-            </div>
-            <div className="flex flex-col gap-y-2 text-black">
-              <Label htmlFor="dosCifras_mobile">
-                {isBrasil ? 'decena' : ' Dos cifras'}
-              </Label>
-              <Input name="dosCifras" placeholder="Dos cifras" type="number"  />
-            </div>
-
-            {isBrasil && (
-              <>
-                <div className="flex flex-col gap-y-2 text-black">
-                  <Label htmlFor="cuatroCifras1a5_mobile">
-                    {isBrasil ? 'Premio 1a5' : ' Cuatro cifras'}
-                  </Label>
-                  <Input name="cuatroCifras1a5" placeholder="Cuatro cifras" type="number"  />
-                </div>
-                <div className="flex flex-col gap-y-2 text-black">
-                  <Label htmlFor="tresCifras1a5_mobile">
-                    {isBrasil ? 'Decena' : ' Tres cifras'}
-                  </Label>
-                  <Input name="tresCifras1a5" placeholder="Tres cifras" type="number"  />
-                </div>
-                <div className="flex flex-col gap-y-2 text-black">
-                  <Label htmlFor="dosCifras1a5_mobile">
-                    {isBrasil ? 'Centena' : ' Dos cifras'}
-                  </Label>
-                  <Input name="dosCifras1a5" placeholder="Dos cifras" type="number"  />
-                </div>
-              </>
-            )}
-            {!isBrasil && (
-              <>
-                <div className="flex flex-col gap-y-2 text-black">
-                  <Label htmlFor="cuatroCombi_mobile">Cuatro combi</Label>
-                  <Input name="cuatroCombi" placeholder="Cuatro combi" type="number"  />
-                </div>
-                <div className="flex flex-col gap-y-2 text-black">
-                  <Label htmlFor="tresCombi_mobile">Tres combi</Label>
-                  <Input name="tresCombi" placeholder="Tres combi" type="number"  />
-                </div>
-              </>
-            )}
-          </div>
           
           <DialogFooter className="mt-4">
             <div className="w-full flex items-center justify-end gap-x-2">

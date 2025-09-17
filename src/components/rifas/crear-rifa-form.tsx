@@ -254,21 +254,24 @@ const ajustarFechaBrasil = (fecha: string, hora: string): { fechaAjustada: strin
 
           {/* Lotería */}
           <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="space-y-2">
-            <Label htmlFor="loteria">Lotería</Label>
-            <Select value={formData.loteria} onValueChange={(value) => handleInputChange("loteria", value)} required>
-              <SelectTrigger>
-                <SelectValue placeholder="Seleccione una lotería" />
-              </SelectTrigger>
-              <SelectContent>
-                {loterias.map((loteria: any)  => (
-                  <SelectItem key={loteria.id} value={loteria.name}>
-                    {loteria.name} ({loteria.id})
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
+        
+<div className="space-y-2">
+  <Label htmlFor="loteria">Lotería</Label>
+  <select
+    id="loteria"
+    value={formData.loteria}
+    onChange={(e) => handleInputChange("loteria", e.target.value)}
+    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+    required
+  >
+    <option value="">Seleccione una lotería</option>
+    {loterias.map((loteria: any) => (
+      <option key={loteria.id} value={loteria.name}>
+        {loteria.name} ({loteria.id})
+      </option>
+    ))}
+  </select>
+</div>
           <div className="space-y-2">
             <Label htmlFor="porcentaje_vendedor">Porcentaje Vendedor</Label>
             <Input
