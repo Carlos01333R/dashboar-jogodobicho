@@ -71,23 +71,7 @@ export function RaffleDashboard() {
     }).format(amount)
   }
 
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleString("es-CO", {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    })
-  }
 
-  const formatDateOnly = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("es-CO", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    })
-  }
 
   return (
     <div className="space-y-6">
@@ -185,7 +169,7 @@ export function RaffleDashboard() {
                     <Badge variant={venta.estado_pago === "pagado" ? "default" : "destructive"}>
                       {venta.estado_pago}
                     </Badge>
-                    <span className="text-sm text-muted-foreground">{formatDate(venta.fecha_venta)}</span>
+                    <span className="text-sm text-muted-foreground">{venta.fecha_venta}</span>
                   </div>
                 </div>
 
@@ -243,6 +227,7 @@ export function RaffleDashboard() {
                     <span>ID: {venta.id.slice(0, 8)}...</span>
                   </div>
                 </div>
+              
               </div>
             ))}
           </div>

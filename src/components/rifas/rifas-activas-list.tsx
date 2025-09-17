@@ -11,11 +11,39 @@ import { toast } from "sonner"
 import { UpdateRifaModal } from "./UpdateRifaModal"
 import { FormatCurrencyBR } from "@/utils/Format"
 
+function getFechaHoraBrasil() {
+  const now = new Date();
 
+  const options: Intl.DateTimeFormatOptions = {
+    timeZone: "America/Sao_Paulo",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  };
+
+  const fechaHoraBrasil = new Intl.DateTimeFormat("sv-SE", options).format(now);
+
+  // `sv-SE` devuelve "YYYY-MM-DD HH:mm:ss"
+  const [fecha, hora] = fechaHoraBrasil.split(" ");
+
+  return { fecha, hora, fechaHoraBrasil };
+}
 
 export function RifasActivasList() {
   const { rifas, loading, error, refetch } = useRifasActivas()
   const [deletingId, setDeletingId] = useState<string | null>(null)
+  const { fecha, hora, fechaHoraBrasil} = getFechaHoraBrasil();
+
+    // Convertir la fecha/hora de Brasil a Date
+  const fechaActual = new Date(fechaHoraBrasil);
+
+  const rifaTerminada = (rifa: any) => {
+    const fechaRifa = new Date(`${rifa.fecha}T${rifa.hora}`);
+    return fechaRifa < fechaActual;
+  };
 
   const handleDelete = async (rifaId: string) => {
     if (!confirm("¿Estás seguro de que quieres eliminar esta rifa?")) return
@@ -47,6 +75,10 @@ export function RifasActivasList() {
     const { data } = supabase.storage.from("rifas-images").getPublicUrl(fotoUrl)
 
     return data.publicUrl
+  }
+
+  const Ganadores = () => {
+    alert("Esta funcionalidad no esta disponible en este momento");
   }
 
   if (loading) {
@@ -142,7 +174,24 @@ export function RifasActivasList() {
                 </div>
 
                 {rifa.descripcion && <p className="text-sm text-muted-foreground">{rifa.descripcion}</p>}
+
+           
+                {rifaTerminada(rifa) && (
+                  <>
+                  <div className="text-red-500 p-4 bg-red-50 rounded-lg text-center">
+                    Esta rifa ya ha terminado
+                  </div>
+                  <button className="w-full bg-green-50 rounded-lg p-4 space-y-4 cursor-pointer hover:bg-green-100 flex justify-center items-center text-green-500 font-bold" onClick={() => Ganadores()}>
+                 
+                    Ver ganadores
+                  </button>
+                  </>
+                )}
+
+              
+            
               </div>
+              
             ))}
           </div>
         )}

@@ -40,9 +40,11 @@ export function UpdateRifaModal({ rifa, onUpdate }: UpdateRifaModalProps) {
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const [uploading, setUploading] = useState(false)
+  const [year, month, day] = rifa.fecha.split("-").map(Number);
+
   const [formData, setFormData] = useState({
     nombre: rifa.nombre,
-    fecha: new Date(rifa.fecha),
+    fecha: new Date(year, month - 1, day), 
     hora: rifa.hora,
     loteria: rifa.loteria,
     numero_minimo: rifa.numero_minimo,
