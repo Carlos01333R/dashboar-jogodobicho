@@ -211,7 +211,7 @@ export function UpdateRifaModal({ rifa, onUpdate }: UpdateRifaModalProps) {
                   </SelectTrigger>
                   <SelectContent>
                   {loterias.map((loteria: any)  => (
-                    <SelectItem key={loteria.id} value={loteria.name}>
+                    <SelectItem key={loteria.id} value={loteria.id}>
                       {loteria.name} ({loteria.id})
                     </SelectItem>
                   ))}

@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import Link from 'next/link'
+import Image from "next/image"
 
 interface SidebarProps {
   activeSection: string;

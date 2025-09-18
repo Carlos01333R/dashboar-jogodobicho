@@ -266,7 +266,7 @@ const ajustarFechaBrasil = (fecha: string, hora: string): { fechaAjustada: strin
   >
     <option value="">Seleccione una lotería</option>
     {loterias.map((loteria: any) => (
-      <option key={loteria.id} value={loteria.name}>
+      <option key={loteria.id} value={loteria.id}>
         {loteria.name} ({loteria.id})
       </option>
     ))}

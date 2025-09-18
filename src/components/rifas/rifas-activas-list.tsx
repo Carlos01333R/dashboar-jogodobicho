@@ -10,6 +10,7 @@ import { supabase } from "@/lib/supabase"
 import { toast } from "sonner"
 import { UpdateRifaModal } from "./UpdateRifaModal"
 import { FormatCurrencyBR } from "@/utils/Format"
+import Link from "next/link"
 
 function getFechaHoraBrasil() {
   const now = new Date();
@@ -181,10 +182,12 @@ export function RifasActivasList() {
                   <div className="text-red-500 p-4 bg-red-50 rounded-lg text-center">
                     Esta rifa ya ha terminado
                   </div>
-                  <button className="w-full bg-green-50 rounded-lg p-4 space-y-4 cursor-pointer hover:bg-green-100 flex justify-center items-center text-green-500 font-bold" onClick={() => Ganadores()}>
-                 
-                    Ver ganadores
-                  </button>
+                <Link 
+              href={`/br/dashboard/rifas/Ganadores/${rifa.id}`}
+              className="w-full bg-green-50 rounded-lg p-4 space-y-4 cursor-pointer hover:bg-green-100 flex justify-center items-center text-green-500 font-bold"
+            >
+              Ver ganadores
+            </Link>
                   </>
                 )}
 

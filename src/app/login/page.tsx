@@ -5,6 +5,7 @@ import { Lock, UserIcon, Eye, EyeOff } from 'lucide-react'
 import { useAuth } from "@/context/AuthContext"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
+import Image from "next/image"
 
 export default function Login() {
   const [email, setEmail] = useState("admin@gmail.com")
@@ -51,9 +52,9 @@ export default function Login() {
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-yellow-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden">
         {/* Header con gradiente */}
-        <div className="bg-gradient-to-r from-emerald-500 to-blue-600 p-8 text-center">
-          <div className="bg-white/20 rounded-full p-4 inline-block mb-4">
-            <Lock className="w-8 h-8 text-white" />
+        <div className="bg-gradient-to-r from-gray-500 to-zinc-600 p-8 text-center">
+          <div className="bg-white/20 rounded-2xl p-4 inline-block mb-4">
+          <Image src="/logo.jpg" alt="Logo" width={100} height={100} className="rounded-2xl" />
           </div>
           <h1 className="text-2xl font-bold text-white mb-2">Sistema de Loterías</h1>
           <p className="text-white/90 text-sm">Brasil & Colombia</p>
@@ -110,7 +111,7 @@ export default function Login() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-emerald-500 to-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:from-emerald-600 hover:to-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-[1.02]"
+              className="w-full bg-gradient-to-r from-gray-500 to-zinc-600 text-white py-3 px-6 rounded-lg font-semibold hover:from-gray-600 hover:to-zinc-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-[1.02]"
             >
               {loading ? (
                 <span className="flex items-center justify-center">
@@ -122,7 +123,7 @@ export default function Login() {
               )}
             </button>
              <div className="w-full flex justify-end items-center">
-              <Link href="/AdminZona/login" className="border-b-4 border-emerald-500 text-emerald-500 px-4 py-2 rounded-lg font-semibold hover:border-emerald-600   transition-all duration-200 transform hover:scale-[1.02]">
+              <Link href="/AdminZona/login" className="border-b-4 border-zinc-500 text-zinc-500 px-4 py-2 rounded-lg font-semibold hover:border-gray-600   transition-all duration-200 transform hover:scale-[1.02]">
               Administrar de zonas
             
               </Link>
