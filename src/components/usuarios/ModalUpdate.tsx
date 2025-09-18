@@ -119,40 +119,42 @@ export function ModalUpdate({
               <Input value={Telefono} onChange={(e) => setTelefono(e.target.value)} />
             </div>
 
-            <div className="flex flex-col gap-y-2 text-black">
-              <Label htmlFor="sector">Sector</Label>
-              <Select value={Sector} onValueChange={setSector}>
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Seleccione un sector" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>Sector</SelectLabel>
-                    {zonas.map((z: any) => (
-                      <SelectItem value={z.nombre} key={z.id}>
-                        {z.nombre}
-                      </SelectItem>
-                    ))}
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-            </div>
+           <div className="flex flex-col gap-y-2 text-black">
+            <label htmlFor="sector" className="font-medium text-sm">
+              Sector
+            </label>
+            <select
+              id="sector"
+              value={Sector}
+              onChange={(e) => setSector(e.target.value)}
+              className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+            >
+              <option value="">Seleccione un sector</option>
+              {zonas.map((z: any) => (
+                <option key={z.id} value={z.nombre}>
+                  {z.nombre}
+                </option>
+              ))}
+            </select>
+          </div>
 
-            <div className="flex flex-col gap-y-2 text-black">
-              <Label htmlFor="estado">Estado</Label>
-              <Select value={Estado} onValueChange={setEstado}>
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Seleccione un estado" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>Estado</SelectLabel>
-                    <SelectItem value="TRUE">Activo</SelectItem>
-                    <SelectItem value="FALSE">Inactivo</SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-            </div>
+
+           <div className="flex flex-col gap-y-2 text-black">
+  <label htmlFor="estado" className="font-medium text-sm">
+    Estado
+  </label>
+  <select
+    id="estado"
+    value={Estado}
+    onChange={(e) => setEstado(e.target.value)}
+    className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+  >
+    <option value="">Seleccione un estado</option>
+    <option value="TRUE">Activo</option>
+    <option value="FALSE">Inactivo</option>
+  </select>
+</div>
+
           </div>
 
           <DialogFooter>

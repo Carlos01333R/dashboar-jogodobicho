@@ -120,24 +120,24 @@ export default function ResultsManager() {
         </CardHeader>
         <CardContent className="space-y-6">
           {/* Lottery Selection */}
-          <div>
-            <Label htmlFor="lottery">Seleccionar Lotería</Label>
-            <Select value={selectedLottery} onValueChange={setSelectedLottery}>
-              <SelectTrigger className="mt-1">
-                <SelectValue placeholder="Selecciona una lotería" />
-              </SelectTrigger>
-              <SelectContent>
-                {loterias.map((lottery) => (
-                  <SelectItem key={lottery.id} value={lottery.id}>
-                    <div className="flex items-center justify-between w-full">
-                      <span className="font-medium">{lottery.name}</span>
-                      <span className="text-sm text-muted-foreground ml-2">{lottery.sorteo_time}</span>
-                    </div>
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
+        <div>
+  <label htmlFor="lottery" className="block font-medium">
+    Seleccionar Lotería
+  </label>
+  <select
+    id="lottery"
+    value={selectedLottery}
+    onChange={(e) => setSelectedLottery(e.target.value)}
+    className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+  >
+    <option value="">Selecciona una lotería</option>
+    {loterias.map((lottery) => (
+      <option key={lottery.id} value={lottery.id}>
+        {lottery.name} — {lottery.sorteo_time}
+      </option>
+    ))}
+  </select>
+</div>
 
           {/* Results Input */}
           <div>

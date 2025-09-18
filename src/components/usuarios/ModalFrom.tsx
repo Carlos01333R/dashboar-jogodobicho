@@ -68,24 +68,25 @@ export function ModalFrom({ onSubmit, title }: Props) {
               <Label htmlFor="telefono">Teléfono</Label>
               <Input name="telefono" placeholder="Teléfono" required />
             </div>
-            <div className="flex flex-col gap-y-2 text-black">
-              <Label htmlFor="sector">Sector</Label>
-              <Select name="sector" required>
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Seleccione un sector" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>Sector</SelectLabel>
-                    {zonas.map((sector: any) => (
-                      <SelectItem value={sector.nombre} key={sector.id}>
-                        {sector.nombre}
-                      </SelectItem>
-                    ))}
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-            </div>
+          <div className="flex flex-col gap-y-2 text-black">
+          <label htmlFor="sector" className="text-sm font-medium">
+            Sector
+          </label>
+          <select
+            id="sector"
+            name="sector"
+            required
+            className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+          >
+            <option value="">Seleccione un sector</option>
+            {zonas.map((sector: any) => (
+              <option value={sector.nombre} key={sector.id}>
+                {sector.nombre}
+              </option>
+            ))}
+          </select>
+        </div>
+
           </div>
           <DialogFooter>
             <section className="w-full py-4 flex items-center justify-end gap-x-2">
