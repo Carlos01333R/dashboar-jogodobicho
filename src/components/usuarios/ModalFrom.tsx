@@ -58,11 +58,11 @@ export function ModalFrom({ onSubmit, title }: Props) {
             </div>
             <div className="flex flex-col gap-y-2 text-black">
               <Label htmlFor="password">Contraseña</Label>
-              <Input name="password" type="password" placeholder="Contraseña" required />
+              <Input name="password" type="text" placeholder="Contraseña" required />
             </div>
             <div className="flex flex-col gap-y-2 text-black">
               <Label htmlFor="confirm_password">Confirma tu contraseña</Label>
-              <Input name="confirm_password" type="password" placeholder="Confirma tu contraseña" required />
+              <Input name="confirm_password" type="text" placeholder="Confirma tu contraseña" required />
             </div>
             <div className="flex flex-col gap-y-2 text-black">
               <Label htmlFor="telefono">Teléfono</Label>

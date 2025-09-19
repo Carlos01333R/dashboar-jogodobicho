@@ -1,6 +1,4 @@
 import TicketPageClient from "@/components/TicketPage"
-
-
 interface TicketPageProps {
   params: Promise<{
     id: string

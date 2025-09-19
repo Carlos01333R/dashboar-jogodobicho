@@ -54,7 +54,7 @@ export default function TicketPageClient({ ticketId }: { ticketId: string }) {
       )
     }
   return (
-    <section className="flex-1 flex justify-center items-center py-10">
+    <section className="flex-1 flex justify-center items-center py-10 px-3">
 
         <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden  border-4 border-dashed border-emerald-500 p-3">
             <section className="flex flex-col justify-center items-center border-b border-dashed border-gray-500 mb-2">

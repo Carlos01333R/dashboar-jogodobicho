@@ -111,7 +111,7 @@ export function ModalUpdate({
 
             <div className="flex flex-col gap-y-2 text-black">
               <Label htmlFor="password">Contraseña</Label>
-              <Input type="password" value={Password} onChange={(e) => setPassword(e.target.value)} />
+              <Input type="text" value={Password} onChange={(e) => setPassword(e.target.value)} />
             </div>
 
             <div className="flex flex-col gap-y-2 text-black">
