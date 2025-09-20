@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 import { AuthProvider } from "@/context/AuthContextAdminZona";
-import { useClosePortals } from "@/hook/useClosePortals";
+import { PortalCleaner } from "@/components/PortalCleaner";
 
 
 const geistSans = Geist({
@@ -29,7 +29,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-   useClosePortals()
+   PortalCleaner()
   return (
     <html lang="en">
 
