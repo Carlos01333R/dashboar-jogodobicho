@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react"
 import { supabase } from "@/lib/supabase"
+import { th } from "date-fns/locale"
 
 export interface GanadorRifa {
   hay_ganadores: boolean
@@ -142,9 +143,9 @@ const saveGanador = async () => {
       if (data && data.hay_ganadores && data.venta_id && !savedVentaIds.current.has(data.venta_id) && !saving) {
         try {
           await saveGanador()
-          console.log("[v0] Winner auto-saved successfully")
+          throw ("[v0] Winner auto-saved successfully")
         } catch (error) {
-          console.error("[v0] Error auto-saving winner:", error)
+          throw ("[v0] Error auto-saving winner")
         }
       }
     }

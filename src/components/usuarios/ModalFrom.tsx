@@ -9,19 +9,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Plus } from "lucide-react"
 import useZonas from "@/hook/co/useZonas"
+import { useEffect, useState } from "react"
+import { usePathname } from "next/navigation"
 
 interface Props {
   onSubmit: (e: React.FormEvent) => void,
@@ -30,9 +23,16 @@ interface Props {
 
 export function ModalFrom({ onSubmit, title }: Props) {
   const { zonas } = useZonas()
+   const [open, setOpen] = useState(false)
+    const pathname = usePathname()
+
+     useEffect(() => {
+    setOpen(false)
+  }, [pathname])
+
   
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <button className="flex items-center gap-x-2 bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-lg space-x-2 transition-colors cursor-pointer">
           <Plus className="w-4 h-4" />

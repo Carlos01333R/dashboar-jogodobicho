@@ -17,7 +17,7 @@ export default function usePremioByFecha({desde, hasta, zona} : Props) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  console.log(desde, hasta, zona);
+
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);

@@ -28,7 +28,7 @@ export default function ResultadosManager() {
   const FilterProject = filterNameProyect(resultadosHoy); // Validación adicional para evitar errores
    // Función para manejar la apertura del modal
     const handleEditarLoteria = (loteria: any) => {
-        console.log("Editando lotería:", loteria);
+     
         setLoteriaEditando(loteria);
         setIsModalOpen(true);
     }

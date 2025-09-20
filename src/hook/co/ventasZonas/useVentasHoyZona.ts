@@ -25,7 +25,7 @@ const useVentasHoyAdminZona = ({ sector, email }: Props) => {
 
   const fetchVentasHoy = useCallback(async () => {
     const fechaHoy = obtenerFechaActual();
-    console.log("fecha hoy", fechaHoy)
+
 
     let query = supabase
       .from("ventas")

@@ -53,14 +53,13 @@ export function WinnersList({
       const dataHash = JSON.stringify(data.ganadores_agrupados.map((g) => g.numero_ticket).sort())
 
       if (dataHash !== lastDataRef.current && !hasSaved) {
-        console.log("[v0] Auto-saving winners to database...")
+       
         setSaveStatus("saving")
         setHasSaved(true)
         lastDataRef.current = dataHash
 
         saveWinners(data.ganadores_agrupados)
           .then((result) => {
-            console.log("[v0] Save result:", result)
             setSaveStatus("success")
             setTimeout(() => setSaveStatus("idle"), 3000)
           })

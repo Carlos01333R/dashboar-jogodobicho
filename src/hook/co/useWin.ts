@@ -74,9 +74,9 @@ const useLoteriaComparison = () => {
           .gte("fecha_hora", date48HoursAgo); // Filtrar por fecha_hora mayor o igual a las últimas 48 horas
 
         if (error) {
-          console.error("Error al obtener ventas:", error);
+          throw (error);
         } else {
-          console.log("Ventas en las últimas 48 horas:", data);
+        
           setVentas(data); // Guardar ventas obtenidas
         }
       } catch (error) {

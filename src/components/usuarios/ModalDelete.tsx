@@ -10,6 +10,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Trash2} from "lucide-react";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 interface Props {
   name: string;
@@ -21,13 +23,19 @@ interface Props {
 }
 
 export function ModalDelete({name, id, onsubmit, title} : Props) {
+   const [open, setOpen] = useState(false)
+      const pathname = usePathname()
+  
+       useEffect(() => {
+      setOpen(false)
+    }, [pathname])
 
   const handleDelete = async (e:any) => {
      e.preventDefault();
     await onsubmit({id});
   };
   return (
-    <Dialog >
+    <Dialog open={open} onOpenChange={setOpen}>
     
         <DialogTrigger asChild>
           <button className="bg-red-50 hover:bg-red-100 text-red-700 py-2 px-3 rounded-lg text-sm font-medium transition-colors cursor-pointer">

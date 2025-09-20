@@ -27,7 +27,7 @@ export default function DataVentasByFecha({desde, hasta, zona} : Props) {
 
   const { zonas } = useZonas();
 
-  console.log(zonas);
+
   const adminZona = zonas
     ? zonas.find((z : any) => z.nombre === zona)?.porcentaje_admin_zona
     : null;

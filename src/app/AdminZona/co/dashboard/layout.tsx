@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import { useAuthAdminZona } from "@/context/AuthContextAdminZona";
 import { Toaster } from "@/components/ui/sonner"
 import { MenuItems } from "@/data/sidebar/adminZona/co/Menu";
+import { useClosePortals } from "@/hook/useClosePortals";
 
 export default function DashboardLayout({
   children,
@@ -76,6 +77,8 @@ export default function DashboardLayout({
       default: return 'Dashboard';
     }
   };
+
+   useClosePortals()
 
   if (isLoading) {
     return (

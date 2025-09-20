@@ -35,8 +35,7 @@ const useVentasUserByFecha = ({fechaInicio, fechaFin, email} : prop) => {
 
         // Desestructurar las ventas y los totales de la respuesta
         const { ventas: ventasData, totales: totalesData } = data[0] || {};
-        console.log(totalesData);
-
+     
         setVentas(ventasData || []);
         setTotales(
           totalesData || {

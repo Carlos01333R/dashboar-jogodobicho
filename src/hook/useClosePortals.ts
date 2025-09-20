@@ -7,9 +7,12 @@ export function useClosePortals() {
   const pathname = usePathname()
 
   useEffect(() => {
-    // Cuando cambie la ruta, limpiamos portales abiertos
-    document.querySelectorAll("[data-radix-portal]").forEach((el) => {
-      el.remove()
+    // Cerramos todos los portales de Radix al cambiar de ruta
+    const portals = document.querySelectorAll("[data-radix-portal]")
+    portals.forEach((el) => {
+      if (el.parentNode) {
+        el.parentNode.removeChild(el) // más seguro que el.remove()
+      }
     })
   }, [pathname])
 }

@@ -17,6 +17,7 @@ import {
 import { ModalDetail } from '@/components/ganadores/ModalDetall';
 import useLoteriaComparisonNew from '@/hook/co/useLoteryWin';
 import Link from 'next/link';
+import { th } from 'date-fns/locale';
 
 interface Winner {
   lottery: string;
@@ -152,7 +153,7 @@ const WinnersToday: React.FC = () => {
         fecha_hora: grupo.fecha_hora,
       }));
 
-      console.log("Datos agrupados para insertar:", datosParaInsertar);
+
       return datosParaInsertar;
     } catch (error) {
       console.error("Error en procesarYGuardarResultados:", error);
@@ -163,7 +164,7 @@ const WinnersToday: React.FC = () => {
   // Función para verificar y insertar solo registros nuevos
   const insertarSoloNuevosGanadores = async (datos : any) => {
     if (!datos || datos.length === 0) {
-      console.log("No hay datos para insertar");
+      
       return [];
     }
 
@@ -195,22 +196,18 @@ const WinnersToday: React.FC = () => {
             .single();
 
           if (errorInsercion) {
-            console.error(
-              `Error al insertar numero_venta ${dato.numero_venta}:`,
-              errorInsercion
-            );
+           
+            throw (`Error al insertar numero_venta ${dato.numero_venta}:`);
           } else {
-            console.log(`Insertado: ${dato.numero_venta}`);
             resultadosInsertados.push(nuevoRegistro);
           }
         } else {
-          console.log(`Ya existe: ${dato.numero_venta} - Saltando inserción`);
+          
+          throw (`Ya existe: ${dato.numero_venta} - Saltando inserción`);
         }
       } catch (error) {
-        console.error(
-          `Error procesando numero_venta ${dato.numero_venta}:`,
-          error
-        );
+       
+        throw (`Error procesando numero_venta ${dato.numero_venta}:`);
       }
     }
 
@@ -231,7 +228,6 @@ const WinnersToday: React.FC = () => {
 
       try {
         const datosProcesados = await procesarYGuardarResultados(resultados);
-        console.log("Datos procesados:", datosProcesados);
         const total = datosProcesados.length;
 
         if (total === 0) {
