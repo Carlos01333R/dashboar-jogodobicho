@@ -29,7 +29,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-   PortalCleaner()
+
   return (
     <html lang="en">
 
@@ -37,6 +37,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <AuthProvider>
+          <PortalCleaner />
         {children}
         </AuthProvider>
       </body>
