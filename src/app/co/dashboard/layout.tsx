@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import { useAuth } from "@/context/AuthContext";
 import { Toaster } from "@/components/ui/sonner"
 import { MenuItems } from "@/data/sidebar/co/Menu";
+import { useClosePortals } from "@/hook/useClosePortals";
 
 export default function DashboardLayout({
   children,
@@ -78,6 +79,8 @@ export default function DashboardLayout({
     }
   };
 
+    useClosePortals()
+    
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-yellow-50 flex items-center justify-center p-4">

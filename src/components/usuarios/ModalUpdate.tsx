@@ -104,7 +104,7 @@ export function ModalUpdate({
               <Input value={Nombre} onChange={(e) => setNombre(e.target.value)} />
             </div>
 
-            <div className="flex flex-col gap-y-2 text-black">
+            <div className="flex flex-col gap-y-2 text-black ">
               <Label htmlFor="email">Email</Label>
               <Input value={Email} onChange={(e) => setEmail(e.target.value)} />
             </div>
