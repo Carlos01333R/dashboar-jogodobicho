@@ -15,6 +15,8 @@ export default function AdminZonasComponent() {
   const [sector , setSector] = useState('all');
   const { zonas, loading, error } = useAdminZonas();
   const { zonas: sectores } = useZonas();
+
+
   
   const filteredUsers = zonas.filter((zona : any) =>
     (sector === 'all' || zona.sector === sector) &&
@@ -138,7 +140,7 @@ window.location.reload(); // recarga toda la página
     );
   }
 
-  if(zonas.length === 0) {
+  if(sectores.length === 0) {
     return (
       <div className="flex justify-center items-center ">
         <div className="bg-red-50 border border-red-200 rounded-lg p-6">
