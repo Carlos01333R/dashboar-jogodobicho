@@ -28,16 +28,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   return (
     <html lang="en">
-
-      <body
+      <body 
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        suppressHydrationWarning={true}
       >
         <AuthProvider>
-        <PortalCleaner />
-        {children}
+          <PortalCleaner />
+          {children}
         </AuthProvider>
       </body>
     </html>

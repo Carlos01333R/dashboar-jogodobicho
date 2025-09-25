@@ -28,6 +28,7 @@ interface Venta {
 
 export default function CardVentasBr({Ventas} : Props) {
 
+
     
 const downloadTicket = async (bet: Venta) => {
   try {
@@ -130,7 +131,7 @@ Registrado: ${new Date(bet.created_at).toLocaleString("es-ES")}
         <section className="w-full flex justify-end items-center pb-2 ">
      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
        {Ventas.map((venta : any) => (
-         <section key={venta.numero_venta} className="bg-white rounded-xl shadow-sm flex flex-col justify-end items-center p-2 border border-gray-200">
+         <section key={venta.id} className="bg-white rounded-xl shadow-sm flex flex-col justify-end items-center p-2 border border-gray-200">
      <div className="w-full flex-row justify-between items-center ">
 
         <div className="w-full flex flex-row justify-between items-center">

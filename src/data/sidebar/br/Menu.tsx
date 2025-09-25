@@ -74,7 +74,7 @@ import {
   
       submenu: [
         { id: 'loterias', label: 'Loterías', icon: Ticket, section: 'lotteries', href: '/br/dashboard/loterias/administrar' },
-        { id: 'resultados', label: 'Ingresar Resultados', icon: Ticket, section: 'resultado', href: '/br/dashboard/loterias/insertar' },
+        { id: 'ingresar', label: 'Ingresar Resultados', icon: Ticket, section: 'resultado', href: '/br/dashboard/loterias/insertar' },
         { id: 'resultados', label: 'Resultados', icon: Ticket, section: 'resultadoLoterias', href: '/br/dashboard/loterias/resultados' },
       ]
     },

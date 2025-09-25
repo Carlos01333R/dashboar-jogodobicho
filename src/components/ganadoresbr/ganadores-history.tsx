@@ -122,7 +122,7 @@ const GanadoresHistory: React.FC = () => {
               <Input value={zona} onChange={(e) => setZona(e.target.value)} placeholder="Filtrar por zona..." />
             </div>
 
-            <div>
+            <div className="hidden">
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 <Calendar className="w-4 h-4 inline mr-2" />
                 Fecha Inicio
@@ -130,7 +130,7 @@ const GanadoresHistory: React.FC = () => {
               <Input type="date" value={fechaInicio} onChange={(e) => setFechaInicio(e.target.value)} />
             </div>
 
-            <div>
+            <div className="hidden">
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 <Calendar className="w-4 h-4 inline mr-2" />
                 Fecha Fin

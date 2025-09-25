@@ -144,20 +144,11 @@ const winnersChartData = totalWinnersMes?.map(item => {
               className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
             >
               <option value="all">Todas las loterías</option>
-              {selectedCountry === 'brazil' ? (
-                <>
-                  <option value="mega">Mega-Sena</option>
-                  <option value="quina">Quina</option>
-                  <option value="lotofacil">Lotofácil</option>
-                  <option value="timemania">Timemania</option>
-                </>
-              ) : (
-                <>
+             
                  {nombresLoterias?.map((loteria: string) => (
-                  <option value={loteria}>{loteria}</option>
+                  <option value={loteria} key={loteria}>{loteria}</option>
                 ))}
-                </>
-              )}
+               
             </select>
         
           </div>

@@ -27,8 +27,8 @@ export default function VentasZonasVentas({desde, hasta, zona} : Props) {
               <>
             <section className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 {itemsVentasHoybr.map((item: any) => (
-                  <>
-                <div key={item.id} className="bg-white rounded-xl shadow-sm p-2 md:p-6 border border-gray-200 flex justify-center md:justify-between items-center">
+                  <section key={item.id}>
+                <div  className="bg-white rounded-xl shadow-sm p-2 md:p-6 border border-gray-200 flex justify-center md:justify-between items-center">
                                 <section>
                                   <p className="text-sm text-black font-semibold mb-1 text-center md:text-left">{item.title}</p>
                                   <p className={`font-bold text-gray-900 truncate text-sm md:text-base text-center md:text-left ${item.value < 0 ? 'text-red-600' : ''}`}>{FormatCurrencyBR(item.value)}</p>
@@ -43,7 +43,7 @@ export default function VentasZonasVentas({desde, hasta, zona} : Props) {
                           
                                 </div>
                                
-                            </>
+                            </section>
                 ))}
                  
 
