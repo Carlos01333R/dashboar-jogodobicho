@@ -133,7 +133,7 @@ export default function ResultsManager() {
     <option value="">Selecciona una lotería</option>
     {loterias.map((lottery) => (
       <option key={lottery.id} value={lottery.id}>
-        {lottery.name} ({lottery.id}) — {lottery.sorteo_time}
+        {lottery.name} - ({lottery.id}) — {lottery.sorteo_time}
       </option>
     ))}
   </select>
