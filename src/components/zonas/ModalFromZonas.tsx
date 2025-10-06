@@ -91,7 +91,7 @@ export default function ModalFromZonas({ isOpen, onClose }: ModalFromZonasProps)
     >
       {/* Contenido del modal */}
       <div
-        className="bg-white rounded-2xl shadow-xl p-6 relative z-30 sm:max-w-[725px] max-h-[90vh] absolute flex-col overflow-y-scroll"
+        className="bg-white rounded-2xl shadow-xl p-6 relative z-30 sm:max-w-[725px] max-h-[90vh]  flex-col overflow-y-scroll"
         onClick={(e) => e.stopPropagation()}
       >
         <p className="text-center py-4 font-bold">Crear una nueva zona</p>
