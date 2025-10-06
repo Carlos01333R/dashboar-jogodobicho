@@ -2,7 +2,7 @@
 import { FormEvent, useState } from 'react';
 import { Ban, Plus, Search, Filter, Calendar, User, AlertTriangle, Trash2, Edit, Loader2 } from 'lucide-react';
 import { ModalFromNumerosBloqueados } from '@/components/numerosBloqueados/ModalFrom';
-import { ModalDelete } from '../usuarios/ModalDelete';
+import  ModalDelete  from '../usuarios/ModalDelete';
 import { ModalUpdateNumerosBloqueados } from '@/components/numerosBloqueados/ModalUpdate';
 import { ModalMaximoValor } from './ModalMaximoNumeros';
 import { ModalMaximoValorbr } from './ModalMaximobr';
@@ -22,6 +22,7 @@ export default function BlockedNumbers({Submit, Delete, Update, loading, error, 
   const [statusFilter, setStatusFilter] = useState('all');
   const {selectedCountry} = useAuth();
   const isBrasil = selectedCountry === 'brazil';
+  const [deleteUser, setDeleteUser] = useState<any | null>(null);
 
   const filteredNumbers = numerosBloqueados.filter((blocked : any)  =>
     (statusFilter === 'all' || (statusFilter === 'active' ? blocked.active : !blocked.active)) &&
@@ -198,7 +199,15 @@ export default function BlockedNumbers({Submit, Delete, Update, loading, error, 
                 <button className="flex-1 bg-gray-50 hover:bg-gray-100 text-gray-700 py-2 px-3 rounded-lg text-sm font-medium transition-colors hidden">
                   {numero.active ? 'Desactivar' : 'Activar'}
                 </button>
-              <ModalDelete name={numero.numero} id={numero.id} onsubmit={Delete} title='Bloquear Numero' />
+              <button
+                           onClick={(e) => {
+                             e.stopPropagation(); // Esto previene la propagación
+                             setDeleteUser(numero);
+                           }}
+                           className="bg-red-50 hover:bg-red-100 text-red-700 py-2 px-3 rounded-lg"
+                         >
+                           <Trash2 className="w-4 h-4" />
+                         </button>
               </div>
             </div>
           </div>
@@ -221,6 +230,20 @@ export default function BlockedNumbers({Submit, Delete, Update, loading, error, 
           </div>
         </div>
       </div>
+
+      {/* MODAL DELETE */}
+      {deleteUser && (
+        <ModalDelete
+          id={deleteUser.id}
+          name={deleteUser.numero}
+          title="numero"
+          isOpen={!!deleteUser}
+          onClose={() => setDeleteUser(null)}
+          onsubmit={Delete}
+        />
+      )}
     </div>
+
+
   );
 };
