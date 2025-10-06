@@ -1,9 +1,9 @@
 'use client'
 import React, { useState } from 'react';
-import { Users as UsersIcon, Search, User, TicketCheck } from 'lucide-react';
+import { Users as UsersIcon, Search, User, TicketCheck, Edit } from 'lucide-react';
 import useZonas from '@/hook/adminZona/useZonas';
-import { ModalFromZonas } from '../zonas/ModalFromZonas';
-import { ModalUpdateZonas } from '../zonas/ModalUpdateZonas';
+import  ModalFromZonas  from '../zonas/ModalFromZonas';
+import  ModalUpdateZonas  from '../zonas/ModalUpdateZonas';
 import { FormatCurrencyBR, FormatCurrencyCO } from '@/utils/Format';
 import { useAuthAdminZona } from '@/context/AuthContextAdminZona';
 
@@ -11,6 +11,9 @@ export default function ZonasComponentAdminZona() {
     const { user, selectedCountry } = useAuthAdminZona()
     const zonaAdmin = user?.sector || ""
     const { zonas, loading , error } = useZonas();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [updateZonaSelected, setUpdateZonaSelected] = useState<any | null>(null);
+      
     const isBrasil = selectedCountry === 'brazil'
 
   
@@ -226,9 +229,13 @@ export default function ZonasComponentAdminZona() {
             
              <div className="mt-4 pt-4 border-t border-gray-200">
                 <div className="flex space-x-2">
-                  <ModalUpdateZonas  id={zonas.id} nombre={zonas.nombre} porcentaje_loteria={zonas.porcentaje_loteria} porcentaje_cliente={zonas.porcentaje_cliente} porcentaje_admin_zona={zonas.porcentaje_admin_zona} cuatroCifras={zonas["4cifras"]} tresCifras={zonas["3cifras"]} dosCifras={zonas["2cifras"]} cuatroCombi={zonas["4combi"]} tresCombi={zonas["3combi"]} pais={selectedCountry} milla={zonas["milla"]} centena={zonas["centena"]} decena={zonas["decena"]} millar1a5={zonas["millar1a5"]} centena1a5={zonas["centena1a5"]} decena1a5={zonas["decena1a5"]} />
-                 
-                  
+                 <button
+                                  onClick={() => setUpdateZonaSelected(zonas)}
+                                  className="flex-1 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 py-2 px-3 rounded-lg text-sm font-medium transition-colors flex items-center justify-center space-x-1 cursor-pointer">
+                                  <Edit className="w-4 h-4" />
+                                  <span>Editar</span>
+                                </button>
+
                 </div>
               </div>
          
@@ -237,7 +244,29 @@ export default function ZonasComponentAdminZona() {
           );
         })}
       </div>
-
+  {updateZonaSelected && (
+        <ModalUpdateZonas
+          id={updateZonaSelected.id}
+          nombre={updateZonaSelected.nombre}
+          porcentaje_loteria={updateZonaSelected.porcentaje_loteria}
+          porcentaje_cliente={updateZonaSelected.porcentaje_cliente}
+          porcentaje_admin_zona={updateZonaSelected.porcentaje_admin_zona}
+          cuatroCifras={updateZonaSelected["4cifras"]}
+          tresCifras={updateZonaSelected["3cifras"]}
+          dosCifras={updateZonaSelected["2cifras"]}
+          cuatroCombi={updateZonaSelected["4combi"]}
+          tresCombi={updateZonaSelected["3combi"]}
+          pais={selectedCountry}
+          milla={updateZonaSelected["milla"]}
+          centena={updateZonaSelected["centena"]}
+          decena={updateZonaSelected["decena"]}
+          millar1a5={updateZonaSelected["millar1a5"]}
+          centena1a5={updateZonaSelected["centena1a5"]}
+          decena1a5={updateZonaSelected["decena1a5"]}
+          isOpen={!!updateZonaSelected}
+          onClose={() => setUpdateZonaSelected(null)}
+        />
+      )}
     </div>
   );
 };

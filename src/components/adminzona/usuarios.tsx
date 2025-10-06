@@ -1,11 +1,11 @@
 'use client'
 import React, { FormEvent, useState } from 'react';
-import { Users as UsersIcon, Search, MapPin, Calendar } from 'lucide-react';
+import { Users as UsersIcon, Search, MapPin, Calendar, Plus, Trash2 } from 'lucide-react';
 import { useUsuarios } from '@/hook/co/User';
 import useZonas from '@/hook/co/useZonas';
-import { ModalFrom } from '@/components/usuarios/ModalFrom';
-import { ModalDelete } from '@/components/usuarios/ModalDelete';
-import { ModalUpdate } from '@/components/usuarios/ModalUpdate';
+import  ModalFrom  from '@/components/usuarios/ModalFrom';
+import  ModalDelete from '@/components/usuarios/ModalDelete';
+import  ModalUpdate  from '@/components/usuarios/ModalUpdate';
 import Link from 'next/link';
 import { useAuthAdminZona } from '@/context/AuthContextAdminZona';
 
@@ -22,6 +22,9 @@ export default function UsersComponentAdminZona({submit, updateUser, Delete}: pr
   const [searchTerm, setSearchTerm] = useState('')
   const { usuarios, loading, error } = useUsuarios();
   const { zonas, loading: loadingZonas, error: errorZonas } = useZonas();
+   const [openForm, setOpenForm] = useState(false);
+    const [deleteUser, setDeleteUser] = useState<any | null>(null);
+    const [updateUserSelected, setUpdateUserSelected] = useState<any | null>(null);
 
   
   const filteredUsers = usuarios.filter(user => 
@@ -75,7 +78,13 @@ export default function UsersComponentAdminZona({submit, updateUser, Delete}: pr
           </p>
         </div>
         <div className="flex items-center space-x-3">
-          <ModalFrom onSubmit={submit} title='Usuario' />
+          <button
+            onClick={() => setOpenForm(true)}
+            className="flex items-center gap-x-2 bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-lg"
+          >
+            <Plus className="w-4 h-4" />
+            <p><span className="hidden md:block">Nuevo</span> Usuario</p>
+          </button>
         </div>
       </div>
 
@@ -172,8 +181,22 @@ export default function UsersComponentAdminZona({submit, updateUser, Delete}: pr
 
               <div className="mt-4 pt-4 border-t border-gray-200">
                 <div className="flex space-x-2">
-                  <ModalUpdate id={user.id} nombre={user.full_name} email={user.email} telefono={user.telefono} sector={user.sector} password={user.password}   estado={user.is_active.toString()} onSubmit={updateUser} title='Usuario' />
-                    <ModalDelete name={user.full_name} id={user.id} onsubmit={Delete} title='Usuario' />
+                   <button
+                className='bg-emerald-500  text-emerald-50 py-2 px-3 rounded-lg'
+                onClick={() => setUpdateUserSelected(user)}>
+                  Editar Usuario
+                </button>
+
+                {/* ELIMINAR */}
+               <button
+              onClick={(e) => {
+                e.stopPropagation(); // Esto previene la propagación
+                setDeleteUser(user);
+              }}
+              className="bg-red-50 hover:bg-red-100 text-red-700 py-2 px-3 rounded-lg"
+            >
+              <Trash2 className="w-4 h-4" />
+            </button>
                 </div>
               </div>
             </div>
@@ -181,6 +204,41 @@ export default function UsersComponentAdminZona({submit, updateUser, Delete}: pr
         })}
       </div>
 
+  <ModalFrom
+        title="Usuario"
+        onSubmit={submit}
+        isOpen={openForm}
+        onClose={() => setOpenForm(false)}
+      />
+
+      {/* MODAL UPDATE */}
+      {updateUserSelected && (
+        <ModalUpdate
+          id={updateUserSelected.id}
+          nombre={updateUserSelected.full_name}
+          email={updateUserSelected.email}
+          telefono={updateUserSelected.telefono}
+          sector={updateUserSelected.sector}
+          password={updateUserSelected.password}
+          estado={updateUserSelected.is_active.toString()}
+          onSubmit={updateUser}
+          title="Usuario"
+          isOpen={!!updateUserSelected}
+          onClose={() => setUpdateUserSelected(null)}
+        />
+      )}
+
+      {/* MODAL DELETE */}
+      {deleteUser && (
+        <ModalDelete
+          id={deleteUser.id}
+          name={deleteUser.full_name}
+          title="usuario"
+          isOpen={!!deleteUser}
+          onClose={() => setDeleteUser(null)}
+          onsubmit={Delete}
+        />
+      )}
     </div>
   );
 };
