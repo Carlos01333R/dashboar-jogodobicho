@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { supabase } from "@/lib/supabase"
+
 interface GanadorDetalle {
   id: number
   numero_ticket: string
@@ -56,6 +57,17 @@ export function useGanadoresSummary(params: UseGanadoresSummaryParams = {}) {
   const [data, setData] = useState<GanadoresSummaryData | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+ 
+  const formatDateForSupabase = (dateString :any) => {
+  if (!dateString) return null;
+  
+  // Convertir de DD/MM/YYYY a YYYY-MM-DD
+  const parts = dateString.split('/');
+  if (parts.length === 3) {
+    return `${parts[2]}-${parts[1]}-${parts[0]}`;
+  }
+  return dateString;
+};
 
   const fetchGanadoresSummary = async () => {
     try {
@@ -65,8 +77,8 @@ export function useGanadoresSummary(params: UseGanadoresSummaryParams = {}) {
 
       const { data: result, error: supabaseError } = await supabase.rpc("get_ganadores_summary", {
         p_zona: params.zona || null,
-        p_fecha_inicio: params.fecha_inicio || null,
-        p_fecha_fin: params.fecha_fin || null,
+        p_fecha_inicio: formatDateForSupabase(params.fecha_inicio) || null,
+        p_fecha_fin: formatDateForSupabase(params.fecha_fin) || null,
       })
 
       if (supabaseError) {

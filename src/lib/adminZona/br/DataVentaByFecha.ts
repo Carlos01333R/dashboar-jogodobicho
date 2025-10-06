@@ -42,7 +42,7 @@ export default function DataVentasByFechaAdminZonaBr({
 
   const ventaNetaAjustadaBR = dataBR.map(
     (item: VentasStats, index: number) =>
-      item.total_venta_neta + GananciasAdminZona[index]
+      item.total_venta_neta
   );
 
   const balanceNetoAjustadoBR = dataBR.map(
@@ -57,7 +57,7 @@ export default function DataVentasByFechaAdminZonaBr({
   const totalPremiosBR = dataBR.reduce((sum, item) => sum + item.total_premios, 0);
 
   const totalGananciasAdminZonaBR = GananciasAdminZona.reduce((sum, item) => sum + item, 0);
-  const totalVentaNetaAjustadaBR = totalVentaNetaBR + totalGananciasAdminZonaBR;
+  const totalVentaNetaAjustadaBR = totalVentaNetaBR ;
   const totalBalanceNetoBR = totalVentaNetaAjustadaBR - totalPremiosBR;
 
   const formatCurrency = (amount: number) => {

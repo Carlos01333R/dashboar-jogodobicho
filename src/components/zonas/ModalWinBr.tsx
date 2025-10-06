@@ -1,41 +1,36 @@
-import { Button } from "@/components/ui/button"
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
-import {Calendar, Clock, MapPin, Plus, Ticket, Trash2, Trophy, User} from "lucide-react";
-import useObtenerDetallesWin from "@/hook/co/ventasZonas/useObternerDetallesWin";
+import { Calendar, DollarSign, MapPin, Ticket, Trophy, User } from "lucide-react";
+import { useState } from "react";
 import { Card, CardContent } from "../ui/card";
 
 interface Props {
 winner: any;
 desde: string;
 hasta: string;
+  isOpen: boolean;
+  onClose: () => void;
+
 }
 
-export function ModalWinBr({winner, desde, hasta} : Props) {
-
+export default function ModalWinBr({winner, desde, hasta, isOpen, onClose} : Props) {
 
   return (
-    <Dialog >
-    
-        <DialogTrigger asChild>
-          <button className="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 py-2 px-3 rounded-lg text-sm font-medium transition-colors cursor-pointer">
-      Ver premios
-        </button>
-        </DialogTrigger>
-        <DialogContent className="sm:max-w-[725px] max-h-[90vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle className="flex-1 text-center text-xs">premios del dia {desde} a {hasta}</DialogTitle>
-            
-          </DialogHeader>
-           <section className="grid  md:grid-cols-2 gap-x-3 md:gap-x-5 md:p-3 gap-y-2 md:gap-y-2">
+    <div className="flex z-50 items-center justify-center ">
+
+
+      {/* Fondo oscuro */}
+      {isOpen && (
+        <div
+          className="fixed z-40 inset-0 flex justify-center items-center backdrop-blur-sm bg-opacity-50  transition-opacity"
+          onClick={() => onClose()}
+        >
+          {/* Contenido del modal */}
+          <div
+            className="bg-white rounded-2xl shadow-xl p-6 relative z-30 sm:max-w-[725px] max-h-[90vh] apsolute  flex-col overflow-y-scroll"
+            onClick={(e) => e.stopPropagation()} // Evita cerrar si se hace click dentro
+          >
+
+            <p className="text-center">premios del dia {desde} a {hasta}</p>
+              <section className="grid  md:grid-cols-2 gap-x-3 md:gap-x-5 md:p-3 gap-y-2 md:gap-y-2">
             {winner.map((winner: any) => (
              <Card key={winner.id}>
             <CardContent className="p-6">
@@ -114,17 +109,18 @@ export function ModalWinBr({winner, desde, hasta} : Props) {
           </Card>
           ))}
            </section>
-            <DialogFooter>
-            <section className="w-full  flex items-center justify-center gap-x-2">
-            <DialogClose asChild>
-              <button className="py-1.5 px-3 bg-red-500 text-white rounded-lg cursor-pointer">Cancelar</button>
-            </DialogClose>
-           
-            </section>
-          </DialogFooter>
-        </DialogContent>
-          
-
-    </Dialog>
-  )
+        
+            <div className="flex justify-end mt-6">
+              <button
+                onClick={() => onClose()}
+                className="px-4 py-2 bg-red-500 text-white rounded-lg cursor-pointer"
+              >
+                Cerrar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }

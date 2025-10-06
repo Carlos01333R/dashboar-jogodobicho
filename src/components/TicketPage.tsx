@@ -4,9 +4,17 @@ import useObtenerBoletoPorTicket from "@/hook/br/useObtenerBoletoPorTicket";
 import { Card, CardContent } from "./ui/card";
 import { AlertCircle } from "lucide-react";
 import { FormatCurrencyBR } from "@/utils/Format";
+import { Loteria, useLoteriasRg } from "@/hook/br/InforLoterias";
+import { createLotteryInfoGetter } from "@/utils/InforLoterry";
+
+
 
 export default function TicketPageClient({ ticketId }: { ticketId: string }) {
     const { boleto, loading, error } = useObtenerBoletoPorTicket({numeroTicket: ticketId});
+    const { loterias } = useLoteriasRg();
+    const getLotteryInfo = createLotteryInfoGetter(loterias);
+   
+    
 
     if (loading) {
       return (
@@ -58,8 +66,8 @@ export default function TicketPageClient({ ticketId }: { ticketId: string }) {
 
         <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden  border-4 border-dashed border-emerald-500 p-3">
             <section className="flex flex-col justify-center items-center border-b border-dashed border-gray-500 mb-2">
-                <span className="font-bold">JOGO DO BICHO</span>
-                <span>lOTERIA BR - RIO DE JANEIRO</span>
+                <span className="font-bold">CHANCES PLUS</span>
+                <span>Jogo do Bicho</span>
             </section>
 
             <section className="border-b border-dashed border-gray-500 p-3">
@@ -76,12 +84,16 @@ export default function TicketPageClient({ ticketId }: { ticketId: string }) {
             <section className="flex flex-col justify-center items-center border-b border-dashed border-gray-500 p-3">
               <p className="font-bold">Loterias seleccionadas:</p>
               <div className="bg-emerald-50 flex flex-wrap gap-x-2 px-3 py-1 rounded-lg">
-                {boleto?.loterias_seleccionadas.map((loteria, index) => (
-                    <div key={index} className="flex items-center gap-x-2">
-                 <p key={index} className="text-emerald-500 ">{loteria}</p>
-                    </div>
-               
-                ))}
+               {boleto?.loterias_seleccionadas.map((loteria, index) => {
+                const lotteryInfo = getLotteryInfo(loteria);
+                return (
+                  <div key={index} className="flex items-center gap-x-2">
+                    <p className="text-emerald-500">
+                      {lotteryInfo.name} - {lotteryInfo.time}
+                    </p>
+                  </div>
+                );
+              })}
               </div>
             </section>
 

@@ -155,7 +155,7 @@ const winnersChartData = totalWinnersMes?.map(item => {
               ) : (
                 <>
                  {nombresLoterias?.map((loteria: string) => (
-                  <option value={loteria}>{loteria}</option>
+                  <option key={loteria} value={loteria}>{loteria}</option>
                 ))}
                 </>
               )}

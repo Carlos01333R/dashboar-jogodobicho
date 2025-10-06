@@ -25,7 +25,7 @@ export const useVentasStats = ({ fechaInicio, fechaFin, zona }: UseVentasStatsPr
     
     try {
       const { data: result, error: supabaseError } = await supabase
-        .rpc('calcular_totales_por_fecha_zona', {
+        .rpc('calcular_totales_por_fecha_zona_ventas', {
           fecha_inicio_text: fechaInicio,
           fecha_fin_text: fechaFin,
           zona_param: zona

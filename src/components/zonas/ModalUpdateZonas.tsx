@@ -1,21 +1,11 @@
-import { Button } from "@/components/ui/button"
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
-import { usePathname } from "next/navigation";
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import {Edit} from "lucide-react";
 import { supabase } from "@/lib/supabase";
-import { toast } from "sonner" 
-import { useState } from "react"
+import { DollarSign, Edit } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
+import { toast } from "sonner";
+import { Button } from "../ui/button";
+import { Label } from "../ui/label";
+import { Input } from "../ui/input";
 
 interface Props {
   id: string;
@@ -35,9 +25,12 @@ interface Props {
   millar1a5: number | null;
   centena1a5: number | null; 
   decena1a5: number | null;
+  isOpen: boolean; // 👈 ahora se controla desde afuera
+  onClose: () => void; // 👈 cerrar desde afuera
 }
 
-export function ModalUpdateZonas({
+
+export default function ModalUpdateZonas({
   id,
   nombre,
   porcentaje_loteria,
@@ -55,8 +48,11 @@ export function ModalUpdateZonas({
   millar1a5,
   centena1a5, 
   decena1a5,
+  isOpen,
+  onClose
 }: Props) {
-  const [Nombre, setNombre] = useState(nombre || "");
+
+   const [Nombre, setNombre] = useState(nombre || "");
   const [Porcentaje_loteria, setPorcentaje_loteria] = useState(porcentaje_loteria?.toString() || "");
   const [Porcentaje_cliente, setPorcentaje_cliente] = useState(porcentaje_cliente?.toString() || "");
   const [Porcentaje_admin_zona, setPorcentaje_admin_zona] = useState(porcentaje_admin_zona?.toString() || "");
@@ -71,95 +67,97 @@ export function ModalUpdateZonas({
   const [Millar1a5, setMillar1a5] = useState(millar1a5?.toString() || "");
   const [Centena1a5, setCentena1a5] = useState(centena1a5?.toString() || "");
   const [Decena1a5, setDecena1a5] = useState(decena1a5?.toString() || "");
-
+ 
+   
+    const pathname = usePathname();
+    const isActive = pathname === "/AdminZona/co/dashboard/zonas";
+    const isBrasil = pais === 'brazil';
   
-  const pathname = usePathname();
-  const isActive = pathname === "/AdminZona/co/dashboard/zonas";
-  const isBrasil = pais === 'brazil';
-
-  // Función para convertir string vacío a null y string numérico a número
-  const parseNumberField = (value: string): number | null => {
-    if (value === "" || value === null || value === undefined) return null;
-    const num = parseFloat(value);
-    return isNaN(num) ? null : num;
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    // Validar campos requeridos
-    if (
-      !Nombre.trim() ||
-      !Porcentaje_loteria ||
-      !Porcentaje_cliente ||
-      !Porcentaje_admin_zona ||
-      !CuatroCifras ||
-      !TresCifras ||
-      !DosCifras ||
-      !Milla ||
-      !Centena ||
-      !Decena ||
-      !Millar1a5 ||
-      !Centena1a5 ||
-      !Decena1a5
-    ) {
-      toast.error("Complete todos los campos obligatorios");
-      return;
-    }
-
-    try {
-      const { error } = await supabase
-        .from("zonas")
-        .update({
-          nombre: Nombre.trim(),
-          porcentaje_loteria: parseNumberField(Porcentaje_loteria),
-          porcentaje_cliente: parseNumberField(Porcentaje_cliente),
-          porcentaje_admin_zona: parseNumberField(Porcentaje_admin_zona),
-          "4cifras": parseNumberField(CuatroCifras),
-          "3cifras": parseNumberField(TresCifras),
-          "2cifras": parseNumberField(DosCifras),
-          "4combi": isBrasil ? null : parseNumberField(CuatroCombi),
-          "3combi": isBrasil ? null : parseNumberField(TresCombi),
-          "milla": parseNumberField(Milla),
-          "centena": parseNumberField(Centena),
-          "decena": parseNumberField(Decena),
-          "millar1a5": parseNumberField(Millar1a5),
-          "centena1a5": parseNumberField(Centena1a5),
-          "decena1a5": parseNumberField(Decena1a5),
-        })
-        .eq("id", id);
-
-      if (error) {
-        console.error("Error actualizando datos:", error.message);
-        toast.error("Error al actualizar la zona");
-      } else {
-        toast.success("Zona actualizada correctamente");
-        // No recargar la página completa, mejor usar estado o contexto
-        setTimeout(() => window.location.reload(), 1000); // Pequeño delay para que se vea el toast
+    // Función para convertir string vacío a null y string numérico a número
+    const parseNumberField = (value: string): number | null => {
+      if (value === "" || value === null || value === undefined) return null;
+      const num = parseFloat(value);
+      return isNaN(num) ? null : num;
+    };
+  
+    const handleSubmit = async (e: React.FormEvent) => {
+      e.preventDefault();
+      
+      // Validar campos requeridos
+      if (
+        !Nombre.trim() ||
+        !Porcentaje_loteria ||
+        !Porcentaje_cliente ||
+        !Porcentaje_admin_zona ||
+        !CuatroCifras ||
+        !TresCifras ||
+        !DosCifras ||
+        !Milla ||
+        !Centena ||
+        !Decena ||
+        !Millar1a5 ||
+        !Centena1a5 ||
+        !Decena1a5
+      ) {
+        toast.error("Complete todos los campos obligatorios");
+        return;
       }
-    } catch (error) {
-      console.error("Error inesperado:", error);
-      toast.error("Error inesperado al actualizar la zona");
-    }
-  };
+  
+      try {
+        const { error } = await supabase
+          .from("zonas")
+          .update({
+            nombre: Nombre.trim(),
+            porcentaje_loteria: parseNumberField(Porcentaje_loteria),
+            porcentaje_cliente: parseNumberField(Porcentaje_cliente),
+            porcentaje_admin_zona: parseNumberField(Porcentaje_admin_zona),
+            "4cifras": parseNumberField(CuatroCifras),
+            "3cifras": parseNumberField(TresCifras),
+            "2cifras": parseNumberField(DosCifras),
+            "4combi": isBrasil ? null : parseNumberField(CuatroCombi),
+            "3combi": isBrasil ? null : parseNumberField(TresCombi),
+            "milla": parseNumberField(Milla),
+            "centena": parseNumberField(Centena),
+            "decena": parseNumberField(Decena),
+            "millar1a5": parseNumberField(Millar1a5),
+            "centena1a5": parseNumberField(Centena1a5),
+            "decena1a5": parseNumberField(Decena1a5),
+          })
+          .eq("id", id);
+  
+        if (error) {
+          console.error("Error actualizando datos:", error.message);
+          toast.error("Error al actualizar la zona");
+        } else {
+          toast.success("Zona actualizada correctamente");
+          // No recargar la página completa, mejor usar estado o contexto
+          setTimeout(() => window.location.reload(), 1000); // Pequeño delay para que se vea el toast
+        }
+      } catch (error) {
+        console.error("Error inesperado:", error);
+        toast.error("Error inesperado al actualizar la zona");
+      }
+    };
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <button className="flex-1 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 py-2 px-3 rounded-lg text-sm font-medium transition-colors flex items-center justify-center space-x-1 cursor-pointer">
-          <Edit className="w-4 h-4" />
-          <span>Editar</span>
-        </button>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] md:max-w-[500px] max-h-[90vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle>Editar zona {nombre}</DialogTitle>
-          <DialogDescription>
-            <span>Actualiza la información de la zona.</span>
-          </DialogDescription>
-        </DialogHeader>
-        
-        <form onSubmit={handleSubmit}>
+    <div className="flex z-50 items-center justify-center ">
+       
+
+      {/* Fondo oscuro */}
+      {isOpen && (
+        <div
+          className="fixed z-40 inset-0 flex justify-center items-center backdrop-blur-sm bg-opacity-50  transition-opacity"
+          onClick={() => onClose()}
+        >
+          {/* Contenido del modal */}
+          <div
+            className="bg-white rounded-2xl shadow-xl p-6 relative z-30 sm:max-w-[725px] max-h-[90vh] apsolute  flex-col overflow-y-scroll"
+            onClick={(e) => e.stopPropagation()} // Evita cerrar si se hace click dentro
+          >
+
+            <p className="text-center py-4 font-bold">Editar zona {nombre}</p>
+
+              <form onSubmit={handleSubmit}>
           {/* Versión escritorio */}
           <div className="hidden md:grid grid-cols-2 gap-4">
             <div className="flex flex-col gap-y-2">
@@ -503,20 +501,25 @@ export function ModalUpdateZonas({
             </div>
           </div>
           
-          <DialogFooter className="mt-4">
-            <div className="w-full flex items-center justify-end gap-x-2">
-              <DialogClose asChild>
-                <Button type="button" variant="destructive">
+        
+            <div className="w-full flex items-center justify-end gap-x-2 py-4">
+                <Button
+                onClick={() => onClose()}
+                type="button" variant="destructive">
                   Cancelar
                 </Button>
-              </DialogClose>
+         
               <Button type="submit">
                 Guardar Cambios
               </Button>
             </div>
-          </DialogFooter>
+        
         </form>
-      </DialogContent>
-    </Dialog>
-  )
+        
+          
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }

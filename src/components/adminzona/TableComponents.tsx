@@ -19,11 +19,13 @@ interface Props {
   adminZona: number;
   balanceNetoAjustado: number[];
   ventaNetaAjustada: number[];
+  gananciasAdminZonaNewTotal: number;
 }
 
-export default function TableComponents({data, exportToExcel, totalBalanceNeto, totalGanancias, totalPremios, totalVentaNetaAjustada, totalValorBruta, adminZona, balanceNetoAjustado, ventaNetaAjustada}: Props) {
+export default function TableComponents({data, exportToExcel, totalBalanceNeto, totalGanancias, totalPremios, totalVentaNetaAjustada, totalValorBruta, adminZona, balanceNetoAjustado, ventaNetaAjustada, gananciasAdminZonaNewTotal}: Props) {
 
     const {selectedCountry} = useAuthAdminZona()
+
     
   return (
     <section>
@@ -43,7 +45,7 @@ export default function TableComponents({data, exportToExcel, totalBalanceNeto, 
               <thead className="bg-gray-50">
                 <tr>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Usuario
+                    Usuario 
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Valor Bruta
@@ -102,7 +104,7 @@ export default function TableComponents({data, exportToExcel, totalBalanceNeto, 
 
                   </td>
                   <td className="px-6 py-3 text-sm font-bold text-gray-900">
-                    {selectedCountry === 'brazil' ? FormatCurrencyBR(totalVentaNetaAjustada) : FormatCurrencyCO(totalVentaNetaAjustada)}
+                    {selectedCountry === 'brazil' ? FormatCurrencyBR(totalVentaNetaAjustada + gananciasAdminZonaNewTotal) : FormatCurrencyCO(totalVentaNetaAjustada + gananciasAdminZonaNewTotal)}
                 
                   </td>
                   <td className="px-6 py-3 text-sm font-bold text-gray-900">
@@ -116,7 +118,7 @@ export default function TableComponents({data, exportToExcel, totalBalanceNeto, 
                   <td className={`px-6 py-3 text-sm font-bold ${
                     totalBalanceNeto < 0 ? 'text-red-600' : 'text-gray-900'
                   }`}>
-                    {selectedCountry === 'brazil' ? FormatCurrencyBR(totalBalanceNeto) : FormatCurrencyCO(totalBalanceNeto)}
+                    {selectedCountry === 'brazil' ? FormatCurrencyBR(totalBalanceNeto + gananciasAdminZonaNewTotal) : FormatCurrencyCO(totalBalanceNeto + gananciasAdminZonaNewTotal)}
                   
                   </td>
                 </tr>
@@ -125,7 +127,7 @@ export default function TableComponents({data, exportToExcel, totalBalanceNeto, 
             
             <div className="p-4 bg-blue-50 border-t border-blue-200">
               <p className="text-sm text-blue-800">
-                <strong>Nota:</strong> Venta Neta incluye ganancias de admin zona ({adminZona}% sobre valor bruta)
+                <strong>Nota:</strong> El total de la Venta Neta incluye ganancias de admin zona + total venta neta
               </p>
             </div>
           </div>

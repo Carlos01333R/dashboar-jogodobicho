@@ -107,6 +107,11 @@ export default function Home() {
               </div>
             </div>
           </div>
+
+          <div  className="group cursor-pointer bg-gradient-to-br from-green-50 to-yellow-50 border-2 border-green-200 rounded-xl p-8 hover:border-green-400 hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+
+            
+          </div>
         </div>
 
         {/* Footer */}

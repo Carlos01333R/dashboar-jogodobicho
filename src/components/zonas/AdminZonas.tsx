@@ -1,20 +1,26 @@
 'use client'
 import React, { useState } from 'react';
-import { Users as UsersIcon, Search, MapPin, Calendar } from 'lucide-react';
+import { Users as UsersIcon, Search, MapPin, Calendar, Trash2, Plus } from 'lucide-react';
 import useAdminZonas from '@/hook/co/useAdminZonas';
-import { ModalFrom } from '@/components/usuarios/ModalFrom';
-import { ModalDelete } from '@/components/usuarios/ModalDelete';
-import { ModalUpdate } from '@/components/usuarios/ModalUpdate';
+import ModalFrom from '../usuarios/ModalFrom';
+import ModalDelete from '../usuarios/ModalDelete';
+import ModalUpdate from '../usuarios/ModalUpdate';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
 import { toast } from 'sonner';
 import useZonas from '@/hook/co/useZonas';
+import { Button } from '../ui/button';
 
 export default function AdminZonasComponent() {
   const [searchTerm, setSearchTerm] = useState('')
   const [sector , setSector] = useState('all');
   const { zonas, loading, error } = useAdminZonas();
   const { zonas: sectores } = useZonas();
+  const [open, setOpen] = useState(false);
+   const [openForm, setOpenForm] = useState(false);
+    const [deleteUser, setDeleteUser] = useState<any | null>(null);
+    const [updateUserSelected, setUpdateUserSelected] = useState<any | null>(null);
+
 
 
   
@@ -162,7 +168,13 @@ window.location.reload(); // recarga toda la página
           </p>
         </div>
         <div className="flex items-center space-x-3">
-          <ModalFrom onSubmit={handleSubmit} title='Administrador' />
+         <button
+                onClick={() => setOpenForm(true)}
+                className="flex items-center gap-x-2 bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-lg"
+              >
+                <Plus className="w-4 h-4" />
+                <p><span className="hidden md:block">Nuevo</span> Administrador</p>
+              </button>
         </div>
       </div>
 
@@ -270,17 +282,67 @@ window.location.reload(); // recarga toda la página
                 </div>
               </div>
 
-              <div className="mt-4 pt-4 border-t border-gray-200">
-                <div className="flex space-x-2">
-                  <ModalUpdate id={zonas.id} nombre={zonas.nombre} email={zonas.email} telefono={zonas.telefono} sector={zonas.sector} password={zonas.password}   estado={zonas.is_active.toString()} onSubmit={handleUpdateUser} title='Administrador' />
-                    <ModalDelete name={zonas.nombre} id={zonas.id} onsubmit={handleDelete} title='Administrador' />
-                </div>
-              </div>
+                <div className="mt-4 pt-4 border-t border-gray-200">
+                            <div className="flex space-x-2">
+                              {/* EDITAR */}
+                              <button
+                                className='bg-emerald-500  text-emerald-50 py-2 px-3 rounded-lg'
+                              onClick={() => setUpdateUserSelected(zonas)}>
+                                Editar Usuario
+                              </button>
+              
+                              {/* ELIMINAR */}
+                              <button
+                                onClick={() => setDeleteUser(zonas)}
+                                className="bg-red-50 hover:bg-red-100 text-red-700 py-2 px-3 rounded-lg"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </button>
+                            </div>
+                          </div>
             </div>
           );
         })}
       </div>
 
+        <ModalFrom
+         title="administrador"
+         onSubmit={handleSubmit}
+         isOpen={openForm}
+         onClose={() => setOpenForm(false)}
+       />
+
+       
+             {/* MODAL UPDATE */}
+             {updateUserSelected && (
+               <ModalUpdate
+                 id={updateUserSelected.id}
+                 nombre={updateUserSelected.nombre}
+                 email={updateUserSelected.email}
+                 telefono={updateUserSelected.telefono}
+                 sector={updateUserSelected.sector}
+                 password={updateUserSelected.password}
+                 estado={updateUserSelected.is_active.toString()}
+                 onSubmit={handleUpdateUser}
+                 title="Usuario"
+                 isOpen={!!updateUserSelected}
+                 onClose={() => setUpdateUserSelected(null)}
+               />
+             )}
+       
+             {/* MODAL DELETE */}
+             {deleteUser && (
+               <ModalDelete
+                 id={deleteUser.id}
+                 name={deleteUser.full_name}
+                 title="usuario"
+                 isOpen={!!deleteUser}
+                 onClose={() => setDeleteUser(null)}
+                 onsubmit={handleDelete}
+               />
+             )}
+
+ 
     </div>
   );
 };

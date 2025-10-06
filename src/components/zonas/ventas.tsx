@@ -2,7 +2,10 @@
 import { useState } from "react"
 import { UsersIcon, Search, User, TicketCheck } from "lucide-react"
 import useZonas from "@/hook/co/useZonas"
-import { ModalVentasZonas } from "./ModalVentas"
+import ModalVentasZonas from "./ModalVentas"
+import ModalVentasZonasTotales from "./ModalVentasTotales"
+
+
 
 export default function ZonasComponentVentas() {
   const [searchTerm, setSearchTerm] = useState("")
@@ -128,8 +131,9 @@ export default function ZonasComponentVentas() {
                     <span className="text-sm font-medium text-gray-900">{zonas.porcentaje_admin_zona}%</span>
                   </div>
 
-                  <div className="w-full">
+                  <div className="w-full space-y-2">
                     <ModalVentasZonas zona={zonas.nombre} />
+                    <ModalVentasZonasTotales zona={zonas.nombre} />
                   </div>
                 </div>
               </div>

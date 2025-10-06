@@ -1,35 +1,46 @@
 'use client'
 import React, { FormEvent, useState } from 'react';
-import { Users as UsersIcon, Search, MapPin, Calendar } from 'lucide-react';
+import { Users as UsersIcon, Search, MapPin, Calendar, Trash2, Plus } from 'lucide-react';
 import { useUsuarios } from '@/hook/co/User';
 import useZonas from '@/hook/co/useZonas';
-import { ModalFrom } from '@/components/usuarios/ModalFrom';
-import { ModalDelete } from '@/components/usuarios/ModalDelete';
-import { ModalUpdate } from '@/components/usuarios/ModalUpdate';
+import ModalDelete from './ModalDelete';
+import ModalUpdate from './ModalUpdate';
 import Link from 'next/link';
+import ModalFrom from './ModalFrom';
+import { Button } from '../ui/button';
 
-interface prop{
+interface prop {
   submit: (e: FormEvent<Element>) => void
-  updateUser: (form: { id: string; Nombre: string; Email: string; Telefono: string; Sector: string; Password: string; Estado: string; }) => void | Promise<void>
+  updateUser: (form: {
+    id: string;
+    Nombre: string;
+    Email: string;
+    Telefono: string;
+    Sector: string;
+    Password: string;
+    Estado: string;
+  }) => void | Promise<void>
   Delete: (form: { id: string; }) => void | Promise<void>
-
 }
 
-export default function UsersComponent({submit, updateUser, Delete}: prop) {
-  const [searchTerm, setSearchTerm] = useState('')
-  const [sector , setSector] = useState('all');
+export default function UsersComponent({ submit, updateUser, Delete }: prop) {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [sector, setSector] = useState('all');
   const { usuarios, loading, error } = useUsuarios();
-  const { zonas, loading: loadingZonas, error: errorZonas } = useZonas();
-  
-  const filteredUsers = usuarios.filter(user => 
+  const { zonas } = useZonas();
+
+  // Estado para modales
+  const [openForm, setOpenForm] = useState(false);
+  const [deleteUser, setDeleteUser] = useState<any | null>(null);
+  const [updateUserSelected, setUpdateUserSelected] = useState<any | null>(null);
+
+  const filteredUsers = usuarios.filter(user =>
     (sector === 'all' || user.sector === sector) &&
-    (searchTerm === '' || 
-     user.full_name.toLowerCase().includes(searchTerm.toLowerCase()))
-  
+    (searchTerm === '' ||
+      user.full_name.toLowerCase().includes(searchTerm.toLowerCase()))
   );
+
   const totalUsers = filteredUsers.length;
-
-
 
   if (loading) {
     return (
@@ -50,12 +61,17 @@ export default function UsersComponent({submit, updateUser, Delete}: prop) {
     );
   }
 
-  if(zonas.length === 0) {
+  if (zonas.length === 0) {
     return (
       <div className="flex justify-center items-center ">
         <div className="bg-red-50 border border-red-200 rounded-lg p-6">
           <p className="font-bold text-xl text-red-600 text-center">No hay zonas configuradas</p>
-          <span className='text-gray-500 py-4'>Por favor, configure las zonas en la sección de zonas aqui: <Link href='/co/dashboard/zona/zonas' className='text-emerald-500 underline'>Configuración de zonas</Link></span>
+          <span className='text-gray-500 py-4'>
+            Por favor, configure las zonas en la sección de zonas aqui:{" "}
+            <Link href='/co/dashboard/zona/zonas' className='text-emerald-500 underline'>
+              Configuración de zonas
+            </Link>
+          </span>
         </div>
       </div>
     );
@@ -72,7 +88,13 @@ export default function UsersComponent({submit, updateUser, Delete}: prop) {
           </p>
         </div>
         <div className="flex items-center space-x-3">
-          <ModalFrom onSubmit={submit} title='Usuario' />
+          <button
+            onClick={() => setOpenForm(true)}
+            className="flex items-center gap-x-2 bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-lg"
+          >
+            <Plus className="w-4 h-4" />
+            <p><span className="hidden md:block">Nuevo</span> Usuario</p>
+          </button>
         </div>
       </div>
 
@@ -93,105 +115,149 @@ export default function UsersComponent({submit, updateUser, Delete}: prop) {
             />
           </div>
 
-
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Ordenar por zonas
             </label>
-            <select className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500" onChange={(e) => setSector(e.target.value)}>
-                <option value="all">Todos los sectores</option>
-             {zonas.map((zona : any) => (
-              <option value={zona.nombre} key={zona.id}>{zona.nombre}</option>
-            ))}
-               
+            <select
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+              onChange={(e) => setSector(e.target.value)}
+            >
+              <option value="all">Todos los sectores</option>
+              {zonas.map((zona: any) => (
+                <option value={zona.nombre} key={zona.id}>{zona.nombre}</option>
+              ))}
             </select>
           </div>
-          
+
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-             Total usuarios
+              Total usuarios
             </label>
-            <section className="w-full border border-gray-300 rounded-lg px-3 py-1 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"> 
+            <section className="w-full border border-gray-300 rounded-lg px-3 py-1">
               <div className="flex items-center justify-between ">
-            <div className='flex items-center gap-x-2'>
-              <p className="text-sm text-gray-600 ">Total Usuarios: </p>
-              <p className="text-xl font-bold text-gray-900">{totalUsers}</p>
-            </div>
-            <div className="p-2 rounded-lg bg-emerald-500">
-              <UsersIcon className="w-4 h-4 text-white" />
-            </div>
-          </div>
+                <div className='flex items-center gap-x-2'>
+                  <p className="text-sm text-gray-600 ">Total Usuarios: </p>
+                  <p className="text-xl font-bold text-gray-900">{totalUsers}</p>
+                </div>
+                <div className="p-2 rounded-lg bg-emerald-500">
+                  <UsersIcon className="w-4 h-4 text-white" />
+                </div>
+              </div>
             </section>
           </div>
-          
         </div>
       </div>
 
-
       {/* Users Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-        { !loading && filteredUsers.map((user) => {
-         
-          return (
-            <div key={user.id} className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-              <div className="flex items-start justify-between mb-4">
-                <div className="flex items-center space-x-3">
-              
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900">{user.full_name}</h3>
-                    <p className="text-sm text-gray-500">{user.email}</p>
-                  </div>
+        {!loading && filteredUsers.map((user) => (
+          <div key={user.id} className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+            <div className="flex items-start justify-between mb-4">
+              <div className="flex items-center space-x-3">
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900">{user.full_name}</h3>
+                  <p className="text-sm text-gray-500">{user.email}</p>
                 </div>
-                <span className={`inline-flex px-3 py-1 text-sm font-semibold rounded-full bg-blue-100 text-blue-800 `}>
-                 Vendedor
+              </div>
+              <span className={`inline-flex px-3 py-1 text-sm font-semibold rounded-full bg-blue-100 text-blue-800`}>
+                Vendedor
+              </span>
+            </div>
+
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-gray-600 flex items-center">
+                  <MapPin className="w-4 h-4 mr-1" />
+                  Zona:
+                </span>
+                <span className="text-sm font-medium text-gray-900">{user.sector}</span>
+              </div>
+
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-gray-600 flex items-center">
+                  <Calendar className="w-4 h-4 mr-1" />
+                  Creado:
+                </span>
+                <span className="text-sm font-medium text-gray-900">
+                  {new Date(user.created_at).toLocaleDateString()}
                 </span>
               </div>
+            </div>
 
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-600 flex items-center">
-                    <MapPin className="w-4 h-4 mr-1" />
-                    Zona:
-                  </span>
-                  <span className="text-sm font-medium text-gray-900">{user.sector}</span>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-600 flex items-center">
-                    <Calendar className="w-4 h-4 mr-1" />
-                    Creado:
-                  </span>
-                  <span className="text-sm font-medium text-gray-900">
-                     {new Date(user.created_at).toLocaleDateString()}
-                  </span>
-                </div>
-
-             
+            {/* Status Indicator */}
+            <div className="mt-4">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-xs text-gray-500">Estado de actividad</span>
+                <span className="text-xs text-green-600">{user.is_active ? 'Activo' : 'Inactivo'}</span>
               </div>
-
-              {/* Status Indicator */}
-              <div className="mt-4">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs text-gray-500">Estado de actividad</span>
-                  <span className="text-xs text-green-600">{user.is_active ? 'Activo' : 'Inactivo'}</span>
-                </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div className="bg-green-500 h-2 rounded-full" style={{ width: '90%' }}></div>
-                </div>
-              </div>
-
-              <div className="mt-4 pt-4 border-t border-gray-200">
-                <div className="flex space-x-2">
-                  <ModalUpdate id={user.id} nombre={user.full_name} email={user.email} telefono={user.telefono} sector={user.sector} password={user.password}   estado={user.is_active.toString()} onSubmit={updateUser} title='Usuario' />
-                    <ModalDelete name={user.full_name} id={user.id} onsubmit={Delete} title='Usuario' />
-                </div>
+              <div className="w-full bg-gray-200 rounded-full h-2">
+                <div className="bg-green-500 h-2 rounded-full" style={{ width: '90%' }}></div>
               </div>
             </div>
-          );
-        })}
+
+            {/* Actions */}
+            <div className="mt-4 pt-4 border-t border-gray-200">
+              <div className="flex space-x-2">
+                {/* EDITAR */}
+                <button
+                className='bg-emerald-500  text-emerald-50 py-2 px-3 rounded-lg'
+                onClick={() => setUpdateUserSelected(user)}>
+                  Editar Usuario
+                </button>
+
+                {/* ELIMINAR */}
+               <button
+              onClick={(e) => {
+                e.stopPropagation(); // Esto previene la propagación
+                setDeleteUser(user);
+              }}
+              className="bg-red-50 hover:bg-red-100 text-red-700 py-2 px-3 rounded-lg"
+            >
+              <Trash2 className="w-4 h-4" />
+            </button>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
 
+      {/* MODAL CREATE */}
+      <ModalFrom
+        title="Usuario"
+        onSubmit={submit}
+        isOpen={openForm}
+        onClose={() => setOpenForm(false)}
+      />
+
+      {/* MODAL UPDATE */}
+      {updateUserSelected && (
+        <ModalUpdate
+          id={updateUserSelected.id}
+          nombre={updateUserSelected.full_name}
+          email={updateUserSelected.email}
+          telefono={updateUserSelected.telefono}
+          sector={updateUserSelected.sector}
+          password={updateUserSelected.password}
+          estado={updateUserSelected.is_active.toString()}
+          onSubmit={updateUser}
+          title="Usuario"
+          isOpen={!!updateUserSelected}
+          onClose={() => setUpdateUserSelected(null)}
+        />
+      )}
+
+      {/* MODAL DELETE */}
+      {deleteUser && (
+        <ModalDelete
+          id={deleteUser.id}
+          name={deleteUser.full_name}
+          title="usuario"
+          isOpen={!!deleteUser}
+          onClose={() => setDeleteUser(null)}
+          onsubmit={Delete}
+        />
+      )}
     </div>
   );
 };
-

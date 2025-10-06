@@ -12,8 +12,10 @@ interface Props {
     zona: string;
 }
 export default function DataVentasByFechaBr({desde, hasta, zona} : Props) {
+ 
 
     const { data, refetch, error, stats, apuestas } = useApuestasPorFechabr({fechaDesde: desde ,fechaHasta: hasta, zona});
+
     const {
     data: summary,
     loading,
@@ -27,15 +29,6 @@ export default function DataVentasByFechaBr({desde, hasta, zona} : Props) {
 
   const totalPremio = summary?.resumen.total_premios || 0
   const ganadores = summary?.ganadores
-    
-    {/*
-        const {
-    premio,
-    loading: loadingPremio,
-    error: errorPremio,
-  } = usePremioByFecha({desde, hasta, zona});
-
-      */}
 
 
   const { zonas } = useZonas();
@@ -110,7 +103,13 @@ export default function DataVentasByFechaBr({desde, hasta, zona} : Props) {
     totalPremio,
     ganadores,
     loading,
-    error
+    error,
+    Monto_total,
+    ventaNetaHoyNew,
+    gananciasHoyNew,
+    gananciasAdminZonaNew,
+    
+
  
     
     }

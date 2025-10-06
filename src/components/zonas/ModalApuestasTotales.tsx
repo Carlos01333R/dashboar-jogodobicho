@@ -6,20 +6,17 @@ import CardVentas from "../CardVentas";
 
 interface Props {
 ventas: [] | any;
+apuestas: [] | any;
 desde: string;
 hasta: string;
-  isOpen: boolean;
-  onClose: () => void;
+isOpen: boolean;
+onClose: () => void;
 }
 
-export default function ModalVentasByFecha({ventas, desde, hasta, isOpen, onClose} : Props) {
-  const { selectedCountry } = useAuth();
- 
+export default function ModalapuestasTotales({ventas, apuestas, desde, hasta, isOpen, onClose} : Props) {
 
   return (
     <div className="flex z-50 items-center justify-center ">
-
-    
       {/* Fondo oscuro */}
       {isOpen && (
         <div
@@ -32,15 +29,22 @@ export default function ModalVentasByFecha({ventas, desde, hasta, isOpen, onClos
             onClick={(e) => e.stopPropagation()} // Evita cerrar si se hace click dentro
           >
             <p className="text-center py-2">Ventas del dia {desde} a {hasta}</p>
-                <section className="">
-                    {selectedCountry === 'brazil' ? (
-                     <CardVentasBr Ventas={ventas} />
-                     ) : (
-                    <CardVentas Ventas={ventas} />
+                <section className="space-y-4">
+                  
+                    {apuestas?.length > 0 && (
+                     <article>
+                        <p className="text-center font-bold">Apuestas brasil</p>
+                        <CardVentasBr Ventas={apuestas} />
+                     </article>
                      )}
-                      
-                      
-                        
+
+                     {ventas?.length > 0 && (
+                     <article>
+                         <p className="text-center font-bold">Apuestas colombia</p>
+                        <CardVentas Ventas={ventas} />
+                     </article>
+                     )}
+                    
                    </section>
             <div className="flex justify-end mt-6">
               <button

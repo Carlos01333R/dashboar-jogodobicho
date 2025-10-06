@@ -6,6 +6,8 @@ import { DollarSign, Trophy } from "lucide-react";
 import { useApuestasUsuario } from "@/hook/br/useVentasUserByFecha";
 import { useEffect } from "react";
 import { useApuestasUserPorFecha } from "@/hook/br/useSalesUserFecha";
+import usePremiosByUsuarioAndDate from "@/hook/br/usePremioUsuarioFecha";
+
 
 interface Props {
   selectUser: any;
@@ -17,17 +19,13 @@ export default function DataVentasUsers({fechaSeleccionada, selectUser, sector} 
 
   const { stats, apuestas, loading : loadingbr, error: errorbr } = useApuestasUserPorFecha({fechaDesde: fechaSeleccionada, fechaHasta: fechaSeleccionada, usuario: selectUser});
   
-    
-  {/*
-      const {
-    premio,
-    loading: loadingPremio,
-    error: errorPremio,
-  } = usePremioUserByFecha(fechaSeleccionada, fechaSeleccionada, selectUser);
+  const { premios, loading: loadingPremio, error: errorPremio } = usePremiosByUsuarioAndDate(selectUser, fechaSeleccionada);
 
-    */}
+  console.log(fechaSeleccionada)
 
-  const premiobr = 0;
+
+  const premiobr = premios || 0;
+  console.log('Premios', premios)
 
   const { zonas } = useZonas();
 
@@ -68,7 +66,7 @@ export default function DataVentasUsers({fechaSeleccionada, selectUser, sector} 
     },
     {
       label: "premio",
-      value: 0,
+      value: premiobr,
       icon: Trophy,
       color: "bg-emerald-500",
     },

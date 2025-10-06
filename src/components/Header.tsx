@@ -1,9 +1,8 @@
 import React from 'react';
 import { useAuth } from '@/context/AuthContext';
-import { SheetMovil } from './Seet';
-import { SheetMovilAdminZona } from './adminzona/Seet';
+import SheetNewAdminZona from './adminzona/SeetNew';
 import { usePathname } from "next/navigation";
-import { is } from 'date-fns/locale';
+import SheetNew from './SeetNew';
 
 interface HeaderProps {
   title: string;
@@ -37,12 +36,12 @@ const isActive = activePaths.includes(pathname);
 
 
   return (
-    <header className="bg-white shadow-sm border-b border-gray-200 p-4 sticky top-0 flex-shrink-0 z-50">
+    <header className="bg-white shadow-sm border-b border-gray-200 p-4 sticky top-0 flex-shrink-0 z-20">
       <div className="flex items-center justify-between">
         <div>
           <article className='flex items-center gap-x-2'>
           <section className='md:hidden'>
-            {isActive ? <SheetMovilAdminZona activeSection={activeSection} onSectionChange={onSectionChange} MenuArry={Menu} />: <SheetMovil activeSection={activeSection} onSectionChange={onSectionChange} MenuArry={Menu} />}
+            {isActive ? <SheetNewAdminZona activeSection={activeSection} onSectionChange={onSectionChange} MenuArry={Menu} />: <SheetNew activeSection={activeSection} onSectionChange={onSectionChange} MenuArry={Menu} />}
           
           </section>
           <span>

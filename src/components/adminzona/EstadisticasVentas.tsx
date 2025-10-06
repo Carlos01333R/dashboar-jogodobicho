@@ -5,6 +5,7 @@ import DataVentasByFechaAdminZonaBr from '@/lib/adminZona/br/DataVentaByFecha';
 import { FormatCurrencyCO } from '@/utils/Format';
 import { useAuthAdminZona } from '@/context/AuthContextAdminZona';
 import TableComponents from './TableComponents';
+import DataVentasTotales from '@/lib/ventasTotales/DataVentasTotales';
 
 
 interface VentasStats {
@@ -28,12 +29,15 @@ export const EstadisticasVentas: React.FC<EstadisticasVentasProps> = ({
 }) => {
     const { selectedCountry } = useAuthAdminZona()
 
-    const { data, loading, error, totalBalanceNeto, totalGanancias, totalPremios, totalVentaNetaAjustada, totalValorBruta, exportToExcel, ventaNetaAjustada , balanceNetoAjustado, adminZona } = DataVentasByFechaAdminZona({fechaInicio, fechaFin, zona});
 
     const {dataBR, loadingBR, errorBR, totalBalanceNetoBR, totalGananciasBR, totalPremiosBR, totalVentaNetaAjustadaBR, totalValorBrutaBR, exportToExcelBR, ventaNetaAjustadaBR , balanceNetoAjustadoBR, adminZonaBR } = DataVentasByFechaAdminZonaBr({fechaInicio, fechaFin, zona});
+
+    const {gananciasAdminZonaNewTotal} = DataVentasTotales({desde: fechaInicio, hasta: fechaFin, zona});
+
+
   
    
-  if ( selectedCountry === 'colombia' && loading) {
+  if ( selectedCountry === 'colombia' && loadingBR) {
     return (
       <div className="flex justify-center items-center p-8">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
@@ -41,15 +45,15 @@ export const EstadisticasVentas: React.FC<EstadisticasVentasProps> = ({
     );
   }
 
-  if (selectedCountry === 'colombia' && error) {
+  if (selectedCountry === 'colombia' && errorBR) {
     return (
       <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-        Error: {error}
+        Error: {errorBR}
       </div>
     );
   }
 
-  if (selectedCountry === 'colombia' && data.length === 0 ) {
+  if (selectedCountry === 'colombia' && dataBR.length === 0 ) {
     return (
       <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded">
         No se encontraron datos para los criterios seleccionados.
@@ -95,15 +99,9 @@ export const EstadisticasVentas: React.FC<EstadisticasVentasProps> = ({
   return (
     <div className="space-y-4">
       {/* Botón de exportación */}
-      {selectedCountry === 'brazil' ? (
-        <>
-        <TableComponents data={dataBR} exportToExcel={exportToExcelBR} totalBalanceNeto={totalBalanceNetoBR} totalGanancias={totalGananciasBR} totalPremios={totalPremiosBR} totalVentaNetaAjustada={totalVentaNetaAjustadaBR} totalValorBruta={totalValorBrutaBR} adminZona={adminZonaBR} balanceNetoAjustado={balanceNetoAjustadoBR} ventaNetaAjustada={ventaNetaAjustadaBR} />
-      </>
-      ) : (
-        <>
-        <TableComponents data={data} exportToExcel={exportToExcel} totalBalanceNeto={totalBalanceNeto} totalGanancias={totalGanancias} totalPremios={totalPremios} totalVentaNetaAjustada={totalVentaNetaAjustada} totalValorBruta={totalValorBruta} adminZona={adminZona} balanceNetoAjustado={balanceNetoAjustado} ventaNetaAjustada={ventaNetaAjustada} />
-        </>
-      )}
+     
+        <TableComponents data={dataBR} exportToExcel={exportToExcelBR} totalBalanceNeto={totalBalanceNetoBR} totalGanancias={totalGananciasBR} totalPremios={totalPremiosBR} totalVentaNetaAjustada={totalVentaNetaAjustadaBR} totalValorBruta={totalValorBrutaBR} adminZona={adminZonaBR} balanceNetoAjustado={balanceNetoAjustadoBR} ventaNetaAjustada={ventaNetaAjustadaBR} gananciasAdminZonaNewTotal={gananciasAdminZonaNewTotal} />
+      
     </div>
   );
 };

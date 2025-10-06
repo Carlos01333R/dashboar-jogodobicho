@@ -5,6 +5,7 @@ import { DateRange } from "react-day-picker";
 import { DateRangePicker } from "@/components/DateRangePicker";
 import { formatDateToMDYYYY } from "@/utils/date-utils";
 import DataVentasByFechaAdminZona from "@/lib/adminZona/co/ventasZonas/DataVentasByFecha";
+import DataVentasTotales from "@/lib/ventasTotales/DataVentasTotales";
 import { useAuthAdminZona } from "@/context/AuthContextAdminZona";
 import VentasAdminComponents from "@/components/adminzona/Ventas";
 
@@ -22,7 +23,9 @@ export default function Ventas() {
   const desde = formatDateToMDYYYY(dateRange?.from)
   const hasta = formatDateToMDYYYY(dateRange?.to)
 
-     const { itemsVentasHoy, ventas, error, loading} = DataVentasByFechaAdminZona({desde, hasta, zona}); 
+     const { error, loading} = DataVentasByFechaAdminZona({desde, hasta, zona});
+     const { itemsVentasHoyTotal, ventas, error: errorTotales, loading: loadingTotales} = DataVentasTotales({desde, hasta, zona});
+
 
   
 
@@ -86,7 +89,7 @@ export default function Ventas() {
       </section>
       </div>
 
-         <VentasAdminComponents desde={desde} hasta={hasta} zona={zona} itemsVentasHoy={itemsVentasHoy} ventas={ventas} loading={loading} error={error} />
+         <VentasAdminComponents desde={desde} hasta={hasta} zona={zona} itemsVentasHoy={itemsVentasHoyTotal} ventas={ventas} loading={loading} error={error} />
 
 
             

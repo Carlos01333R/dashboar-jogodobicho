@@ -21,7 +21,7 @@ interface SidebarProps {
 
 
 export function SheetMovil({activeSection, onSectionChange,
-  MenuArry,}: SidebarProps) {
+  MenuArry}: SidebarProps) {
 
     const {logout} = useAuth();
   return (

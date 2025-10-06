@@ -40,6 +40,7 @@ export default function DataVentasByFecha({desde, hasta, zona} : Props) {
     ? zonas.find((z : any) => z.nombre === zona)?.porcentaje_cliente
     : null;
 
+  const ventaBrutaHoyNew = (totales?.valorBruta || 0);
   const ventaNetaHoyNew = (totales?.valorBruta * adminZonaVentaNeta) / 100;
   const gananciasHoyNew = (totales?.valorBruta * adminZonaGanancias) / 100;
   const gananciasAdminZonaNew = (totales?.valorBruta * adminZona) / 100;
@@ -49,7 +50,7 @@ export default function DataVentasByFecha({desde, hasta, zona} : Props) {
     {
       id: 1,
       title: "Venta Bruta Hoy",
-      value: totales?.valorBruta || 0,
+      value: ventaBrutaHoyNew, 
       icon: DollarSign,
       color: "bg-green-500",
     },
@@ -95,7 +96,12 @@ export default function DataVentasByFecha({desde, hasta, zona} : Props) {
     ventas,
     premio,
     error,
-    loading
+    loading,
+    ventaBrutaHoyNew,
+    ventaNetaHoyNew,
+    gananciasHoyNew,
+    gananciasAdminZonaNew,
+  
     
     }
 }

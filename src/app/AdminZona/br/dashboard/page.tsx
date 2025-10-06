@@ -8,6 +8,7 @@ import { DateRange } from "react-day-picker";
 import DataVentasByFechaBr from "@/lib/br/VentasZonas/DataVentasByFecha";
 import DataVentasByFechaBrAdminZona from "@/lib/adminZona/br/ventasZonas/DataVentasByFecha";
 import VentasAdminComponents from "@/components/adminzona/Ventas";
+import DataVentasTotales from "@/lib/ventasTotales/DataVentasTotales";
 
 
 export default function Ventas(){
@@ -25,7 +26,8 @@ export default function Ventas(){
   const desde = formatDateToMMDDYYYYBR(dateRange?.from)
   const hasta = formatDateToMMDDYYYYBR(dateRange?.to)
 
-const { itemsVentasHoybr, apuestas, totalPremio, ganadores, loading, error } = DataVentasByFechaBrAdminZona({desde, hasta, zona});
+const {  loading, error } = DataVentasByFechaBrAdminZona({desde, hasta, zona});
+const { itemsVentasHoyTotal, apuestas, error: errorTotales, loading: loadingTotales} = DataVentasTotales({desde, hasta, zona});
 
 
 
@@ -88,7 +90,7 @@ const { itemsVentasHoybr, apuestas, totalPremio, ganadores, loading, error } = D
       </section>
       </div>
 
-      <VentasAdminComponents desde={desde} hasta={hasta} zona={zona} itemsVentasHoy={itemsVentasHoybr} ventas={apuestas} loading={loading} error={error} />
+      <VentasAdminComponents desde={desde} hasta={hasta} zona={zona} itemsVentasHoy={itemsVentasHoyTotal} ventas={apuestas} loading={loading} error={error} />
 
    
 </div>
