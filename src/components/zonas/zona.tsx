@@ -6,7 +6,6 @@ import ModalFromZonas from './ModalFromZonas';
 import ModalUpdateZonas from './ModalUpdateZonas';
 import { FormatCurrencyCO, FormatCurrencyBR } from '@/utils/Format';
 import { useAuth } from '@/context/AuthContext';
-import ModalDeletezonas from './ModalDeletezonas';
 
 export default function ZonasComponent() {
   const [searchTerm, setSearchTerm] = useState('')
@@ -236,10 +235,7 @@ export default function ZonasComponent() {
                 </button>
                 
                 <button
-                  onClick={(e) =>{
-                    e.stopPropagation();
-                    setDeleteZonas(zonas);
-                  }}
+                 
                   className="bg-red-50 hover:bg-red-100 text-red-700 py-2 px-3 rounded-lg text-sm font-medium transition-colors cursor-pointer">
                   <Trash2 className="w-4 h-4" />
                 </button>
@@ -277,15 +273,7 @@ export default function ZonasComponent() {
           onClose={() => setUpdateZonaSelected(null)}
         />
       )}
-      
-      {deleteZonas && (
-        <ModalDeletezonas
-          id={deleteZonas.id}
-          name={deleteZonas.nombre}
-          isOpen={!!deleteZonas}
-          onClose={() => setDeleteZonas(null)}
-        />
-      )}
+    
     </div>
   );
 }
