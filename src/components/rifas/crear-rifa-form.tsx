@@ -30,7 +30,7 @@ export function CrearRifaForm({ onSuccess }: CrearRifaFormProps) {
     hora: "",
     loteria: "",
     numero_minimo: 1,
-    numero_maximo: 9999,
+    numero_maximo: 4,
     valor_ticket: "",
     descripcion: "",
     foto_url: "",
@@ -144,7 +144,7 @@ const ajustarFechaBrasil = (fecha: string, hora: string): { fechaAjustada: strin
       hora: "",
       loteria: "",
       numero_minimo: 1,
-      numero_maximo: 9999,
+      numero_maximo: 3,
       valor_ticket: "",
       descripcion: "",
       foto_url: "",
@@ -219,7 +219,7 @@ const ajustarFechaBrasil = (fecha: string, hora: string): { fechaAjustada: strin
                 min="0"
                 value={formData.valor_ticket}
                 onChange={(e) => handleInputChange("valor_ticket", e.target.value)}
-                placeholder="1000"
+                placeholder="100"
                 required
               />
             </div>
@@ -293,7 +293,7 @@ const ajustarFechaBrasil = (fecha: string, hora: string): { fechaAjustada: strin
               <Input
                 id="numero_minimo"
                 type="number"
-                min="3"
+                min="1"
                 value={formData.numero_minimo}
                 onChange={(e) => handleInputChange("numero_minimo", Number.parseInt(e.target.value))}
                 required
@@ -301,11 +301,12 @@ const ajustarFechaBrasil = (fecha: string, hora: string): { fechaAjustada: strin
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="numero_maximo">Número Máximo</Label>
+              <Label htmlFor="numero_maximo">Modalidad (3,4,5)</Label>
               <Input
                 id="numero_maximo"
                 type="number"
                 min="1"
+                placeholder="3, 4, 5"
                 value={formData.numero_maximo}
                 onChange={(e) => handleInputChange("numero_maximo", Number.parseInt(e.target.value))}
                 required

@@ -224,8 +224,6 @@ export function UpdateRifaModal({ rifa, onUpdate }: UpdateRifaModalProps) {
                   id="valor_ticket"
                   name="valor_ticket"
                   type="number"
-                  min="100"
-                  step="100"
                   value={formData.valor_ticket}
                   onChange={handleInputChange}
                   required
@@ -250,12 +248,11 @@ export function UpdateRifaModal({ rifa, onUpdate }: UpdateRifaModalProps) {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="numero_maximo">Número Máximo *</Label>
+                  <Label htmlFor="numero_maximo">Modalidad *</Label>
                   <Input
                     id="numero_maximo"
                     name="numero_maximo"
                     type="number"
-                    min={formData.numero_minimo + 1}
                     value={formData.numero_maximo}
                     onChange={handleInputChange}
                     required

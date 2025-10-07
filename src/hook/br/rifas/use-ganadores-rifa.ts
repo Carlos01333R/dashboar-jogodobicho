@@ -51,7 +51,7 @@ export function useGanadoresRifa(rifaId: string) {
 
     
 
-      const { data: result, error: supabaseError } = await supabase.rpc("verificar_todos_ganadores_rifa", {
+      const { data: result, error: supabaseError } = await supabase.rpc("verificar_todos_ganadores_rifa2", {
         p_rifa_id: rifaId,
       })
 

@@ -61,9 +61,6 @@ export default function HomePage() {
               <RifasActivasList />
            
             </TabsContent>
-
-         
-
             <TabsContent value="ventas">
               <RaffleDashboard />
             </TabsContent>
