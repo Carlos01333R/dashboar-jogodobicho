@@ -112,9 +112,9 @@ export default function VentasZonasVentasTotales({desde, hasta, zona} : Props) {
             <p className="text-center">Todos los datos estan agrupados <span className="text-yellow-500 ">Para verlos individualmente seleccione ver ventas</span> </p>
          </div>
          
-       <section className="w-full flex items-center justify-center gap-x-2 py-2">
+     <section className="w-full flex items-center justify-center gap-x-2 py-2">
   {/* Botón Ver ventas - Muestra si hay apuestas O ventas */}
-  {(apuestas.length > 0 || ventas.length > 0) && (
+  {((apuestas && apuestas.length > 0) || (ventas && ventas.length > 0)) && (
     <button
       onClick={() => setIsModalOpen(true)}
       className="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 py-2 px-3 rounded-lg text-sm font-medium transition-colors cursor-pointer flex items-center gap-x-2 justify-center"

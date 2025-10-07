@@ -37,7 +37,7 @@ export default function ModalDeletezonas({ name, id, isOpen, onClose }: Props) {
         >
           {/* Contenido del modal */}
           <div
-            className="bg-white rounded-2xl shadow-xl p-6 relative z-30 sm:max-w-[725px] max-h-[90vh] absolute flex-col overflow-y-auto"
+            className="bg-white rounded-2xl shadow-xl p-6 relative z-30 sm:max-w-[725px] max-h-[90vh]  flex-col overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <p className="py-4 font-bold text-center">Eliminar zona</p>
