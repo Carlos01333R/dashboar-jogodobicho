@@ -4,6 +4,8 @@ import { Badge } from "@/components/ui/badge"
 import { Ticket, Calendar, DollarSign } from "lucide-react"
 import { supabase } from "@/lib/supabase"
 import type { VentaRifa } from "@/types/ventas-rifas"
+import { useLoteriasRg } from "@/hook/br/InforLoterias"
+import { createLotteryInfoGetter } from "@/utils/InforLoterry"
 
 interface TicketDisplayProps {
   data: VentaRifa
@@ -19,6 +21,8 @@ export function TicketDisplay({ data }: TicketDisplayProps) {
   }
 
   const imageUrl = getImageUrl(data.foto_url)
+  const { loterias } = useLoteriasRg();
+  const getLotteryInfo = createLotteryInfoGetter(loterias);
 
   return (
     <Card className="max-w-2xl mx-auto overflow-hidden">
@@ -122,14 +126,17 @@ export function TicketDisplay({ data }: TicketDisplayProps) {
                 <div className="flex items-center gap-2">
                   <Calendar className="h-4 w-4 text-gray-600" />
                   <span className="text-sm font-medium text-gray-600">Lotería:</span>
-                  <p className="font-medium">{data.loteria}</p>
+                  <p className="font-medium">
+                    {getLotteryInfo(data.loteria).name} - {getLotteryInfo(data.loteria).time}
+                   
+                    </p>
                 </div>
               )}
               {data.fecha && (
                 <div className="flex items-center gap-2">
                   <Calendar className="h-4 w-4 text-gray-600" />
                   <span className="text-sm font-medium text-gray-600">Fecha del Sorteo:</span>
-                  <p className="font-medium">{new Date(data.fecha).toLocaleDateString()}</p>
+                  <p className="font-medium">{data.fecha_rifa}</p>
                 </div>
               )}
             </div>
