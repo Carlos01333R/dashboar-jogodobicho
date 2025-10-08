@@ -104,7 +104,7 @@ export default function TableComponents({data, exportToExcel, totalBalanceNeto, 
 
                   </td>
                   <td className="px-6 py-3 text-sm font-bold text-gray-900">
-                    {selectedCountry === 'brazil' ? FormatCurrencyBR(totalVentaNetaAjustada + gananciasAdminZonaNewTotal) : FormatCurrencyCO(totalVentaNetaAjustada + gananciasAdminZonaNewTotal)}
+                    {selectedCountry === 'brazil' ? FormatCurrencyBR(totalVentaNetaAjustada ) : FormatCurrencyCO(totalVentaNetaAjustada )}
                 
                   </td>
                   <td className="px-6 py-3 text-sm font-bold text-gray-900">
@@ -118,7 +118,7 @@ export default function TableComponents({data, exportToExcel, totalBalanceNeto, 
                   <td className={`px-6 py-3 text-sm font-bold ${
                     totalBalanceNeto < 0 ? 'text-red-600' : 'text-gray-900'
                   }`}>
-                    {selectedCountry === 'brazil' ? FormatCurrencyBR(totalBalanceNeto + gananciasAdminZonaNewTotal) : FormatCurrencyCO(totalBalanceNeto + gananciasAdminZonaNewTotal)}
+                    {selectedCountry === 'brazil' ? FormatCurrencyBR(totalBalanceNeto) : FormatCurrencyCO(totalBalanceNeto )}
                   
                   </td>
                 </tr>
