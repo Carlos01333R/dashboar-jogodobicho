@@ -32,7 +32,7 @@ export default function ModalDeletezonas({ name, id, isOpen, onClose }: Props) {
       {/* Fondo oscuro */}
       {isOpen && (
         <div
-          className="fixed z-40 inset-0 flex justify-center items-center backdrop-blur-sm bg-opacity-50 bg-black transition-opacity"
+          className="fixed z-40 inset-0 flex justify-center items-center backdrop-blur-sm bg-opacity-50  transition-opacity"
           onClick={() => onClose()}
         >
           {/* Contenido del modal */}
@@ -42,7 +42,7 @@ export default function ModalDeletezonas({ name, id, isOpen, onClose }: Props) {
           >
             <p className="py-4 font-bold text-center">Eliminar zona</p>
             <section className="w-full flex-col items-center justify-center gap-x-2">
-              <h2 className="font-raleway-black text-2xl text-center ">
+              <h2 className="font-raleway-black text-xl text-center ">
                 ¿Estás seguro de que quieres eliminar la zona <span className="font-bold text-red-600">{name}</span>?
               </h2>
               <p className="text-center text-xs">ID: {id}</p>

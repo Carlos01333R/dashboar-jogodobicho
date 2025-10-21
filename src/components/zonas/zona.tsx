@@ -4,6 +4,7 @@ import { Users as UsersIcon, Search, MapPin, Calendar, User, TicketCheck, Dollar
 import useZonas from '@/hook/co/useZonas';
 import ModalFromZonas from './ModalFromZonas';
 import ModalUpdateZonas from './ModalUpdateZonas';
+import ModalDeletezonas from './ModalDeleteZonas';
 import { FormatCurrencyCO, FormatCurrencyBR } from '@/utils/Format';
 import { useAuth } from '@/context/AuthContext';
 
@@ -235,7 +236,7 @@ export default function ZonasComponent() {
                 </button>
                 
                 <button
-                 
+                  onClick={() => setDeleteZonas(zonas)}
                   className="bg-red-50 hover:bg-red-100 text-red-700 py-2 px-3 rounded-lg text-sm font-medium transition-colors cursor-pointer">
                   <Trash2 className="w-4 h-4" />
                 </button>
@@ -271,6 +272,15 @@ export default function ZonasComponent() {
           decena1a5={updateZonaSelected["decena1a5"]}
           isOpen={!!updateZonaSelected}
           onClose={() => setUpdateZonaSelected(null)}
+        />
+      )}
+
+      {deleteZonas && (
+        <ModalDeletezonas
+          id={deleteZonas.id}
+          name={deleteZonas.nombre}
+          isOpen={!!deleteZonas}
+          onClose={() => setDeleteZonas(null)}
         />
       )}
     
