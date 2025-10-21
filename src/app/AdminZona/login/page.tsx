@@ -7,8 +7,8 @@ import Link from "next/link"
 import { useAuthAdminZona } from "@/context/AuthContextAdminZona"
 
 export default function LoginAdminZona() {
-  const [email, setEmail] = useState("carlos@gmail.com")
-  const [password, setPassword] = useState("123456")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
@@ -131,17 +131,7 @@ export default function LoginAdminZona() {
             </form>
 
             {/* Información de prueba */}
-            <div className="mt-6 p-4 bg-gray-50 rounded-lg">
-              <h4 className="text-sm font-semibold text-gray-700 mb-2">Datos de prueba:</h4>
-              <div className="text-xs text-gray-600 space-y-1">
-                <div>
-                  <strong>Correo:</strong> admin@gmail.com
-                </div>
-                <div>
-                  <strong>Contraseña:</strong> 123456
-                </div>
-              </div>
-            </div>
+           
           </div>
         </div>
       </div>

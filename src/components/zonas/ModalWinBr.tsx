@@ -29,7 +29,7 @@ export default function ModalWinBr({winner, desde, hasta, isOpen, onClose} : Pro
             onClick={(e) => e.stopPropagation()} // Evita cerrar si se hace click dentro
           >
 
-            <p className="text-center">premios del dia {desde} a {hasta}</p>
+            <p className="text-center ">premios del dia {desde} a {hasta}</p>
               <section className="grid  md:grid-cols-2 gap-x-3 md:gap-x-5 md:p-3 gap-y-2 md:gap-y-2">
             {winner.map((winner: any) => (
              <Card key={winner.id}>

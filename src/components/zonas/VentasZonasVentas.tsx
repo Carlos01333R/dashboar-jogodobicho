@@ -28,7 +28,7 @@ export default function VentasZonasVentas({desde, hasta, zona} : Props) {
 
     return (
         <div className="bg-white rounded-xl shadow-sm p-2 md:p-6 border border-gray-200">
-            <p className="text-center pb-2 text-xs md:text-base">Datos de ventas del {desde} al {hasta} en {zona}</p>
+            <p className="text-center pb-2 text-xs md:text-base ">Datos de ventas del {desde} al {hasta} en {zona}</p>
             {selectedCountry === 'brazil' ? (
               <>
             <section className="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -55,7 +55,7 @@ export default function VentasZonasVentas({desde, hasta, zona} : Props) {
                               onClick={() => setIsOpen(true)}
                             className=" bg-emerald-50 hover:bg-emerald-100 text-emerald-700 py-2 px-3 rounded-lg text-sm font-medium transition-colors cursor-pointer flex items-center gap-x-2 justify-center">
                                 <DollarSign className="w-4 h-4" />
-                                <span>Ver ventas</span>
+                                <span>Ver ventas hoy</span>
                               </button>
 
                                 )}               
@@ -93,7 +93,7 @@ export default function VentasZonasVentas({desde, hasta, zona} : Props) {
                    <section className="w-full flex flex-1 items-center justify-center gap-x-2 py-4 md:py-2">
                                 {ventas?.length > 0 && (
                                      <button
-                                  onClick={() => setIsOpen(true)}
+                                  onClick={() => setIsModalOpen(true)}
                                 className=" bg-emerald-50 hover:bg-emerald-100 text-emerald-700 py-2 px-3 rounded-lg text-sm font-medium transition-colors cursor-pointer flex items-center gap-x-2 justify-center">
                                     <DollarSign className="w-4 h-4" />
                                     <span>Ver ventas</span>
@@ -112,11 +112,14 @@ export default function VentasZonasVentas({desde, hasta, zona} : Props) {
             )
             }
 
-          {isOpen && (
-           <ModalWinBr desde={desde} hasta={hasta} winner={ganadores} isOpen={isOpen} onClose={() => setIsOpen(false)} />
+          {isOpen && selectedCountry === 'brazil' ? (
+             <ModalVentasByFecha desde={desde} hasta={hasta} ventas={apuestas} isOpen={isOpen} onClose={() => setIsOpen(false)} />
+          ):(
+            <ModalVentasByFecha desde={desde} hasta={hasta} ventas={ventas} isOpen={isOpen} onClose={() => setIsOpen(false)} />
           )}
+
           {isModalOpen && (
-           <ModalVentasByFecha desde={desde} hasta={hasta} ventas={ventas} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+         <ModalWinBr desde={desde} hasta={hasta} winner={ganadores} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
           )}
         </div>
     )}
