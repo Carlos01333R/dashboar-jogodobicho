@@ -55,7 +55,7 @@ const useLoteriaComparisonNew = () => {
 
     try {
       const { data, error } = await supabase.rpc(
-        "comparar_ventas_resultados_con_combinaciones"
+        "comparar_ventas_resultados_con_combinaciones_v2"
       );
 
       if (error) {
