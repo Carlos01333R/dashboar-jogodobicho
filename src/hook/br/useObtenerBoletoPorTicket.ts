@@ -12,6 +12,7 @@ interface Boleto {
    boletos_apostados : string[];
    monto : string;
    fecha_apuesta : string;
+   hora_apuesta : string;
    created_at : string;
    zona : string;
    monto_neto : string;

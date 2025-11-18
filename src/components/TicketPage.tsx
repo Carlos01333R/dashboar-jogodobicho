@@ -8,7 +8,6 @@ import { Loteria, useLoteriasRg } from "@/hook/br/InforLoterias";
 import { createLotteryInfoGetter } from "@/utils/InforLoterry";
 
 
-
 export default function TicketPageClient({ ticketId }: { ticketId: string }) {
     const { boleto, loading, error } = useObtenerBoletoPorTicket({numeroTicket: ticketId});
     const { loterias } = useLoteriasRg();
@@ -67,17 +66,17 @@ export default function TicketPageClient({ ticketId }: { ticketId: string }) {
         <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden  border-4 border-dashed border-emerald-500 p-3">
             <section className="flex flex-col justify-center items-center border-b border-dashed border-gray-500 mb-2">
                 <span className="font-bold">CHANCES PLUS</span>
-                <span>Jogo do Bicho</span>
+           
             </section>
 
             <section className="border-b border-dashed border-gray-500 p-3">
-                <p className="font-bold text-emerald-400"><span className="font-semibold text-black">Numero de ticket:</span> {boleto?.numero_ticket}</p>
-                <p className="font-semibold">Fecha: <span className="font-bold">{boleto?.fecha_apuesta}</span></p>
+                <p className="font-bold text-emerald-400"><span className="font-semibold text-black">Número do bilhete:</span> {boleto?.numero_ticket}</p>
+                <p className="font-semibold">Data: <span className="font-bold">{boleto?.fecha_apuesta} - {boleto?.hora_apuesta}</span></p>
             </section>
 
                <section className="border-b border-dashed border-gray-500 p-3">
                 <p className="font-bold text-emerald-400"><span className="font-semibold text-black">Apostador:</span> {boleto?.nombre}</p>
-                <p className="font-semibold">Telefono: <span className="font-bold">{boleto?.telefono}</span></p>
+                <p className="font-semibold">Telefone: <span className="font-bold">{boleto?.telefono}</span></p>
             </section>
 
 
@@ -98,7 +97,7 @@ export default function TicketPageClient({ ticketId }: { ticketId: string }) {
             </section>
 
        <section className="flex flex-col justify-center items-center border-b border-dashed border-gray-500 p-3">
-  <p className="font-bold">Boletos apostados:</p>
+  <p className="font-bold">Bilhetes apostados:</p>
   <div className="bg-emerald-50 flex flex-col gap-x-4 gap-y-2 px-3 py-2 rounded-lg">
     {boleto?.boletos_apostados.map((apuesta : any, index : any) => (
       <div key={index} className="flex flex-row items-center gap-x-2 border p-2 rounded-md bg-white shadow-sm">
@@ -106,13 +105,13 @@ export default function TicketPageClient({ ticketId }: { ticketId: string }) {
           Número: <span className="text-emerald-500 font-bold text-center">{apuesta.numero_apostado}</span> 
         </p>
         <p className="font-semibold text-sm">
-          Modalidad: <span className="font-bold text-center">{apuesta.modalidad}</span>
+          Modalidade: <span className="font-bold text-center">{apuesta.modalidad}</span>
         </p>
         <p className="font-semibold text-sm">
-          Premio: <span className="font-bold text-center">{apuesta.premio}</span>
+          Prêmio: <span className="font-bold text-center">{apuesta.premio}</span>
         </p>
         <p className="font-semibold text-sm">
-          Monto: <span>{FormatCurrencyBR(Number(apuesta.monto_individual))}</span>
+          Valor: <span>{FormatCurrencyBR(Number(apuesta.monto_individual))}</span>
         </p>
       </div>
     ))}
@@ -126,9 +125,9 @@ export default function TicketPageClient({ ticketId }: { ticketId: string }) {
 
 
  <section className=" border-gray-500 p-3 flex flex-col justify-center items-center">
-                <p className="font-bold text-2xl">!Buena suerte!</p>
-                <p className="font-semibold">
-                    <span className="text-gray-500">Conserve este billete para verificar resultados.</span>
+                <p className="font-bold text-2xl">!Boa sorte!</p>
+                <p className="font-semibold text-center">
+                    <span className="text-gray-500">uarde este bilhete para conferir os resultados.</span>
                 </p>
           </section>
 

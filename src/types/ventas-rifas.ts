@@ -21,5 +21,6 @@ export interface VentaRifa {
   foto_url: string | null
   loteria: string | null
   fecha: string | null
+  hora: string | null
   fecha_rifa: string | null
 }

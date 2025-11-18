@@ -21,6 +21,11 @@ export const formatDateToMMDDYYYYBrasil = (date: Date | undefined): string => {
 };
 
 
+export const formatDateToMMDDYYYYColombia = (date: Date | undefined): string => {
+  if (!date) return "";
+  return formatInTimeZone(date, "America/Bogota", "dd/MM/yyyy");
+};
+
 
 export const formatDateToDMY = (date: Date | undefined): string => {
   if (!date) return "";

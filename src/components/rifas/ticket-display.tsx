@@ -24,6 +24,25 @@ export function TicketDisplay({ data }: TicketDisplayProps) {
   const { loterias } = useLoteriasRg();
   const getLotteryInfo = createLotteryInfoGetter(loterias);
 
+  const formatearFechaLocal = (isoString : string) => {
+  const fecha = new Date(isoString);
+
+  const fechaLegible = fecha.toLocaleDateString("es-ES", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
+
+  const horaLegible = fecha.toLocaleTimeString("es-ES", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
+
+  return { fecha: fechaLegible, hora: horaLegible };
+};
+
+
   return (
     <Card className="max-w-2xl mx-auto overflow-hidden">
       <CardContent className="p-0 m-0">
@@ -33,7 +52,7 @@ export function TicketDisplay({ data }: TicketDisplayProps) {
             <div className="flex items-center gap-3">
               <Ticket className="h-8 w-8" />
               <div>
-                <h1 className="text-2xl font-bold">TICKET DE SORTEO</h1>
+                <h1 className="text-2xl font-bold">BILHETE DO SORTEIO</h1>
                 <p className="text-blue-100">{data.nombre_rifa || "Rifa"}</p>
               </div>
             </div>
@@ -59,19 +78,19 @@ export function TicketDisplay({ data }: TicketDisplayProps) {
           {/* Customer and purchase info */}
           <div className="grid md:grid-cols-2 gap-6">
             <div className="space-y-4">
-              <h3 className="font-semibold text-lg border-b pb-2">Información del Cliente</h3>
+              <h3 className="font-semibold text-lg border-b pb-2">Informações do Cliente</h3>
               <div className="space-y-2">
                 <div>
-                  <span className="text-sm font-medium text-gray-600">Nombre:</span>
+                  <span className="text-sm font-medium text-gray-600">Nome:</span>
                   <p className="font-medium">{data.usuario_nombre}</p>
                 </div>
                 <div>
-                  <span className="text-sm font-medium text-gray-600">Teléfono:</span>
+                  <span className="text-sm font-medium text-gray-600">Telefono:</span>
                   <p className="font-medium">{data.usuario_telefono}</p>
                 </div>
                 {data.usuario_email && (
                   <div>
-                    <span className="text-sm font-medium text-gray-600">Email:</span>
+                    <span className="text-sm font-medium text-gray-600">E-mail:</span>
                     <p className="font-medium">{data.usuario_email}</p>
                   </div>
                 )}
@@ -79,10 +98,10 @@ export function TicketDisplay({ data }: TicketDisplayProps) {
             </div>
 
             <div className="space-y-4">
-              <h3 className="font-semibold text-lg border-b pb-2">Detalles de Compra</h3>
+              <h3 className="font-semibold text-lg border-b pb-2">Detalhes da Compra</h3>
               <div className="space-y-2">
                 <div>
-                  <span className="text-sm font-medium text-gray-600">Cantidad de Tickets:</span>
+                  <span className="text-sm font-medium text-gray-600">Quantidade de Bilhetes:</span>
                   <p className="font-bold text-xl">{data.cantidad_tickets}</p>
                 </div>
                 <div>
@@ -90,13 +109,13 @@ export function TicketDisplay({ data }: TicketDisplayProps) {
                   <p className="font-bold text-xl text-green-600">${data.valor_total}</p>
                 </div>
                 <div>
-                  <span className="text-sm font-medium text-gray-600">Estado:</span>
+                  <span className="text-sm font-medium text-gray-600">Status:</span>
                   <Badge variant={data.estado_pago === "pagado" ? "default" : "secondary"} className="ml-2">
                     {data.estado_pago}
                   </Badge>
                 </div>
                 <div>
-                  <span className="text-sm font-medium text-gray-600">Método de Pago:</span>
+                  <span className="text-sm font-medium text-gray-600">Método de Pagamento:</span>
                   <p className="font-medium">{data.metodo_pago}</p>
                 </div>
               </div>
@@ -135,7 +154,7 @@ export function TicketDisplay({ data }: TicketDisplayProps) {
               {data.fecha && (
                 <div className="flex items-center gap-2">
                   <Calendar className="h-4 w-4 text-gray-600" />
-                  <span className="text-sm font-medium text-gray-600">Fecha del Sorteo:</span>
+                  <span className="text-sm font-medium text-gray-600">Data do Sorteio:</span>
                   <p className="font-medium">{data.fecha_rifa}</p>
                 </div>
               )}
@@ -149,8 +168,8 @@ export function TicketDisplay({ data }: TicketDisplayProps) {
               </div>
               <div className="flex items-center gap-2">
                 <Calendar className="h-4 w-4 text-gray-600" />
-                <span className="text-sm font-medium text-gray-600">Fecha de Venta:</span>
-                <p className="font-medium">{new Date(data.fecha_venta).toLocaleString()}</p>
+                <span className="text-sm font-medium text-gray-600">Data da Venda:</span>
+                <p className="font-medium">{data.fecha} - {data.hora}</p>
               </div>
             </div>
           </div>
@@ -158,7 +177,7 @@ export function TicketDisplay({ data }: TicketDisplayProps) {
 
         {/* Footer */}
         <div className="bg-gray-50 px-6 py-4 border-t">
-          <p className="text-center text-sm text-gray-600">¡Conserva este ticket hasta el día del sorteo!</p>
+          <p className="text-center text-sm text-gray-600">¡Guarde este bilhete até o dia do sorteio!</p>
         </div>
       </CardContent>
     </Card>
