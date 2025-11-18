@@ -352,7 +352,7 @@ export function LotterySchedule() {
               </CardTitle>
             </CardHeader>
             <CardContent className="pt-0">
-              <p className="text-sm text-muted-foreground leading-relaxed mb-3">{loteria.full_name}</p>
+              <p className="text-sm text-muted-foreground leading-relaxed mb-3">{loteria.id}</p>
               {loteria.dias_activos && loteria.dias_activos.length > 0 && (
                 <div className="space-y-1">
                   <p className="text-xs font-medium text-muted-foreground">Días activos:</p>
