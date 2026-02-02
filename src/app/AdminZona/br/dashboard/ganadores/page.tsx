@@ -249,7 +249,7 @@ const GanadoresHistoryAdminZona: React.FC = () => {
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="month" />
                 <YAxis />
-                <Tooltip formatter={(value) => [`$${value.toLocaleString()}`, "Premios"]} />
+                <Tooltip formatter={(value : any) => `${value} `} />
                 <Bar dataKey="premios" fill="#3B82F6" radius={4} />
               </BarChart>
             </ResponsiveContainer>

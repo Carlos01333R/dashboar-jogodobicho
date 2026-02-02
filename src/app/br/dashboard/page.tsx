@@ -20,7 +20,7 @@ export  default function dashboardBR(){
 
     if (isLoading) {
         return (
-            <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-yellow-50 flex items-center justify-center p-4">
+            <div className="min-h-screen bg-linear-to-br from-emerald-50 via-blue-50 to-yellow-50 flex items-center justify-center p-4">
                 <div className="text-gray-600">Cargando...</div>
             </div>
         )

@@ -32,10 +32,10 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-yellow-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-linear-to-br from-emerald-50 via-blue-50 to-yellow-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl overflow-hidden">
         {/* Header */}
-        <div className="bg-gradient-to-r from-emerald-500 to-blue-600 p-8 text-center">
+        <div className="bg-linear-to-r from-emerald-500 to-blue-600 p-8 text-center">
           <h1 className="text-3xl font-bold text-white mb-2">Seleccione el País (Admin zona)</h1>
           <p className="text-white/90">Elija el sistema de lotería que desea administrar</p>
         </div>
@@ -108,7 +108,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div  className="group cursor-pointer bg-gradient-to-br from-green-50 to-yellow-50 border-2 border-green-200 rounded-xl p-8 hover:border-green-400 hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+          <div  className="group cursor-pointer bg-linear-to-br from-green-50 to-yellow-50 border-2 border-green-200 rounded-xl p-8 hover:border-green-400 hover:shadow-xl transition-all duration-300 transform hover:scale-105">
 
             
           </div>

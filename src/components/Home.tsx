@@ -27,7 +27,7 @@ export default function DashboardHome({data} : any) {
             Resumen general del sistema de loterías
           </p>
         </div>
-        <div className="flex items-center space-x-2 bg-gradient-to-r from-emerald-500 to-blue-600 text-white px-4 py-2 rounded-lg">
+        <div className="flex items-center space-x-2 bg-linear-to-r from-emerald-500 to-blue-600 text-white px-4 py-2 rounded-lg">
           <div className="text-2xl">
             {selectedCountry === 'brazil' ? '🇧🇷' : '🇨🇴'}
           </div>
@@ -137,7 +137,19 @@ export default function DashboardHome({data} : any) {
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="month" />
               <YAxis />
-              <Tooltip formatter={(value : number) => [`${selectedCountry === 'brazil' ? FormatCurrencyBR(value) : FormatCurrencyCO(value)}`, '']} />
+             <Tooltip
+              formatter={(value) => {
+                if (value == null) return ['', ''];
+
+                const formatted =
+                  selectedCountry === 'brazil'
+                    ? FormatCurrencyBR(Number(value))
+                    : FormatCurrencyCO(Number(value));
+
+                return [formatted, ''];
+              }}
+            />
+
               <Bar dataKey="brasil" fill="#10B981" radius={4} />
               <Bar dataKey="colombia" fill="#3B82F6" radius={4} />
             </BarChart>
