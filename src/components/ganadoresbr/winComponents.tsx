@@ -176,7 +176,7 @@ export function WinnersList({
               Zona
             </label>
              <Select name="sector" required onValueChange={(value) => setFilterZona(value)}>
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="w-45">
                 <SelectValue placeholder="Seleccione un sector" />
             </SelectTrigger>
             <SelectContent>
