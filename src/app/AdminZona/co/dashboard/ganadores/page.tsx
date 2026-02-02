@@ -247,8 +247,8 @@ const winnersChartData = totalWinnersMes?.map(item => {
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="month" />
               <YAxis />
-              <Tooltip formatter={(value) => [`$${value.toLocaleString()}`, 'Premios']} />
-              <Bar dataKey="premios" fill="#3B82F6" radius={4} />
+              <Tooltip formatter={(value : any) => `${value} `} />
+                <Bar dataKey="premios" fill="#3B82F6" radius={4} />
             </BarChart>
           </ResponsiveContainer>
         </div>

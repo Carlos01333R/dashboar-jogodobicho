@@ -84,10 +84,14 @@ export const LotteryPieChart = ({
               />
             ))}
           </Pie>
-          <Tooltip 
-            formatter={(value: number) => [`${value} ganadores`, '']}
-            labelFormatter={(label) => `Lotería: ${label}`}
-          />
+         <Tooltip
+  formatter={(value) => {
+    if (value == null) return ['', ''];
+    return [`${value} ganadores`, ''];
+  }}
+  labelFormatter={(label) => `Lotería: ${label}`}
+/>
+
         
         </PieChart>
       </ResponsiveContainer>
