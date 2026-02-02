@@ -32,12 +32,12 @@ export default function ModalDeletezonas({ name, id, isOpen, onClose }: Props) {
       {/* Fondo oscuro */}
       {isOpen && (
         <div
-          className="fixed z-40 inset-0 flex justify-center items-center backdrop-blur-sm bg-opacity-50  transition-opacity"
+          className="fixed  z-40 inset-0 flex justify-center items-center backdrop-blur-sm bg-opacity-50  transition-opacity"
           onClick={() => onClose()}
         >
           {/* Contenido del modal */}
           <div
-            className="bg-white rounded-2xl shadow-xl p-6 relative z-30 sm:max-w-[725px] max-h-[90vh]  flex-col overflow-y-auto"
+            className="bg-white w-[90%] rounded-2xl shadow-xl p-6 relative z-30 sm:max-w-[725px] max-h-[90vh]  flex-col overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <p className="py-4 font-bold text-center">Eliminar zona</p>
@@ -47,7 +47,7 @@ export default function ModalDeletezonas({ name, id, isOpen, onClose }: Props) {
               </h2>
               <p className="text-center text-xs">ID: {id}</p>
             </section>
-            <div className="flex justify-between mt-6">
+            <div className="flex justify-center gap-x-2 mt-6">
               <button
                 onClick={() => onClose()}
                 className="px-4 py-2 bg-red-500 text-white rounded-lg cursor-pointer"

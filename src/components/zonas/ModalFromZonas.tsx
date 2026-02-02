@@ -91,12 +91,12 @@ export default function ModalFromZonas({ isOpen, onClose }: ModalFromZonasProps)
     >
       {/* Contenido del modal */}
       <div
-        className="bg-white rounded-2xl shadow-xl p-6 relative z-30 sm:max-w-[725px] max-h-[90vh]  flex-col overflow-y-scroll"
+        className="bg-white w-[90%]  rounded-2xl shadow-xl p-6 relative z-30 sm:max-w-[725px] md:max-w-2xl max-h-[90vh]  flex-col overflow-y-scroll"
         onClick={(e) => e.stopPropagation()}
       >
         <p className="text-center py-4 font-bold">Crear una nueva zona</p>
         <form onSubmit={handleSubmit}>
-          <div className="hidden md:grid gap-4 grid-col-1 md:grid-cols-3">
+          <div className="grid gap-4 grid-cols-2 md:grid-cols-3">
             <div className="flex flex-col gap-y-2 text-black">
               <Label htmlFor="nombre">Nombre</Label>
               <Input name="nombre" placeholder="Nombre Completo" />
@@ -146,7 +146,7 @@ export default function ModalFromZonas({ isOpen, onClose }: ModalFromZonasProps)
             <p className="font-bold">Datos de modalidades de colombia</p>
           </div>
 
-          <div className="hidden md:grid gap-4 grid-col-1 md:grid-cols-3">
+          <div className="grid gap-4 grid-cols-2 md:grid-cols-3">
             <div className="flex flex-col gap-y-2 text-black">
               <Label htmlFor="cuatroCifras">4 cifras</Label>
               <Input name="cuatroCifras" placeholder="Cuatro cifras" type="number" />

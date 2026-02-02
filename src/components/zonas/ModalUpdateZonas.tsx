@@ -151,7 +151,7 @@ export default function ModalUpdateZonas({
         >
           {/* Contenido del modal */}
           <div
-            className="bg-white rounded-2xl shadow-xl p-6 relative z-30 sm:max-w-[725px] max-h-[90vh] apsolute  flex-col overflow-y-scroll"
+            className="bg-white w-[90%] rounded-2xl shadow-xl p-6 relative z-30 sm:max-w-[725px] md:max-w-2xl max-h-[90vh] apsolute  flex-col overflow-y-scroll"
             onClick={(e) => e.stopPropagation()} // Evita cerrar si se hace click dentro
           >
 
@@ -159,7 +159,7 @@ export default function ModalUpdateZonas({
 
               <form onSubmit={handleSubmit}>
           {/* Versión escritorio */}
-          <div className="hidden md:grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             <div className="flex flex-col gap-y-2">
               <Label htmlFor="nombre-desktop">Nombre</Label>  
               <Input 
@@ -310,7 +310,7 @@ export default function ModalUpdateZonas({
         <section className="flex justify-center items-center py-4">
           <p className="text-black font-bold">Datos de modalidades de colombia</p>
         </section>
-          <section className="hidden md:grid grid-cols-2 gap-4">
+          <section className="grid grid-cols-2 md:grid-cols-3 gap-4">
             <div className="flex flex-col gap-y-2">
               <Label htmlFor="nombre-mobile">4 cifras</Label>  
               <Input 
@@ -373,134 +373,7 @@ export default function ModalUpdateZonas({
                 </div>
           </section>
 
-          {/* Versión móvil */}
-          <div className="md:hidden space-y-4">
-            <div className="flex flex-col gap-y-2">
-              <Label htmlFor="nombre-mobile">Nombre</Label>  
-              <Input 
-                id="nombre-mobile"
-                placeholder="Nombre Completo" 
-                value={Nombre} 
-                onChange={(e) => setNombre(e.target.value)}
-                required
-              />
-            </div>
-            
-            <div className="grid grid-cols-2 gap-4">
-              <div className="flex flex-col gap-y-2">
-                <Label htmlFor="porcentaje_loteria-mobile">% Casa</Label>
-                <Input 
-                  id="porcentaje_loteria-mobile"
-                  placeholder="Porcentaje loteria" 
-                  type="number" 
-                  step="0.01"
-                  value={Porcentaje_loteria} 
-                  onChange={(e) => setPorcentaje_loteria(e.target.value)}
-                  required
-                />
-              </div>
-              
-              <div className="flex flex-col gap-y-2">
-                <Label htmlFor="porcentaje_cliente-mobile">% Vendedor</Label>
-                <Input 
-                  id="porcentaje_cliente-mobile"
-                  placeholder="Porcentaje cliente" 
-                  type="number" 
-                  step="0.01"
-                  value={Porcentaje_cliente} 
-                  onChange={(e) => setPorcentaje_cliente(e.target.value)}
-                  required
-                />
-              </div>
-              
-              <div className="flex flex-col gap-y-2">
-                <Label htmlFor="porcentaje_admin_zona-mobile">% admin zona</Label>
-                <Input 
-                  id="porcentaje_admin_zona-mobile"
-                  placeholder="Porcentaje admin zona" 
-                  type="number" 
-                  step="0.01"
-                  value={Porcentaje_admin_zona}
-                  onChange={(e) => setPorcentaje_admin_zona(e.target.value)}
-                  required
-                />
-              </div>
-              
-              <div className="flex flex-col gap-y-2">
-                <Label htmlFor="cuatroCifras-mobile">
-                  {isBrasil ? 'Premio 1a5' : '4 cifras'}
-                </Label>
-                <Input 
-                  id="cuatroCifras-mobile"
-                  placeholder={isBrasil ? 'Premio 1a5' : '4 cifras'} 
-                  type="number" 
-                  step="0.01"
-                  value={CuatroCifras} 
-                  onChange={(e) => setCuatroCifras(e.target.value)}
-                  required
-                />
-              </div>
-              
-              <div className="flex flex-col gap-y-2">
-                <Label htmlFor="tresCifras-mobile">
-                  {isBrasil ? 'Decena' : '3 cifras'}
-                </Label>
-                <Input 
-                  id="tresCifras-mobile"
-                  placeholder={isBrasil ? 'Decena' : '3 cifras'} 
-                  type="number" 
-                  step="0.01"
-                  value={TresCifras} 
-                  onChange={(e) => setTresCifras(e.target.value)}
-                  required
-                />
-              </div>
-              
-              <div className="flex flex-col gap-y-2">
-                <Label htmlFor="dosCifras-mobile">
-                  {isBrasil ? 'Centena' : '2 cifras'}
-                </Label>
-                <Input 
-                  id="dosCifras-mobile"
-                  placeholder={isBrasil ? 'Centena' : '2 cifras'} 
-                  type="number" 
-                  step="0.01"
-                  value={DosCifras} 
-                  onChange={(e) => setDosCifras(e.target.value)}
-                  required
-                />
-              </div>
-              
-              {!isBrasil && (
-                <>
-                  <div className="flex flex-col gap-y-2">
-                    <Label htmlFor="cuatroCombi-mobile">Cuatro combi</Label>
-                    <Input 
-                      id="cuatroCombi-mobile"
-                      placeholder="Cuatro combi" 
-                      type="number" 
-                      step="0.01"
-                      value={CuatroCombi} 
-                      onChange={(e) => setCuatroCombi(e.target.value)}
-                    />
-                  </div>
-                  
-                  <div className="flex flex-col gap-y-2">
-                    <Label htmlFor="tresCombi-mobile">Tres combi</Label>
-                    <Input 
-                      id="tresCombi-mobile"
-                      placeholder="Tres combi" 
-                      type="number" 
-                      step="0.01"
-                      value={TresCombi} 
-                      onChange={(e) => setTresCombi(e.target.value)}
-                    />
-                  </div>
-                </>
-              )}
-            </div>
-          </div>
-          
+        
         
             <div className="w-full flex items-center justify-end gap-x-2 py-4">
                 <Button
