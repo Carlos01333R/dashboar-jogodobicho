@@ -193,9 +193,9 @@ export function LotterySchedule() {
                 Agregar Lotería
               </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-md">
+            <DialogContent className="sm:max-w-md bg-white">
               <DialogHeader>
-                <DialogTitle>Agregar Nueva Lotería</DialogTitle>
+                <DialogTitle className="text-center">Agregar Nueva Lotería</DialogTitle>
               </DialogHeader>
               <div className="space-y-4 py-4">
                 <div className="space-y-2">

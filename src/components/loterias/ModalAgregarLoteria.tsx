@@ -114,10 +114,10 @@ export default function AgregarLoteriaModal({ isOpen, onOpenChange, onSave }: Pr
   }
 
   return (
-    <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[625px] max-h-[90vh] flex flex-col">
+    <Dialog open={isOpen} onOpenChange={onOpenChange} >
+      <DialogContent className="sm:max-w-156.25 max-h-[90vh] flex flex-col bg-white">
         <DialogHeader>
-          <DialogTitle>Agregar Nueva Lotería</DialogTitle>
+          <DialogTitle>Agregar Nueva </DialogTitle>
         </DialogHeader>
 
         <div className="flex-1 overflow-y-auto space-y-4 p-1">
