@@ -286,6 +286,7 @@ export function LotterySchedule() {
                   <Dialog
                     open={editingLoteria === loteria.id}
                     onOpenChange={(open) => !open && setEditingLoteria(null)}
+                    
                   >
                     <DialogTrigger asChild>
                       <Button
@@ -297,7 +298,7 @@ export function LotterySchedule() {
                         <Edit className="h-3 w-3" />
                       </Button>
                     </DialogTrigger>
-                    <DialogContent className="sm:max-w-lg">
+                    <DialogContent className="sm:max-w-lg bg-white">
                       <DialogHeader>
                         <DialogTitle>Editar Días y Horarios - {loteria.name}</DialogTitle>
                       </DialogHeader>
